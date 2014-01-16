@@ -1,8 +1,5 @@
 package com.realaction.yunbomobile.view;
 
-import com.realaction.yunbomobile.R;
-import com.realaction.yunbomobile.adapter.DrawerListAdapter;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -16,6 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.realaction.yunbomobile.R;
+import com.realaction.yunbomobile.adapter.DrawerListAdapter;
+import com.realaction.yunbomobile.view.caseviews.CaseViewFragment;
 
 public class CaseViewActivity extends Activity {
 	private Context context;
@@ -107,6 +108,10 @@ public class CaseViewActivity extends Activity {
 		default:
 			break;
 		}
+		fragment = new CaseViewFragment();
+		Bundle bundle = new Bundle();
+		bundle.putString("filepath", "/sdcard/aa.pdf");
+		fragment.setArguments(bundle);
 		FragmentManager fragmentManager = getFragmentManager();
 		fragmentManager.beginTransaction().replace(R.id.content_frame_caseview, fragment).commit();
 
