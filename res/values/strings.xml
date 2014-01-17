@@ -20,6 +20,11 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     
+    <string name="notice">提示</string>
+    <string name="quit_confirm">确认退出？</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    
     <string name="history">历史记录</string>
     <string name="favorite">最常浏览</string>
     <string name="user_avatar">用户头像</string>
