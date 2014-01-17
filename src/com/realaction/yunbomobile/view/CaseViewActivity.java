@@ -1,5 +1,8 @@
 package com.realaction.yunbomobile.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -11,22 +14,27 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 
 import com.realaction.yunbomobile.R;
-import com.realaction.yunbomobile.adapter.DrawerListAdapter;
+import com.realaction.yunbomobile.adapter.DrawerCaseViewExpandableAdapter;
+import com.realaction.yunbomobile.utils.CaseViewChildItem;
+import com.realaction.yunbomobile.utils.CaseViewGroupItem;
 import com.realaction.yunbomobile.view.caseviews.CaseViewFragment;
 
 public class CaseViewActivity extends Activity {
 	private Context context;
 	private DrawerLayout mDrawerLayout;
-	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
 
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
-	private String[] mMenuTitles;
+
+	private List<CaseViewGroupItem> groupArray;
+	private List<List<CaseViewChildItem>> childArray;
+	private DrawerCaseViewExpandableAdapter expandableAdapter;
+	private ExpandableListView mDrawerListExpandable;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +43,70 @@ public class CaseViewActivity extends Activity {
 
 		context = CaseViewActivity.this;
 		mTitle = mDrawerTitle = getTitle();
-		mMenuTitles = new String[]{"实验指导书", "实验报告", "答案"};// TODO 根据内容自动获取要显示的菜单项
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout_caseview);
-		mDrawerList = (ListView) findViewById(R.id.left_drawer_caseview);
 
-		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-		mDrawerList.setAdapter(new DrawerListAdapter(context, mMenuTitles));
-		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		// TODO 根据内容自动获取要显示的菜单项
+		groupArray = new ArrayList<CaseViewGroupItem>();
+		childArray = new ArrayList<List<CaseViewChildItem>>();
+		CaseViewGroupItem cvgi1 = new CaseViewGroupItem();
+		cvgi1.groupname = "实验指导书";
+		List<CaseViewChildItem> cvcil1 = new ArrayList<CaseViewChildItem>();
+		for (int i = 0; i < 3; i++) {
+			CaseViewChildItem cvci = new CaseViewChildItem();
+			cvci.childname = "实验指导书  " + (i + 1);
+			cvcil1.add(cvci);
+		}
+		childArray.add(cvcil1);
+		groupArray.add(cvgi1);
+		CaseViewGroupItem cvgi2 = new CaseViewGroupItem();
+		cvgi2.groupname = "实验报告";
+		List<CaseViewChildItem> cvcil2 = new ArrayList<CaseViewChildItem>();
+		for (int i = 0; i < 3; i++) {
+			CaseViewChildItem cvci = new CaseViewChildItem();
+			cvci.childname = "实验报告  " + (i + 1);
+			cvcil2.add(cvci);
+		}
+		childArray.add(cvcil2);
+		groupArray.add(cvgi2);
+		CaseViewGroupItem cvgi3 = new CaseViewGroupItem();
+		cvgi3.groupname = "答案";
+		List<CaseViewChildItem> cvcil3 = new ArrayList<CaseViewChildItem>();
+		for (int i = 0; i < 3; i++) {
+			CaseViewChildItem cvci = new CaseViewChildItem();
+			cvci.childname = "答案  " + (i + 1);
+			cvcil3.add(cvci);
+		}
+		childArray.add(cvcil3);
+		groupArray.add(cvgi3);
+
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout_caseview);
+		mDrawerListExpandable = (ExpandableListView) findViewById(R.id.left_drawer_caseview_expandable);
+
+		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
+				GravityCompat.START);
+		mDrawerListExpandable.setAdapter(new DrawerCaseViewExpandableAdapter(
+				context, groupArray, childArray));
+		mDrawerListExpandable
+				.setOnChildClickListener(new OnChildClickListener() {
+					@Override
+					public boolean onChildClick(ExpandableListView parent,
+							View v, int groupPosition, int childPosition,
+							long id) {
+						Fragment fragment = new CaseViewFragment();
+						Bundle bundle = new Bundle();
+						bundle.putString("filepath", "/sdcard/aa.pdf");
+						fragment.setArguments(bundle);
+						FragmentManager fragmentManager = getFragmentManager();
+						fragmentManager.beginTransaction()
+								.replace(R.id.content_frame_caseview, fragment)
+								.commit();
+
+						// update selected item and title, then close the drawer
+						setTitle(childArray.get(groupPosition).get(
+								childPosition).childname);
+						mDrawerLayout.closeDrawer(mDrawerListExpandable);
+						return true;
+					}
+				});
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
@@ -61,64 +126,20 @@ public class CaseViewActivity extends Activity {
 		};
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
-		
-//		if (savedInstanceState == null) {
-//			selectItem(0);
-//		}
 	}
 
 	@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-         // The action bar home/up action should open or close the drawer.
-         // ActionBarDrawerToggle will take care of this.
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        // Handle action buttons
-        switch(item.getItemId()) {
-        default:
-            return super.onOptionsItemSelected(item);
-        }
-    }
-	
-	private class DrawerItemClickListener implements
-			ListView.OnItemClickListener {
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
-			selectItem(position);
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// The action bar home/up action should open or close the drawer.
+		// ActionBarDrawerToggle will take care of this.
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
 		}
-	}
-
-	private void selectItem(int position) {
-		Fragment fragment = null;
-		switch (position) {
-		case 0:
-			break;
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
-			break;
+		// Handle action buttons
+		switch (item.getItemId()) {
 		default:
-			break;
+			return super.onOptionsItemSelected(item);
 		}
-		fragment = new CaseViewFragment();
-		Bundle bundle = new Bundle();
-		bundle.putString("filepath", "/sdcard/aa.pdf");
-		fragment.setArguments(bundle);
-		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction().replace(R.id.content_frame_caseview, fragment).commit();
-
-		// update selected item and title, then close the drawer
-		mDrawerList.setItemChecked(position, true);
-		setTitle(mMenuTitles[position]);
-		mDrawerLayout.closeDrawer(mDrawerList);
 	}
 
 	@Override
@@ -130,14 +151,12 @@ public class CaseViewActivity extends Activity {
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
-		// Sync the toggle state after onRestoreInstanceState has occurred.
 		mDrawerToggle.syncState();
 	}
 
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
-		// Pass any configuration change to the drawer toggls
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 }

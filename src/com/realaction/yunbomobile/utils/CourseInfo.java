@@ -1,10 +1,10 @@
 package com.realaction.yunbomobile.utils;
 
 /**
- * 案例信息
+ * 课程信息
  * 
  * @author liumeng
  */
-public class CaseInfo {
-	public String casename;
+public class CourseInfo {
+	public String coursename;
 }
