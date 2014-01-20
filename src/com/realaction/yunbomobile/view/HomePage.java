@@ -75,10 +75,10 @@ public class HomePage extends Fragment {
 	 */
 	private void initData() {
 		UserInfo userinfo = new UserInfo(context);
-		user_name_str = "aaa";// userinfo.getUserName();
+		user_name_str = "睿亚训";// userinfo.getUserName();
 		user_num_int = 10001;// userinfo.getUserNumber();
-		user_class_str = "abcdefg";// userinfo.getUserClass();
-		user_avater_url = "http://image.zcool.com.cn/img2/44/6/m_1313459981693.jpg";// userinfo.getUserAvatar();
+		user_class_str = "软件工程132班";// userinfo.getUserClass();
+		user_avater_url = "http://www.realaction.cn/template/images/logo.jpg";// userinfo.getUserAvatar();
 
 		user_fav_adapter = new HomePageAdapter(context, getDataFromDB(LIST_FAV));
 		user_his_adapter = new HomePageAdapter(context, getDataFromDB(LIST_HIS));

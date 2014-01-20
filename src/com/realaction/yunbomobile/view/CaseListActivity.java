@@ -55,8 +55,8 @@ public class CaseListActivity extends Activity {
 	 * 初始化案例资源列表界面所需要的各种数据
 	 */
 	private void initData() {
-		img_url = "http://e.hiphotos.baidu.com/image/w%3D2048/sign=afda38f8d762853592e0d521a4d777c6/6d81800a19d8bc3e85bf44c0808ba61ea8d34500.jpg";
-		course_info = "测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据";
+		img_url = "http://imgsize.ph.126.net/?enlarge=true&imgurl=http://img0.ph.126.net/BSwQ3ZgN5r8uZBYy1nWlyQ==/6597769056051992460.jpg_450x250x0x95.jpg";
+		course_info = "课程简介：有感于目前Android市面的课程尽皆基础入门篇，讲解一下四大件就草草了事，讲讲操作但却不讲为什么，令人知其然而不知其所以然。因此Sundy有感，录制了这套深入浅出Android视频教程。目前是用一个个的主题，通过分析Framework源代码来分析Android的设计并且熟悉Android的开发过程，让程序员真正知其然而知其所以然，起到一个抛砖引玉的作用。";
 		caselists = getCaseList();
 		adapter = new CaseListAdpater(context, caselists);
 	}
