@@ -8,6 +8,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
         android:layout_marginTop="3dp"
         android:background="@drawable/yellow"
         android:text="@string/home_userinfo" />
@@ -15,12 +17,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
         android:background="@drawable/yellow1" >
 
         <ImageView
             android:id="@+id/home_avatar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_marginRight="5dp"
             android:contentDescription="@string/user_avatar"
             android:src="@drawable/ic_launcher" />

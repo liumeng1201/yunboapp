@@ -5,10 +5,13 @@ import java.util.List;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,6 +47,7 @@ public class HomePage extends Fragment {
 	// 用户最后浏览的5条记录
 	private ListView user_history;
 	private HomePageAdapter user_his_adapter;
+	private OnItemClickListener listener;
 	private static final int LIST_HIS = 2;
 
 	public HomePage() { }
@@ -65,6 +69,8 @@ public class HomePage extends Fragment {
 		user_class = (TextView) view.findViewById(R.id.home_class);
 		user_favorite = (ListView) view.findViewById(R.id.home_fav_list);
 		user_history = (ListView) view.findViewById(R.id.home_his_list);
+		user_favorite.setOnItemClickListener(listener);
+		user_history.setOnItemClickListener(listener);
 
 		setData();
 		return view;
@@ -82,6 +88,14 @@ public class HomePage extends Fragment {
 
 		user_fav_adapter = new HomePageAdapter(context, getDataFromDB(LIST_FAV));
 		user_his_adapter = new HomePageAdapter(context, getDataFromDB(LIST_HIS));
+		listener = new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long location) {
+				Intent intent = new Intent(context, CaseViewActivity.class);
+				startActivity(intent);
+			}
+		};
 	}
 
 	/**
@@ -104,13 +118,13 @@ public class HomePage extends Fragment {
 		case LIST_FAV:
 			// TODO 从数据库中查询出最常浏览的5条记录
 			for (int i = 0; i < 5; i++) {
-				list.add("my favorite : " + i);
+				list.add("my favorite : " + (i + 1));
 			}
 			break;
 		case LIST_HIS:
 			// TODO 从数据库中查询出最后浏览的5条记录
 			for (int i = 0; i < 5; i++) {
-				list.add("my history : " + i);
+				list.add("my history : " + (i + 1));
 			}
 			break;
 		default:
