@@ -17,6 +17,7 @@ import android.widget.TabHost;
 
 import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.adapter.MyCourseListAdapter;
+import com.realaction.yunbomobile.utils.CourseInfo;
 
 /**
  * 我的课程界面
@@ -27,8 +28,8 @@ public class MyCoursePage extends Fragment {
 	private Context context;
 	private MyCourseListAdapter adapter_bixiu;
 	private MyCourseListAdapter adapter_xuanxiu;
-	private List<String> list_bixiu;
-	private List<String> list_xuanxiu;
+	private List<CourseInfo> list_bixiu;
+	private List<CourseInfo> list_xuanxiu;
 	private OnItemClickListener listener_bixiu = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long location) {
@@ -51,12 +52,15 @@ public class MyCoursePage extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = getActivity().getApplicationContext();
-		list_bixiu = new ArrayList<String>();
-		list_xuanxiu = new ArrayList<String>();
+		list_bixiu = new ArrayList<CourseInfo>();
+		list_xuanxiu = new ArrayList<CourseInfo>();
 		
 		for (int i = 1; i < 51; i++) {
-			list_bixiu.add("必修课程  " + i);
-			list_xuanxiu.add("选修课程  " + i);
+			CourseInfo ci = new CourseInfo();
+			ci.coursename = "必修课程  " + i;
+			list_bixiu.add(ci);
+			ci.coursename = "选修课程  " + i;
+			list_xuanxiu.add(ci);
 		}
 		adapter_bixiu = new MyCourseListAdapter(context, list_bixiu);
 		adapter_xuanxiu = new MyCourseListAdapter(context, list_xuanxiu);

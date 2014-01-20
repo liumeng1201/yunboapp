@@ -21,6 +21,7 @@ import android.widget.ListView;
 import com.realaction.yunbomobile.adapter.DrawerListAdapter;
 import com.realaction.yunbomobile.view.HomePage;
 import com.realaction.yunbomobile.view.MyCoursePage;
+import com.realaction.yunbomobile.view.OpenCoursePage;
 
 public class MainActivity extends Activity {
 	private Context context;
@@ -104,6 +105,7 @@ public class MainActivity extends Activity {
 			fragment = new MyCoursePage();
 			break;
 		case 2:
+			fragment = new OpenCoursePage();
 			break;
 		case 3:
 			break;
