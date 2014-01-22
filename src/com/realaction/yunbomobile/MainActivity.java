@@ -21,7 +21,10 @@ import android.widget.ListView;
 import com.realaction.yunbomobile.adapter.DrawerListAdapter;
 import com.realaction.yunbomobile.view.HomePage;
 import com.realaction.yunbomobile.view.MyCoursePage;
+import com.realaction.yunbomobile.view.NoticePage;
 import com.realaction.yunbomobile.view.OpenCoursePage;
+import com.realaction.yunbomobile.view.SchedulePage;
+import com.realaction.yunbomobile.view.SettingsPage;
 
 public class MainActivity extends Activity {
 	private Context context;
@@ -108,12 +111,16 @@ public class MainActivity extends Activity {
 			fragment = new OpenCoursePage();
 			break;
 		case 3:
+			fragment = new SchedulePage();
 			break;
 		case 4:
+			fragment = new NoticePage();
 			break;
 		case 5:
+			fragment = new SettingsPage();
 			break;
 		default:
+			fragment = new HomePage();
 			break;
 		}
 		FragmentManager fragmentManager = getFragmentManager();
