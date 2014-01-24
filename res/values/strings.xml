@@ -38,5 +38,39 @@
     
     <string name="course_bixiu">必修课程</string>
     <string name="course_xuanxiu">选修课程</string>
+    
+    <string name="settings_cache">缓存设置</string>
+    <string name="pref_setting_cache_memory">设置缓存大小</string>
+    <string name="pref_cache_memory_default">缓存大小200MB</string>
+    <string-array name="pref_cache_memory_entries">
+        <item>100MB</item>
+        <item>200MB</item>
+        <item>300MB</item>
+        <item>500MB</item>
+    </string-array>
+    <string-array name="pref_cache_memory_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+    </string-array>
+    <string name="pref_setting_clean_cache">清除缓存</string>
+    <string name="settings_schedule">课程表设置</string>
+    <string name="pref_setting_notice_on_title">上课提醒</string>
+    <string name="pref_setting_notice_on_summary">开启之后可在上课前收到提醒</string>
+    <string name="pref_setting_notice_time">提醒时间</string>
+    <string name="pref_setting_notice_time_summary">设置上课前多长时间进行提醒</string>
+    <string-array name="pref_notice_time_entries">
+        <item>上课前5分钟</item>
+        <item>上课前10分钟</item>
+        <item>上课前20分钟</item>
+        <item>上课前30分钟</item>
+    </string-array>
+    <string-array name="pref_notice_time_values">
+        <item>5</item>
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+    </string-array>
 
 </resources>

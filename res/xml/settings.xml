@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/settings_cache" >
+        <ListPreference
+            android:defaultValue="@string/pref_cache_memory_default"
+            android:dialogTitle="@string/pref_setting_cache_memory"
+            android:entries="@array/pref_cache_memory_entries"
+            android:entryValues="@array/pref_cache_memory_values"
+            android:key="pref_setting_cache_memory"
+            android:title="@string/pref_setting_cache_memory" />
+
+        <Preference
+            android:key="pref_setting_clean_cache"
+            android:title="@string/pref_setting_clean_cache" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="@string/settings_schedule" >
+        <CheckBoxPreference
+            android:key="pref_setting_notice_on"
+            android:summary="@string/pref_setting_notice_on_summary"
+            android:title="@string/pref_setting_notice_on_title" />
+
+        <ListPreference
+            android:dependency="pref_setting_notice_on"
+            android:dialogTitle="@string/pref_setting_notice_time"
+            android:entries="@array/pref_notice_time_entries"
+            android:entryValues="@array/pref_notice_time_values"
+            android:key="pref_setting_notice_time"
+            android:summary="@string/pref_setting_notice_time_summary"
+            android:title="@string/pref_setting_notice_time" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

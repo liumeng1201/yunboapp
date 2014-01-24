@@ -56,11 +56,12 @@ public class MyCoursePage extends Fragment {
 		list_xuanxiu = new ArrayList<CourseInfo>();
 		
 		for (int i = 1; i < 51; i++) {
-			CourseInfo ci = new CourseInfo();
-			ci.coursename = "必修课程  " + i;
-			list_bixiu.add(ci);
-			ci.coursename = "选修课程  " + i;
-			list_xuanxiu.add(ci);
+			CourseInfo ci1 = new CourseInfo();
+			ci1.coursename = "必修课程  " + i;
+			list_bixiu.add(ci1);
+			CourseInfo ci2 = new CourseInfo();
+			ci2.coursename = "选修课程  " + i;
+			list_xuanxiu.add(ci2);
 		}
 		adapter_bixiu = new MyCourseListAdapter(context, list_bixiu);
 		adapter_xuanxiu = new MyCourseListAdapter(context, list_xuanxiu);
