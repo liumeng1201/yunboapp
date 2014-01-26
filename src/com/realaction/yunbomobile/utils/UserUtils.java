@@ -15,11 +15,13 @@ public class UserUtils {
 	
 	private static final String SHARED_PREFERENCE = "yunbomobile_user";
 	private static final String USERNAME_REF = "username";
+	private static final String PASSWORD_REF = "password";
 	private static final String USERREALNAME_REF = "userrealname";
 	private static final String USERTYPEID_REF = "usertypeid";
 	private static final String STUNO_REF = "stuno";
 	private static final String EMPNO_REF = "empno";
 	private static final String USERAVATAR_REF = "useravatarurl";
+	private static final String REMEMBERUSER_REF = "rememberuser";
 	private static final int mode = 1;
 	private SharedPreferences userinfos;
 	private SharedPreferences.Editor editor;
@@ -40,6 +42,8 @@ public class UserUtils {
 	 * 
 	 * @param username
 	 *            用户名
+	 * @param passwd
+	 *            密码
 	 * @param userrealname
 	 *            用户真实姓名
 	 * @param usertypeid
@@ -50,15 +54,19 @@ public class UserUtils {
 	 *            工号
 	 * @param useravatar
 	 *            用户头像url
+	 * @param rmbuser
+	 *            是否记住用户
 	 */
-	public void saveUserInfo(String username, String userrealname,
-			int usertypeid, String stuno, String empno, String useravatar) {
+	public void saveUserInfo(String username, String passwd, String userrealname,
+			int usertypeid, String stuno, String empno, String useravatar, boolean rmbuser) {
 		editor.putString(USERNAME_REF, username);
+		editor.putString(PASSWORD_REF, passwd);
 		editor.putString(USERREALNAME_REF, userrealname);
 		editor.putInt(USERTYPEID_REF, usertypeid);
 		editor.putString(STUNO_REF, stuno);
 		editor.putString(EMPNO_REF, empno);
 		editor.putString(USERAVATAR_REF, useravatar);
+		editor.putBoolean(REMEMBERUSER_REF, rmbuser);
 		editor.commit();
 	}
 
@@ -70,6 +78,16 @@ public class UserUtils {
 	public String getUserName() {
 		String username = userinfos.getString(USERNAME_REF, null);
 		return username;
+	}
+	
+	/**
+	 * 获取保存在SharedPreference文件中的用户密码
+	 * 
+	 * @return 密码
+	 */
+	public String getPassword() {
+		String passwd = userinfos.getString(PASSWORD_REF, null);
+		return passwd;
 	}
 
 	/**
@@ -122,4 +140,12 @@ public class UserUtils {
 		return useravatarurl;
 	}
 
+	/**
+	 * 是否记住用户
+	 * @return true/false
+	 */
+	public boolean isRmbUser() {
+		boolean rmbuser = userinfos.getBoolean(REMEMBERUSER_REF, false);
+		return rmbuser;
+	}
 }

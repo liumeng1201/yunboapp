@@ -39,11 +39,19 @@
         android:layout_margin="3dp"
         android:hint="@string/input_username" />
 
+    <CheckBox
+        android:id="@+id/login_rememberuser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_passwd"
+        android:layout_margin="5dp"
+        android:text="@string/login_remember_user" />
+
     <Button
         android:id="@+id/login_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/login_passwd"
+        android:layout_below="@id/login_rememberuser"
         android:layout_margin="5dp"
         android:background="@drawable/login_btn_selector"
         android:text="@string/login" />

@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.realaction.yunbomobile.moddel.User;
@@ -37,23 +38,18 @@ public class LoginActivity extends Activity {
 	private Handler handler;
 	private EditText et_name;
 	private EditText et_passwd;
+	private CheckBox cb_rmbuser;
 	private Button btn_login;
 	private String url = "http://192.168.2.231:8080/formobile/formobileLogin.action";
 	private ProgressDialog loginDialog;
+	private UserUtils uu;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-
-		context = LoginActivity.this;
-		handler = new Handler();
-		loginDialog = new ProgressDialog(context);
-		loginDialog.setMessage(getString(R.string.login_wait));
-
-		et_name = (EditText) findViewById(R.id.login_username);
-		et_passwd = (EditText) findViewById(R.id.login_passwd);
-		btn_login = (Button) findViewById(R.id.login_btn);
+		
+		init();
 
 		btn_login.setOnClickListener(new OnClickListener() {
 			@Override
@@ -95,6 +91,29 @@ public class LoginActivity extends Activity {
 				}
 			}
 		});
+	}
+	
+	// 初始化工作
+	private void init() {
+		context = LoginActivity.this;
+		uu = new UserUtils(context);
+		handler = new Handler();
+		loginDialog = new ProgressDialog(context);
+		loginDialog.setMessage(getString(R.string.login_wait));
+
+		et_name = (EditText) findViewById(R.id.login_username);
+		et_passwd = (EditText) findViewById(R.id.login_passwd);
+		btn_login = (Button) findViewById(R.id.login_btn);
+		cb_rmbuser = (CheckBox) findViewById(R.id.login_rememberuser);
+		
+		if (uu.isRmbUser()) {
+			String username = uu.getUserName();
+			String passwd = uu.getPassword();
+			boolean isrmbuser = uu.isRmbUser();
+			et_name.setText(username);
+			et_passwd.setText(passwd);
+			cb_rmbuser.setChecked(isrmbuser);
+		}
 	}
 	
 	// 隐藏登陆提示对话框
@@ -148,8 +167,9 @@ public class LoginActivity extends Activity {
 						+ " , userTypeId = " + user.userTypeId
 						+ " , profileUrl = " + user.profileUrl + " , stuNo = "
 						+ user.stuNo + " , empNo = " + user.empNo);
-				UserUtils uu = new UserUtils(context);
-				uu.saveUserInfo(user.userName, user.realName, user.userTypeId, user.stuNo, user.empNo, user.profileUrl);
+				uu.saveUserInfo(user.userName, user.password, user.realName,
+						user.userTypeId, user.stuNo, user.empNo,
+						user.profileUrl, cb_rmbuser.isChecked());
 				return true;
 			}
 		} else {

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    <PreferenceCategory android:title="@string/settings_offline" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="pref_setting_offline"
+            android:summary="@string/pref_setting_offline_summary"
+            android:title="@string/pref_setting_offline_title" />
+    </PreferenceCategory>
+    
     <PreferenceCategory android:title="@string/settings_cache" >
         <ListPreference
             android:defaultValue="@string/pref_cache_memory_default"
@@ -8,6 +16,7 @@
             android:entries="@array/pref_cache_memory_entries"
             android:entryValues="@array/pref_cache_memory_values"
             android:key="pref_setting_cache_memory"
+            android:summary="@string/pref_setting_cache_memory_summary"
             android:title="@string/pref_setting_cache_memory" />
 
         <Preference
