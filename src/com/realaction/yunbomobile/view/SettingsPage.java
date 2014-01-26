@@ -24,7 +24,7 @@ public class SettingsPage extends PreferenceFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		context = getActivity().getApplicationContext();
+		context = getActivity();
 		addPreferencesFromResource(R.xml.settings);
 	}
 
