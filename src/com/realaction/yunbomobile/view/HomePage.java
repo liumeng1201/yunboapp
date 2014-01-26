@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,8 @@ import android.widget.TextView;
 
 import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.adapter.HomePageAdapter;
-import com.realaction.yunbomobile.utils.UserInfo;
+import com.realaction.yunbomobile.utils.ImageUtils;
+import com.realaction.yunbomobile.utils.UserUtils;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -27,6 +29,7 @@ import com.squareup.picasso.Picasso;
  * @author liumeng
  */
 public class HomePage extends Fragment {
+	private String TAG = "lm";
 	private Context context;
 	// 用户头像
 	private ImageView user_avatar;
@@ -36,7 +39,7 @@ public class HomePage extends Fragment {
 	private String user_name_str;
 	// 用户学号/工号
 	private TextView user_num;
-	private int user_num_int;
+	private String user_num_str;
 	// 用户班级
 	private TextView user_class;
 	private String user_class_str;
@@ -80,11 +83,16 @@ public class HomePage extends Fragment {
 	 * 初始化界面各组件所需的数据
 	 */
 	private void initData() {
-		UserInfo userinfo = new UserInfo(context);
-		user_name_str = "睿亚训";// userinfo.getUserName();
-		user_num_int = 10001;// userinfo.getUserNumber();
-		user_class_str = "软件工程132班";// userinfo.getUserClass();
-		user_avater_url = "http://www.realaction.cn/template/images/logo.jpg";// userinfo.getUserAvatar();
+		UserUtils userinfo = new UserUtils(context);
+		user_name_str = userinfo.getUserRealName();
+		if (userinfo.getUserTypeId() == UserUtils.USER_STUDENT) {
+			user_num_str = userinfo.getStuNo();
+		} else {
+			user_num_str = userinfo.getEmpNo();
+		}
+		user_class_str = userinfo.getUserTypeId() + "";
+		user_avater_url = userinfo.getUserAvatar();//"http://www.realaction.cn/template/images/logo.jpg";
+		Log.d(TAG, "user_avater_url = " + user_avater_url);
 
 		user_fav_adapter = new HomePageAdapter(context, getDataFromDB(LIST_FAV));
 		user_his_adapter = new HomePageAdapter(context, getDataFromDB(LIST_HIS));
@@ -103,9 +111,10 @@ public class HomePage extends Fragment {
 	 */
 	private void setData() {
 		// 使用第三方库为ImageView加载图片
-		Picasso.with(context).load(user_avater_url).into(user_avatar);
+		//Picasso.with(context).load(user_avater_url).into(user_avatar);
+		user_avatar.setImageBitmap(ImageUtils.getBitmapFromRes(context, user_avater_url));
 		user_name.setText(user_name_str);
-		user_num.setText(user_num_int + "");
+		user_num.setText(user_num_str);
 		user_class.setText(user_class_str);
 
 		user_favorite.setAdapter(user_fav_adapter);

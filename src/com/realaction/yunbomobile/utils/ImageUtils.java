@@ -1,11 +1,16 @@
 package com.realaction.yunbomobile.utils;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
+import com.realaction.yunbomobile.R;
 
 /**
  * 图片处理工具类
@@ -34,6 +39,33 @@ public class ImageUtils {
 			is.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		return bitmap;
+	}
+
+	/**
+	 * 从资源文件中获取Bitmap
+	 * 
+	 * @param context
+	 * @param path
+	 *            图片文件在assets目录下的路径
+	 * @return Bitmap
+	 */
+	public static Bitmap getBitmapFromRes(Context context, String path) {
+		Bitmap bitmap = null;
+		AssetManager am = context.getResources().getAssets();
+		try {
+			InputStream is = am.open(path);
+			bitmap = BitmapFactory.decodeStream(is);
+			is.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			// 如果没有设置用户头像或用户头像为空则使用默认的用户头像
+			if (bitmap == null) {
+				bitmap = BitmapFactory.decodeResource(context.getResources(),
+						R.drawable.default_portrait);
+			}
 		}
 		return bitmap;
 	}

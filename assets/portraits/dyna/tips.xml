@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xparam>
+	<Item>
+		<ImageIdex>0</ImageIdex>
+		<ImageTips>财迷</ImageTips>
+	</Item>
+	<Item>
+		<ImageIdex>1</ImageIdex>
+		<ImageTips>吃货</ImageTips>
+	</Item>
+	<Item>
+		<ImageIdex>2</ImageIdex>
+		<ImageTips>聪明</ImageTips>
+	</Item>
+	<Item>
+		<ImageIdex>3</ImageIdex>
+		<ImageTips>店小二</ImageTips>
+	</Item>
+	<Item>
+		<ImageIdex>4</ImageIdex>
+		<ImageTips>僵尸</ImageTips>
+	</Item>
+	<Item>
+		<ImageIdex>5</ImageIdex>
+		<ImageTips>喝酒</ImageTips>
+	</Item>
+	<Item>
+		<ImageIdex>6</ImageIdex>
+		<ImageTips>囧</ImageTips>
+	</Item>
+	<Item>
+		<ImageIdex>7</ImageIdex>
+		<ImageTips>书呆子</ImageTips>
+	</Item>
+	<Item>
+		<ImageIdex>8</ImageIdex>
+		<ImageTips>摇滚青年</ImageTips>
+	</Item>
+	<Item>
+		<ImageIdex>9</ImageIdex>
+		<ImageTips>运动</ImageTips>
+	</Item>
+</xparam>
