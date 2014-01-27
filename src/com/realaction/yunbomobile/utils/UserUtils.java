@@ -57,7 +57,7 @@ public class UserUtils {
 	 * @param rmbuser
 	 *            是否记住用户
 	 */
-	public void saveUserInfo(String username, String passwd, String userrealname,
+	public void saveUserInfoToPref(String username, String passwd, String userrealname,
 			int usertypeid, String stuno, String empno, String useravatar, boolean rmbuser) {
 		editor.putString(USERNAME_REF, username);
 		editor.putString(PASSWORD_REF, passwd);

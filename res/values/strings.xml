@@ -14,6 +14,7 @@
     <string name="net_error">网络错误</string>
     <string name="login_wait">登陆中,请稍候...</string>
     <string name="login_remember_user">记住用户名密码</string>
+    <string name="login_offline_mode">网络错误,以离线模式登陆,仅能访问已缓存的资源</string>
     
     <string name="caselist">课程案例列表</string>
     <string name="caseview">查看案例资源</string>

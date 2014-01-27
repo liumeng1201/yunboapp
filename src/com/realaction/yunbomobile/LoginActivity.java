@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.realaction.yunbomobile.db.DBService;
 import com.realaction.yunbomobile.moddel.User;
 import com.realaction.yunbomobile.utils.HttpTool;
 import com.realaction.yunbomobile.utils.UserUtils;
@@ -43,6 +44,7 @@ public class LoginActivity extends Activity {
 	private String url = "http://192.168.2.231:8080/formobile/formobileLogin.action";
 	private ProgressDialog loginDialog;
 	private UserUtils uu;
+	private DBService dbService;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,7 @@ public class LoginActivity extends Activity {
 								hideLoginDialog(handler);
 								Intent intent = new Intent(context, MainActivity.class);
 								startActivity(intent);
+								LoginActivity.this.finish();
 							}
 						}
 					}.start();
@@ -97,6 +100,7 @@ public class LoginActivity extends Activity {
 	private void init() {
 		context = LoginActivity.this;
 		uu = new UserUtils(context);
+		dbService = new DBService(context);
 		handler = new Handler();
 		loginDialog = new ProgressDialog(context);
 		loginDialog.setMessage(getString(R.string.login_wait));
@@ -141,42 +145,58 @@ public class LoginActivity extends Activity {
 			String result = HttpTool.convertStreamToString(is);
 			String resultarray[] = result.split("\\$");
 			Log.d(TAG, result);
-			// 根据返回的数据获取用户ID
-			String userId = getUserIdFromResult(resultarray);
-			// 验证用户身份
-			if ("null".equals(userId) || "-1".equals(userId)) {
+			if (resultarray.length < 1) {
 				// 验证失败
 				hideLoginDialog(handler);
 				HttpTool.showToast(context, handler, getString(R.string.user_error));
 				return false;
 			} else {
-				// 验证成功
-				User user = new User();
-				user.userName = et_name.getText().toString();
-				user.password = et_passwd.getText().toString();
-				user.realName = getRealNameFromResult(resultarray);
-				user.userTypeId = getUserTypeIdFromResult(resultarray);
-				user.profileUrl = getProfilePathFromResult(resultarray);
-				if (user.userTypeId == UserUtils.USER_STUDENT) {
-					user.stuNo = getUserNoFromResult(resultarray);
-				} else if (user.userTypeId == UserUtils.USER_TEACHER) {
-					user.empNo = getUserNoFromResult(resultarray);
+				// 根据返回的数据获取用户ID
+				String userId = getUserIdFromResult(resultarray);
+				// 验证用户身份
+				if ("null".equals(userId) || "-1".equals(userId)) {
+					// 验证失败
+					hideLoginDialog(handler);
+					HttpTool.showToast(context, handler, getString(R.string.user_error));
+					return false;
+				} else {
+					// 验证成功
+					User user = new User();
+					user.userId = Long.parseLong(userId);
+					user.userName = et_name.getText().toString();
+					user.password = et_passwd.getText().toString();
+					user.realName = getRealNameFromResult(resultarray);
+					user.userTypeId = getUserTypeIdFromResult(resultarray);
+					user.profileUrl = getProfilePathFromResult(resultarray);
+					if (user.userTypeId == UserUtils.USER_STUDENT) {
+						user.stuNo = getUserNoFromResult(resultarray);
+					} else if (user.userTypeId == UserUtils.USER_TEACHER) {
+						user.empNo = getUserNoFromResult(resultarray);
+					}
+					uu.saveUserInfoToPref(user.userName, user.password,
+							user.realName, user.userTypeId, user.stuNo,
+							user.empNo, user.profileUrl, cb_rmbuser.isChecked());
+					Log.d(TAG, "db operate = " + dbService.insertUserTb(user));
+					// dbService.insertUserTb(user);
+					return true;
 				}
-				Log.d(TAG, "userName = " + user.userName + " , password = "
-						+ user.password + " , realName = " + user.realName
-						+ " , userTypeId = " + user.userTypeId
-						+ " , profileUrl = " + user.profileUrl + " , stuNo = "
-						+ user.stuNo + " , empNo = " + user.empNo);
-				uu.saveUserInfo(user.userName, user.password, user.realName,
-						user.userTypeId, user.stuNo, user.empNo,
-						user.profileUrl, cb_rmbuser.isChecked());
-				return true;
 			}
 		} else {
 			// 网络访问错误
-			hideLoginDialog(handler);
-			HttpTool.showToast(context, handler, getString(R.string.net_error));
-			return false;
+			// 判断输入的用户数据是否为之前已登陆过的用户
+			User user = dbService.findUserByuserName(et_name.getText().toString());
+			if (user.password != null && (user.password).equals(et_passwd.getText().toString())) {
+				uu.saveUserInfoToPref(user.userName, user.password,
+						user.realName, user.userTypeId, user.stuNo, user.empNo,
+						user.profileUrl, cb_rmbuser.isChecked());
+				hideLoginDialog(handler);
+				HttpTool.showToast(context, handler, getString(R.string.login_offline_mode));
+				return true;
+			} else {
+				hideLoginDialog(handler);
+				HttpTool.showToast(context, handler, getString(R.string.net_error));
+				return false;
+			}
 		}
 	}
 
@@ -208,5 +228,11 @@ public class LoginActivity extends Activity {
 	// 从服务器返回的数据中获取用户学号/工号
 	private String getUserNoFromResult(String result[]) {
 		return result[4];
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		dbService.close();
 	}
 }
