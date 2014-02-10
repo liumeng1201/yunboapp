@@ -11,10 +11,10 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.realaction.yunbomobile.R;
+import com.realaction.yunbomobile.moddel.CourseItem;
 import com.realaction.yunbomobile.utils.CaseInfo;
 import com.realaction.yunbomobile.utils.CaseViewChildItem;
 import com.realaction.yunbomobile.utils.CaseViewGroupItem;
-import com.realaction.yunbomobile.utils.CourseInfo;
 
 /**
  * 案例资源查看界面,案例资源二层ListView适配器

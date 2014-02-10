@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.realaction.yunbomobile.R;
-import com.realaction.yunbomobile.utils.CourseInfo;
+import com.realaction.yunbomobile.moddel.CourseItem;
 
 /**
  * 我的课程课程列表Adapter
@@ -20,9 +20,9 @@ import com.realaction.yunbomobile.utils.CourseInfo;
  */
 public class MyCourseListAdapter extends BaseAdapter {
 	private Context context;
-	private List<CourseInfo> list;
+	private List<CourseItem> list;
 
-	public MyCourseListAdapter(Context context, List<CourseInfo> list) {
+	public MyCourseListAdapter(Context context, List<CourseItem> list) {
 		this.context = context;
 		this.list = list;
 	}
@@ -53,7 +53,7 @@ public class MyCourseListAdapter extends BaseAdapter {
 			convertView.setTag(holder);
 		}
 		ViewHolder holder = (ViewHolder) convertView.getTag();
-		holder.item.setText(list.get(position).coursename);
+		holder.item.setText(list.get(position).courseName);
 		return convertView;
 	}
 

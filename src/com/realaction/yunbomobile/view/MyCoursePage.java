@@ -3,10 +3,14 @@ package com.realaction.yunbomobile.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +21,11 @@ import android.widget.TabHost;
 
 import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.adapter.MyCourseListAdapter;
-import com.realaction.yunbomobile.utils.CourseInfo;
+import com.realaction.yunbomobile.db.DBService;
+import com.realaction.yunbomobile.moddel.CourseItem;
+import com.realaction.yunbomobile.moddel.User;
+import com.realaction.yunbomobile.utils.CourseUtils;
+import com.realaction.yunbomobile.utils.UserUtils;
 
 /**
  * 我的课程界面
@@ -26,10 +34,18 @@ import com.realaction.yunbomobile.utils.CourseInfo;
  */
 public class MyCoursePage extends Fragment {
 	private Context context;
+	private Handler mHandler = new Handler();
+	private UserUtils userUtils;
+	private DBService dbService;
+	private User currentUser;
+	
+	private String url_coursestu = "http://192.168.2.231:8080/formobile/formobileGetStudentCourse.action";
+	private String url_coursetea = "http://192.168.2.231:8080/formobile/formobileGetTeacherCourse.action";
+	
 	private MyCourseListAdapter adapter_bixiu;
 	private MyCourseListAdapter adapter_xuanxiu;
-	private List<CourseInfo> list_bixiu;
-	private List<CourseInfo> list_xuanxiu;
+	private List<CourseItem> list_bixiu;
+	private List<CourseItem> list_xuanxiu;
 	private OnItemClickListener listener_bixiu = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long location) {
@@ -52,18 +68,24 @@ public class MyCoursePage extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = getActivity().getApplicationContext();
-		list_bixiu = new ArrayList<CourseInfo>();
-		list_xuanxiu = new ArrayList<CourseInfo>();
+		userUtils = new UserUtils(context);
+		dbService = new DBService(context);
+		currentUser = new User();
+		currentUser = dbService.findUserByuserName(userUtils.getUserName());
+		list_bixiu = new ArrayList<CourseItem>();
+		list_xuanxiu = new ArrayList<CourseItem>();
 		
+		/*----------------------------------------------*/
 		for (int i = 1; i < 51; i++) {
-			CourseInfo ci1 = new CourseInfo();
-			ci1.coursename = "必修课程  " + i;
+			CourseItem ci1 = new CourseItem();
+			ci1.courseName = "必修课程  " + i;
 			list_bixiu.add(ci1);
-			CourseInfo ci2 = new CourseInfo();
-			ci2.coursename = "选修课程  " + i;
+			CourseItem ci2 = new CourseItem();
+			ci2.courseName = "选修课程  " + i;
 			list_xuanxiu.add(ci2);
 		}
-		adapter_bixiu = new MyCourseListAdapter(context, list_bixiu);
+		/*----------------------------------------------*/
+		
 		adapter_xuanxiu = new MyCourseListAdapter(context, list_xuanxiu);
 	}
 
@@ -71,7 +93,7 @@ public class MyCoursePage extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_mycourse, null);
-		ListView course_bixiu = (ListView) view.findViewById(R.id.mycourse_list1);
+		final ListView course_bixiu = (ListView) view.findViewById(R.id.mycourse_list1);
 		ListView course_xuanxiu = (ListView) view.findViewById(R.id.mycourse_list2);
 		
 		TabHost tabhost = (TabHost) view.findViewById(R.id.tabhost);
@@ -84,7 +106,40 @@ public class MyCoursePage extends Fragment {
 				.setIndicator(getResources().getString(R.string.course_xuanxiu))
 				.setContent(R.id.mycourse_list2));
 		
-		course_bixiu.setAdapter(adapter_bixiu);
+		/****************************/
+		new Thread() {
+			@Override
+			public void run() {
+				super.run();
+				String url = null;
+				List<NameValuePair> datas = new ArrayList<NameValuePair>();
+				switch (currentUser.userTypeId) {
+				case 10:
+					// 学生
+					datas.add(new BasicNameValuePair("stuId", Long.toString(currentUser.userId)));
+					url = url_coursestu;
+					break;
+				case 20:
+				case 40:
+					// 老师
+					datas.add(new BasicNameValuePair("teaId", Long.toString(currentUser.userId)));
+					url = url_coursetea;
+					break;
+				}
+				CourseUtils cu = new CourseUtils(context);
+				final List<CourseItem> list = cu.getCourseList(url, datas);
+				
+				mHandler.post(new Runnable() {
+					@Override
+					public void run() {
+						adapter_bixiu = new MyCourseListAdapter(context, list);
+						course_bixiu.setAdapter(adapter_bixiu);
+					}
+				});
+			}
+		}.start();
+		/****************************/
+		
 		course_xuanxiu.setAdapter(adapter_xuanxiu);
 		
 		course_bixiu.setOnItemClickListener(listener_bixiu);

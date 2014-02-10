@@ -1,10 +1,12 @@
 package com.realaction.yunbomobile.utils;
 
+import com.realaction.yunbomobile.moddel.CourseItem;
+
 public class OpenCourseInfo {
-	public CourseInfo courseinfo;
+	public CourseItem courseinfo;
 	public boolean selected;
 	
 	public OpenCourseInfo() {
-		this.courseinfo = new CourseInfo();
+		this.courseinfo = new CourseItem();
 	}
 }

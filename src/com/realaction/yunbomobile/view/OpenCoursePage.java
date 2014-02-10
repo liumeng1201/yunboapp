@@ -40,7 +40,7 @@ public class OpenCoursePage extends Fragment {
 		courselist = new ArrayList<OpenCourseInfo>();
 		for (int i = 1; i < 51; i++) {
 			OpenCourseInfo ci = new OpenCourseInfo();
-			ci.courseinfo.coursename = "公开课  " + i;
+			ci.courseinfo.courseName = "公开课  " + i;
 			ci.selected = false;
 			courselist.add(ci);
 		}

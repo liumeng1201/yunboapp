@@ -56,7 +56,7 @@ public class OpenCourseListAdapter extends BaseAdapter {
 			convertView.setTag(holder);
 		}
 		ViewHolder holder = (ViewHolder) convertView.getTag();
-		holder.name.setText(courselist.get(position).courseinfo.coursename);
+		holder.name.setText(courselist.get(position).courseinfo.courseName);
 		if (courselist.get(position).selected) {
 			holder.img.setBackgroundResource(R.drawable.star_mark);
 		} else {
