@@ -114,6 +114,7 @@ public class CaseListActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long location) {
 				Intent intent = new Intent(context, CaseViewActivity.class);
+				intent.putExtra("caseId", caselists.get(position).caseId);
 				startActivity(intent);
 			}
 		});

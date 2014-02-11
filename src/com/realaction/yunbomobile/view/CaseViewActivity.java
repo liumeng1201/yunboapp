@@ -3,6 +3,9 @@ package com.realaction.yunbomobile.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -20,6 +23,7 @@ import android.widget.ExpandableListView.OnChildClickListener;
 
 import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.adapter.DrawerCaseViewExpandableAdapter;
+import com.realaction.yunbomobile.utils.CaseSourcesUtils;
 import com.realaction.yunbomobile.utils.CaseViewChildItem;
 import com.realaction.yunbomobile.utils.CaseViewGroupItem;
 import com.realaction.yunbomobile.view.caseviews.CaseViewFragment;
@@ -37,13 +41,29 @@ public class CaseViewActivity extends Activity {
 	private List<List<CaseViewChildItem>> childArray;
 	private DrawerCaseViewExpandableAdapter expandableAdapter;
 	private ExpandableListView mDrawerListExpandable;
+	
+	private String url = "http://192.168.2.231:8080/formobile/formobileGetCaseSources.action";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_caseview);
-
 		context = CaseViewActivity.this;
+		Intent intent = getIntent();
+		final long caseId = intent.getLongExtra("caseId", -1);
+		
+		new Thread() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				super.run();
+				CaseSourcesUtils csu = new CaseSourcesUtils(context);
+				List<NameValuePair> datas = new ArrayList<NameValuePair>();
+				datas.add(new BasicNameValuePair("caseId", Long.toString(caseId)));
+				csu.getCaseSourcesList(url, datas);
+			}
+		}.start();
+
 		mTitle = mDrawerTitle = getTitle();
 
 		// TODO 根据内容自动获取要显示的菜单项

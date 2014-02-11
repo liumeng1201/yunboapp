@@ -66,6 +66,7 @@ public class CasesHandler extends DefaultHandler {
 			item.keyWords = attributes.getValue("keyWords");
 			item.devRoleName = attributes.getValue("devRoleName");
 			item.teacherName = attributes.getValue("teacherName");
+			// TODO CaseGroup需要处理
 			item.caseGroupName = attributes.getValue("caseGroupName");
 			casesList.add(item);
 		}
