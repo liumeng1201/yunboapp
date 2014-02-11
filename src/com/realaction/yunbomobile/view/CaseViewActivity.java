@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -22,6 +23,7 @@ import com.realaction.yunbomobile.adapter.DrawerCaseViewExpandableAdapter;
 import com.realaction.yunbomobile.utils.CaseViewChildItem;
 import com.realaction.yunbomobile.utils.CaseViewGroupItem;
 import com.realaction.yunbomobile.view.caseviews.CaseViewFragment;
+import com.realaction.yunbomobile.view.caseviews.VideoViewActivity;
 
 public class CaseViewActivity extends Activity {
 	private Context context;
@@ -77,6 +79,16 @@ public class CaseViewActivity extends Activity {
 		}
 		childArray.add(cvcil3);
 		groupArray.add(cvgi3);
+		CaseViewGroupItem cvgi4 = new CaseViewGroupItem();
+		cvgi4.groupname = "สำฦต";
+		List<CaseViewChildItem> cvcil4 = new ArrayList<CaseViewChildItem>();
+		for (int i = 0; i < 2; i++) {
+			CaseViewChildItem cvci = new CaseViewChildItem();
+			cvci.childname = "สำฦต  " + (i + 1);
+			cvcil4.add(cvci);
+		}
+		childArray.add(cvcil4);
+		groupArray.add(cvgi4);
 
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout_caseview);
 		mDrawerListExpandable = (ExpandableListView) findViewById(R.id.left_drawer_caseview_expandable);
@@ -91,19 +103,22 @@ public class CaseViewActivity extends Activity {
 					public boolean onChildClick(ExpandableListView parent,
 							View v, int groupPosition, int childPosition,
 							long id) {
-						Fragment fragment = new CaseViewFragment();
-						Bundle bundle = new Bundle();
-						bundle.putString("filepath", "/sdcard/aa.pdf");
-						fragment.setArguments(bundle);
-						FragmentManager fragmentManager = getFragmentManager();
-						fragmentManager.beginTransaction()
-								.replace(R.id.content_frame_caseview, fragment)
-								.commit();
+						if (groupPosition == 3) {
+							Intent intent = new Intent(context, VideoViewActivity.class);
+							intent.putExtra("filepath", "/sdcard/bbb.mp4");
+							startActivity(intent);
+						} else {
+							Fragment fragment = new CaseViewFragment();
+							Bundle bundle = new Bundle();
+							bundle.putString("filepath", "/sdcard/aa.pdf");
+							fragment.setArguments(bundle);
+							FragmentManager fragmentManager = getFragmentManager();
+							fragmentManager.beginTransaction().replace(R.id.content_frame_caseview, fragment).commit();
 
-						// update selected item and title, then close the drawer
-						setTitle(childArray.get(groupPosition).get(
-								childPosition).childname);
-						mDrawerLayout.closeDrawer(mDrawerListExpandable);
+							// update selected item and title, then close the drawer
+							setTitle(childArray.get(groupPosition).get(childPosition).childname);
+							mDrawerLayout.closeDrawer(mDrawerListExpandable);
+						}
 						return true;
 					}
 				});

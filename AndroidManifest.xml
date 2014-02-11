@@ -34,6 +34,10 @@
         <activity
             android:name="com.realaction.yunbomobile.view.CaseViewActivity"
             android:label="@string/caseview" />
+        <activity
+            android:name="com.realaction.yunbomobile.view.caseviews.VideoViewActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
     </application>
 
 </manifest>
