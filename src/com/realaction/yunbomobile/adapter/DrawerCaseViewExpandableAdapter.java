@@ -11,8 +11,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.realaction.yunbomobile.R;
+import com.realaction.yunbomobile.moddel.CaseItem;
 import com.realaction.yunbomobile.moddel.CourseItem;
-import com.realaction.yunbomobile.utils.CaseInfo;
 import com.realaction.yunbomobile.utils.CaseViewChildItem;
 import com.realaction.yunbomobile.utils.CaseViewGroupItem;
 

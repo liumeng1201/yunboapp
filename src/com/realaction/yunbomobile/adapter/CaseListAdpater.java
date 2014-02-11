@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.realaction.yunbomobile.R;
-import com.realaction.yunbomobile.utils.CaseInfo;
+import com.realaction.yunbomobile.moddel.CaseItem;
 
 /**
  * 课程案例资源列表Adapter
@@ -20,9 +20,9 @@ import com.realaction.yunbomobile.utils.CaseInfo;
  */
 public class CaseListAdpater extends BaseAdapter {
 	private Context context;
-	private List<CaseInfo> list;
+	private List<CaseItem> list;
 	
-	public CaseListAdpater(Context context, List<CaseInfo> list) {
+	public CaseListAdpater(Context context, List<CaseItem> list) {
 		this.context = context;
 		this.list = list;
 	}
@@ -53,7 +53,7 @@ public class CaseListAdpater extends BaseAdapter {
 			convertView.setTag(holder);
 		}
 		ViewHolder holder = (ViewHolder) convertView.getTag();
-		holder.item.setText(list.get(position).casename);
+		holder.item.setText(list.get(position).caseName);
 		return convertView;
 	}
 

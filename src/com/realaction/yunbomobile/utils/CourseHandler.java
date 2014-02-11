@@ -13,7 +13,7 @@ import android.util.Log;
 import com.realaction.yunbomobile.moddel.CourseItem;
 
 /**
- * 课程树解析类
+ * 课程信息解析类
  * 
  * @author liumeng
  */

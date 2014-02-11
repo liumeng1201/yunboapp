@@ -13,7 +13,7 @@ import android.widget.ListView;
 
 import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.adapter.NoticeListAdapter;
-import com.realaction.yunbomobile.utils.NoticeInfo;
+import com.realaction.yunbomobile.moddel.NoticeItem;
 
 /**
  * 通知界面
@@ -23,16 +23,16 @@ import com.realaction.yunbomobile.utils.NoticeInfo;
 public class NoticePage extends Fragment {
 	private Context context;
 	private ListView noticelist_view;
-	private List<NoticeInfo> noticelist_message;
+	private List<NoticeItem> noticelist_message;
 	private NoticeListAdapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = getActivity().getApplicationContext();
-		noticelist_message = new ArrayList<NoticeInfo>();
+		noticelist_message = new ArrayList<NoticeItem>();
 		for (int i = 1; i < 31; i++) {
-			NoticeInfo ni = new NoticeInfo();
+			NoticeItem ni = new NoticeItem();
 			ni.noticefrom = "老师" + (i / 5 + 1);
 			ni.noticemessage = "通知内容  " + i;
 			ni.noticedate = "时间  " + i;

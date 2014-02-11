@@ -1,6 +1,6 @@
-package com.realaction.yunbomobile.utils;
+package com.realaction.yunbomobile.moddel;
 
-public class NoticeInfo {
+public class NoticeItem {
 	/**
 	 * 通知发送人
 	 */

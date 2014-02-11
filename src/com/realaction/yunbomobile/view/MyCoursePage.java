@@ -49,7 +49,9 @@ public class MyCoursePage extends Fragment {
 	private OnItemClickListener listener_bixiu = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long location) {
+			CourseItem ci = list_bixiu.get(position);
 			Intent intent = new Intent(context, CaseListActivity.class);
+			intent.putExtra("scoreId", ci.scoreId);
 			startActivity(intent);
 		}
 	};
@@ -127,12 +129,12 @@ public class MyCoursePage extends Fragment {
 					break;
 				}
 				CourseUtils cu = new CourseUtils(context);
-				final List<CourseItem> list = cu.getCourseList(url, datas);
+				list_bixiu = cu.getCourseList(url, datas);
 				
 				mHandler.post(new Runnable() {
 					@Override
 					public void run() {
-						adapter_bixiu = new MyCourseListAdapter(context, list);
+						adapter_bixiu = new MyCourseListAdapter(context, list_bixiu);
 						course_bixiu.setAdapter(adapter_bixiu);
 					}
 				});
@@ -147,4 +149,9 @@ public class MyCoursePage extends Fragment {
 		return view;
 	}
 
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		dbService.close();
+	}
 }

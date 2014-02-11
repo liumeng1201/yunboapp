@@ -11,13 +11,13 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.realaction.yunbomobile.R;
-import com.realaction.yunbomobile.utils.NoticeInfo;
+import com.realaction.yunbomobile.moddel.NoticeItem;
 
 public class NoticeListAdapter extends BaseAdapter {
 	private Context context;
-	private List<NoticeInfo> list;
+	private List<NoticeItem> list;
 	
-	public NoticeListAdapter(Context context, List<NoticeInfo> list) {
+	public NoticeListAdapter(Context context, List<NoticeItem> list) {
 		this.context = context;
 		this.list = list;
 	}
