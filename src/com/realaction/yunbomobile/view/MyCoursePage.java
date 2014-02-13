@@ -24,6 +24,7 @@ import com.realaction.yunbomobile.adapter.MyCourseListAdapter;
 import com.realaction.yunbomobile.db.DBService;
 import com.realaction.yunbomobile.moddel.CourseItem;
 import com.realaction.yunbomobile.moddel.User;
+import com.realaction.yunbomobile.utils.AppInfo;
 import com.realaction.yunbomobile.utils.CourseUtils;
 import com.realaction.yunbomobile.utils.UserUtils;
 
@@ -39,8 +40,8 @@ public class MyCoursePage extends Fragment {
 	private DBService dbService;
 	private User currentUser;
 	
-	private String url_coursestu = "http://192.168.2.231:8080/formobile/formobileGetStudentCourse.action";
-	private String url_coursetea = "http://192.168.2.231:8080/formobile/formobileGetTeacherCourse.action";
+	private String url_coursestu = AppInfo.base_url + "/formobile/formobileGetStudentCourse.action";
+	private String url_coursetea = AppInfo.base_url + "/formobile/formobileGetTeacherCourse.action";
 	
 	private MyCourseListAdapter adapter_bixiu;
 	private MyCourseListAdapter adapter_xuanxiu;

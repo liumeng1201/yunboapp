@@ -25,6 +25,7 @@ import android.widget.EditText;
 
 import com.realaction.yunbomobile.db.DBService;
 import com.realaction.yunbomobile.moddel.User;
+import com.realaction.yunbomobile.utils.AppInfo;
 import com.realaction.yunbomobile.utils.HttpTool;
 import com.realaction.yunbomobile.utils.UserUtils;
 
@@ -41,7 +42,7 @@ public class LoginActivity extends Activity {
 	private EditText et_passwd;
 	private CheckBox cb_rmbuser;
 	private Button btn_login;
-	private String url = "http://192.168.2.231:8080/formobile/formobileLogin.action";
+	private String url = AppInfo.base_url + "/formobile/formobileLogin.action";
 	private ProgressDialog loginDialog;
 	private UserUtils uu;
 	private DBService dbService;

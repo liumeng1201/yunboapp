@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -105,5 +106,20 @@ public class HttpTool {
 				Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 			}
 		});
+	}
+	
+	// ½«×Ö·û´®×ª»»Îªutf-8±àÂë
+	public static String stringToUTF8(String str) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(str);
+		String tmpStr = "";
+		String utf8Str = "";
+		try {
+			tmpStr = new String(sb.toString().getBytes("UTF-8"));
+			utf8Str = URLEncoder.encode(tmpStr, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return utf8Str;
 	}
 }

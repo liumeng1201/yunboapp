@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.moddel.CaseItem;
+import com.realaction.yunbomobile.moddel.CaseSourcesItem;
 import com.realaction.yunbomobile.moddel.CourseItem;
-import com.realaction.yunbomobile.utils.CaseViewChildItem;
 import com.realaction.yunbomobile.utils.CaseViewGroupItem;
 
 /**
@@ -24,10 +24,10 @@ import com.realaction.yunbomobile.utils.CaseViewGroupItem;
 public class DrawerCaseViewExpandableAdapter extends BaseExpandableListAdapter {
 	private Context context;
 	private List<CaseViewGroupItem> groupArray;
-	private List<List<CaseViewChildItem>> childArray;
+	private List<List<CaseSourcesItem>> childArray;
 
 	public DrawerCaseViewExpandableAdapter(Context context,
-			List<CaseViewGroupItem> groupArray, List<List<CaseViewChildItem>> childArray) {
+			List<CaseViewGroupItem> groupArray, List<List<CaseSourcesItem>> childArray) {
 		this.context = context;
 		this.groupArray = groupArray;
 		this.childArray = childArray;
@@ -55,7 +55,7 @@ public class DrawerCaseViewExpandableAdapter extends BaseExpandableListAdapter {
 			convertView.setTag(holder);
 		}
 		ChildViewHolder holder = (ChildViewHolder) convertView.getTag();
-		holder.item.setText(childArray.get(groupPosition).get(childPosition).childname);
+		holder.item.setText(childArray.get(groupPosition).get(childPosition).guideDocName);
 		return convertView;
 	}
 

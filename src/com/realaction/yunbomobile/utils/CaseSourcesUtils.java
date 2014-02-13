@@ -10,30 +10,33 @@ import org.apache.http.NameValuePair;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
-import android.content.Context;
+import com.realaction.yunbomobile.moddel.CaseSourcesItem;
 
-import com.realaction.yunbomobile.moddel.CaseItem;
+import android.content.Context;
+import android.util.Log;
 
 public class CaseSourcesUtils {
+	private static final String TAG = "CaseSourcesUtils";
+	
 	private Context context;
 
 	public CaseSourcesUtils(Context context) {
 		this.context = context;
 	}
 
-	public List<CaseItem> getCaseSourcesList(String url, List<NameValuePair> datas) {
+	public List<CaseSourcesItem> getCaseSourcesList(String url, List<NameValuePair> datas) {
 		InputStream xmlStream = HttpTool.sendDataByPost(url, datas);
+//		Log.d(TAG, HttpTool.convertStreamToString(xmlStream));
 		try {
-//			SAXParserFactory factory = SAXParserFactory.newInstance();
-//			SAXParser parser = factory.newSAXParser();
-//			XMLReader xmlreader = parser.getXMLReader();
-//			CasesHandler handler = new CaseSourcesHandler(context);
-//			xmlreader.setContentHandler(handler);
-//			InputSource source = new InputSource(xmlStream);
-//			xmlreader.parse(source);
-//			List<CaseItem> items = handler.getCasesList();
-//			return items;
-			return null;
+			SAXParserFactory factory = SAXParserFactory.newInstance();
+			SAXParser parser = factory.newSAXParser();
+			XMLReader xmlreader = parser.getXMLReader();
+			CaseSourcesHandler handler = new CaseSourcesHandler(context);
+			xmlreader.setContentHandler(handler);
+			InputSource source = new InputSource(xmlStream);
+			xmlreader.parse(source);
+			List<CaseSourcesItem> items = handler.getCaseSourcesList();
+			return items;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.adapter.CaseListAdpater;
 import com.realaction.yunbomobile.moddel.CaseItem;
+import com.realaction.yunbomobile.utils.AppInfo;
 import com.realaction.yunbomobile.utils.CasesUtils;
 import com.squareup.picasso.Picasso;
 
@@ -33,8 +34,8 @@ import com.squareup.picasso.Picasso;
 public class CaseListActivity extends Activity {
 	private Context context;
 	private Handler mHandler;
-	private String url_student = "http://192.168.2.231:8080/formobile/formobileGetStudentCases.action";
-	private String url_teacher = "http://192.168.2.231:8080/formobile/formobileGetTeacherCases.action";
+	private String url_student = AppInfo.base_url + "/formobile/formobileGetStudentCases.action";
+	private String url_teacher = AppInfo.base_url + "/formobile/formobileGetTeacherCases.action";
 	private String scoreId;
 	private ImageView caselist_img;
 	private TextView caselist_info;
