@@ -39,4 +39,6 @@ public class UserTb {
 			+ USERNAME + "," + PASSWD + "," + REALNAME + "," + USERTYPEID + ","
 			+ PROFILEURL + "," + STUNO + "," + EMPNO + " from " + USERTB
 			+ " where " + USERNAME + "=?";
+	// É¾³ýÓÃ»§±í
+	public static final String DROP_USER_TB = "DROP TABLE IF EXISTS " + USERTB;
 }

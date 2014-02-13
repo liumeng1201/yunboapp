@@ -38,7 +38,7 @@ public class HttpTool {
 		// 初始化http参数对象
 		httpParams = new BasicHttpParams();
 		// 设置http响应超时参数
-		HttpConnectionParams.setConnectionTimeout(httpParams, 20 * 1000);
+		HttpConnectionParams.setConnectionTimeout(httpParams, 5 * 1000);
 		// 取得http客户对象
 		client = new DefaultHttpClient(httpParams);
 		// 发送http post请求对象

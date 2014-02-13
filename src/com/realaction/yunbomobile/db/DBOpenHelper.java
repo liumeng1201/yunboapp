@@ -26,11 +26,15 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 		// 创建user表
 		db.execSQL(UserTb.CREATE_USER_TB);
 		db.execSQL(UserTb.CREATE_USER_TB_UNIQUE_INDEX);
+		// 创建课程表
+		db.execSQL(CourseTb.CREATE_COURSE_TB);
+		db.execSQL(CourseTb.CREATE_COURSE_TB_UNIQUE_INDEX);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS t_user");
+		db.execSQL(UserTb.DROP_USER_TB);
+		db.execSQL(CourseTb.DROP_COURSE_TB);
 		onCreate(db);
 	}
 
