@@ -73,7 +73,7 @@ public class MyCoursePage extends Fragment {
 		context = getActivity().getApplicationContext();
 		userUtils = new UserUtils(context);
 		dbService = new DBService(context);
-		currentUser = new User();
+//		currentUser = new User();
 		currentUser = dbService.findUserByuserName(userUtils.getUserName());
 		list_bixiu = new ArrayList<CourseItem>();
 		list_xuanxiu = new ArrayList<CourseItem>();
