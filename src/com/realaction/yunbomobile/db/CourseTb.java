@@ -32,11 +32,6 @@ public class CourseTb {
 			+ "," + COURSENAME + "," + TYPE + "," + ICON + "," + COURSECODE
 			+ "," + SCOREID + "," + USERID + " from " + COURSETB + " where "
 			+ COURSEID + "=?";
-	// 根据courseName查找用户
-	public static final String FIND_COURSE_BY_COURSENAME = "select " + COURSEID
-			+ "," + COURSENAME + "," + TYPE + "," + ICON + "," + COURSECODE
-			+ "," + SCOREID + "," + USERID + " from " + COURSETB + " where "
-			+ COURSENAME + "=?";
 	// 删除课程表
 	public static final String DROP_COURSE_TB = "DROP TABLE IF EXISTS "
 			+ COURSETB;
