@@ -73,7 +73,6 @@ public class CaseViewActivity extends Activity {
 		new Thread() {
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				super.run();
 				CaseSourcesUtils csu = new CaseSourcesUtils(context);
 				List<NameValuePair> datas = new ArrayList<NameValuePair>();
