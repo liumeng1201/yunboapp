@@ -80,9 +80,6 @@ public class MyCoursePage extends Fragment {
 		
 		/*----------------------------------------------*/
 		for (int i = 1; i < 51; i++) {
-			CourseItem ci1 = new CourseItem();
-			ci1.courseName = "必修课程  " + i;
-			list_bixiu.add(ci1);
 			CourseItem ci2 = new CourseItem();
 			ci2.courseName = "选修课程  " + i;
 			list_xuanxiu.add(ci2);
@@ -104,8 +101,7 @@ public class MyCoursePage extends Fragment {
 		tabhost.addTab(tabhost.newTabSpec("tab1")
 				.setIndicator(getResources().getString(R.string.course_bixiu))
 				.setContent(R.id.mycourse_list1));
-		tabhost.addTab(tabhost
-				.newTabSpec("tab2")
+		tabhost.addTab(tabhost.newTabSpec("tab2")
 				.setIndicator(getResources().getString(R.string.course_xuanxiu))
 				.setContent(R.id.mycourse_list2));
 		
