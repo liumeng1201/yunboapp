@@ -16,7 +16,7 @@ import android.widget.ListView;
 
 import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.adapter.OpenCourseListAdapter;
-import com.realaction.yunbomobile.utils.OpenCourseInfo;
+import com.realaction.yunbomobile.moddel.OpenCourseInfo;
 
 /**
  * 公开课界面

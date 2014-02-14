@@ -1,4 +1,4 @@
-package com.realaction.yunbomobile.utils;
+package com.realaction.yunbomobile.moddel;
 
 /**
  * CaseView界面ExpandableListView group信息

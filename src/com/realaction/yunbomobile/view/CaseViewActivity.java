@@ -31,9 +31,9 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.adapter.DrawerCaseViewExpandableAdapter;
 import com.realaction.yunbomobile.moddel.CaseSourcesItem;
+import com.realaction.yunbomobile.moddel.CaseViewGroupItem;
 import com.realaction.yunbomobile.utils.AppInfo;
 import com.realaction.yunbomobile.utils.CaseSourcesUtils;
-import com.realaction.yunbomobile.utils.CaseViewGroupItem;
 import com.realaction.yunbomobile.view.caseviews.CaseViewFragment;
 import com.realaction.yunbomobile.view.caseviews.VideoViewActivity;
 

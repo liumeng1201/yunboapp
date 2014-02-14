@@ -13,7 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.realaction.yunbomobile.R;
-import com.realaction.yunbomobile.utils.OpenCourseInfo;
+import com.realaction.yunbomobile.moddel.OpenCourseInfo;
 
 /**
  * ¹«¿ª¿ÎListAdapter

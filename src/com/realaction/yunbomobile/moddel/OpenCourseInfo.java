@@ -1,6 +1,5 @@
-package com.realaction.yunbomobile.utils;
+package com.realaction.yunbomobile.moddel;
 
-import com.realaction.yunbomobile.moddel.CourseItem;
 
 public class OpenCourseInfo {
 	public CourseItem courseinfo;

@@ -13,8 +13,8 @@ import android.widget.TextView;
 import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.moddel.CaseItem;
 import com.realaction.yunbomobile.moddel.CaseSourcesItem;
+import com.realaction.yunbomobile.moddel.CaseViewGroupItem;
 import com.realaction.yunbomobile.moddel.CourseItem;
-import com.realaction.yunbomobile.utils.CaseViewGroupItem;
 
 /**
  * 案例资源查看界面,案例资源二层ListView适配器
