@@ -49,7 +49,7 @@ public class AsyncTaskGetCourseList extends AsyncTask<String, Integer, List<Cour
 			break;
 		}
 		// 获取并解析课程数据
-		CourseUtils cu = new CourseUtils(context);
+		CourseUtils cu = new CourseUtils(context, params[1]);
 		return cu.getCourseList(url, datas);
 	}
 

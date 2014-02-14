@@ -27,11 +27,11 @@ public class CourseTb {
 	// 创建课程表courseId唯一索引
 	public static final String CREATE_COURSE_TB_UNIQUE_INDEX = "CREATE UNIQUE INDEX "
 			+ COURSE_TB_UNIQUE_INDEX + " ON " + COURSETB + "(" + COURSEID + ")";
-	// 根据courseId查找用户
-	public static final String FIND_COURSE_BY_COURSEID = "select " + COURSEID
+	// 根据userId查找课程
+	public static final String FIND_COURSE_BY_USERID = "select " + COURSEID
 			+ "," + COURSENAME + "," + TYPE + "," + ICON + "," + COURSECODE
 			+ "," + SCOREID + "," + USERID + " from " + COURSETB + " where "
-			+ COURSEID + "=?";
+			+ USERID + "=?";
 	// 删除课程表
 	public static final String DROP_COURSE_TB = "DROP TABLE IF EXISTS "
 			+ COURSETB;

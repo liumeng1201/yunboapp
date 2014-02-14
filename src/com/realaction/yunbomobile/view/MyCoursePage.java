@@ -4,14 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +23,6 @@ import com.realaction.yunbomobile.moddel.CourseItem;
 import com.realaction.yunbomobile.moddel.User;
 import com.realaction.yunbomobile.utils.AppInfo;
 import com.realaction.yunbomobile.utils.AsyncTaskGetCourseList;
-import com.realaction.yunbomobile.utils.CourseUtils;
 import com.realaction.yunbomobile.utils.UserUtils;
 
 /**
@@ -37,13 +32,9 @@ import com.realaction.yunbomobile.utils.UserUtils;
  */
 public class MyCoursePage extends Fragment {
 	private Context context;
-	private Handler mHandler = new Handler();
 	private UserUtils userUtils;
 	private DBService dbService;
 	private User currentUser;
-
-	private String url_coursestu = AppInfo.base_url + "/formobile/formobileGetStudentCourse.action";
-	private String url_coursetea = AppInfo.base_url + "/formobile/formobileGetTeacherCourse.action";
 
 	private MyCourseListAdapter adapter_bixiu;
 	private MyCourseListAdapter adapter_xuanxiu;
@@ -122,49 +113,56 @@ public class MyCoursePage extends Fragment {
 	 * 更新课程列表的内容
 	 */
 	private void refreshCoursesList() {
-		/*
-		 * 以新线程的方式获取课程数据并更新列表
-		new Thread() {
-			@Override
-			public void run() {
-				super.run();
-				String url = null;
-				List<NameValuePair> datas = new ArrayList<NameValuePair>();
-				switch (currentUser.userTypeId) {
-				case 10:
-					// 学生
-					datas.add(new BasicNameValuePair("stuId", Long.toString(currentUser.userId)));
-					url = url_coursestu;
-					break;
-				case 20:
-				case 40:
-					// 老师
-					datas.add(new BasicNameValuePair("teaId", Long.toString(currentUser.userId)));
-					url = url_coursetea;
-					break;
-				}
-				CourseUtils cu = new CourseUtils(context);
-				list_bixiu = cu.getCourseList(url, datas);
-
-				mHandler.post(new Runnable() {
-					@Override
-					public void run() {
-						adapter_bixiu.refresh(list_bixiu);
+		if (AppInfo.network_avabile) {
+			// 网络可用的时候通过网络获取要显示的数据
+			/* 以新线程的方式获取课程数据并更新列表 
+			final Handler mHandler = new Handler();
+	        final String url_coursestu = AppInfo.base_url + "/formobile/formobileGetStudentCourse.action";
+	        final String url_coursetea = AppInfo.base_url + "/formobile/formobileGetTeacherCourse.action";
+			new Thread() {
+				@Override
+				public void run() {
+					super.run();
+					String url = null;
+					List<NameValuePair> datas = new ArrayList<NameValuePair>();
+					switch (currentUser.userTypeId) {
+					case 10: // 学生
+						datas.add(new BasicNameValuePair("stuId", Long.toString(currentUser.userId)));
+						url = url_coursestu;
+						break;
+					case 20:
+					case 40: // 老师
+						datas.add(new BasicNameValuePair("teaId", Long.toString(currentUser.userId)));
+						url = url_coursetea;
+						break;
 					}
-				});
+					CourseUtils cu = new CourseUtils(context, String.valueOf(currentUser.userId));
+					list_bixiu = cu.getCourseList(url, datas);
+					mHandler.post(new Runnable() {
+						@Override
+						public void run() {
+							adapter_bixiu.refresh(list_bixiu);
+						}
+					});
+				}
+			}.start();
+			*/
+			// 以异步任务方式获取课程数据并更新列表
+			AsyncTaskGetCourseList async = new AsyncTaskGetCourseList(context,
+					adapter_bixiu);
+			String[] params = { String.valueOf(currentUser.userTypeId),
+					String.valueOf(currentUser.userId) };
+			try {
+				list_bixiu = async.execute(params).get();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
 			}
-		}.start();
-		*/
-		// 以异步任务方式获取课程数据并更新列表
-		AsyncTaskGetCourseList async = new AsyncTaskGetCourseList(context, adapter_bixiu);
-		String[] params = { String.valueOf(currentUser.userTypeId),
-				String.valueOf(currentUser.userId) };
-		try {
-			list_bixiu = async.execute(params).get();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
+		} else {
+			// 网络不可用的时候通过访问数据库中缓存的数据来获取要显示的数据
+			list_bixiu = dbService.findCoursesByuserId(currentUser.userId);
+			adapter_bixiu.refresh(list_bixiu);
 		}
 	}
 

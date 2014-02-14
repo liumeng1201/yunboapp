@@ -10,6 +10,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import android.content.Context;
 import android.util.Log;
 
+import com.realaction.yunbomobile.db.DBService;
 import com.realaction.yunbomobile.moddel.CourseItem;
 
 /**
@@ -21,9 +22,12 @@ public class CourseHandler extends DefaultHandler {
 	private static final String TAG = "CourseHandler";
 	private Context context;
 	private List<CourseItem> courseList;
+	private DBService dbService;
+	private long userId;
 
-	public CourseHandler(Context context) {
+	public CourseHandler(Context context, String userId) {
 		this.context = context;
+		this.userId = Long.parseLong(userId);
 	}
 
 	/**
@@ -37,6 +41,7 @@ public class CourseHandler extends DefaultHandler {
 	@Override
 	public void endDocument() throws SAXException {
 		super.endDocument();
+		dbService.close();
 	}
 
 	// 初始化工作
@@ -44,6 +49,7 @@ public class CourseHandler extends DefaultHandler {
 	public void startDocument() throws SAXException {
 		super.startDocument();
 		courseList = new ArrayList<CourseItem>();
+		dbService = new DBService(context);
 	}
 
 	@Override
@@ -84,6 +90,8 @@ public class CourseHandler extends DefaultHandler {
 				// 老师
 				break;
 			}
+			item.userId = userId;
+			dbService.insertCourseTb(item);
 			courseList.add(item);
 		}
 	}

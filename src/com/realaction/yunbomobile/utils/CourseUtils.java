@@ -21,9 +21,11 @@ import com.realaction.yunbomobile.moddel.CourseItem;
  */
 public class CourseUtils {
 	private Context context;
+	private String userId;
 
-	public CourseUtils(Context context) {
+	public CourseUtils(Context context, String userId) {
 		this.context = context;
+		this.userId = userId;
 	}
 
 	/**
@@ -41,7 +43,7 @@ public class CourseUtils {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser parser = factory.newSAXParser();
 			XMLReader xmlreader = parser.getXMLReader();
-			CourseHandler handler = new CourseHandler(context);
+			CourseHandler handler = new CourseHandler(context, userId);
 			xmlreader.setContentHandler(handler);
 			InputSource source = new InputSource(xmlStream);
 			xmlreader.parse(source);

@@ -1,5 +1,8 @@
 package com.realaction.yunbomobile.db;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -126,16 +129,18 @@ public class DBService {
 	}
 
 	/**
-	 * 根据courseId查找course
+	 * 根据userId查找该用户的所有课程
 	 * 
-	 * @param courseId
-	 * @return courseId对应的course对象
+	 * @param userId
+	 * @return userId对应的课程列表
 	 */
-	public CourseItem findCourseBycourseId(long courseId) {
-		CourseItem course = new CourseItem();
-		Cursor cursor = db.rawQuery(CourseTb.FIND_COURSE_BY_COURSEID,
-				new String[] { String.valueOf(courseId) });
-		if (cursor.moveToNext()) {
+	public List<CourseItem> findCoursesByuserId(long userId) {
+		List<CourseItem> courses = new ArrayList<CourseItem>();
+		Cursor cursor = db.rawQuery(CourseTb.FIND_COURSE_BY_USERID,
+				new String[] { String.valueOf(userId) });
+		cursor.moveToFirst();
+		do {
+			CourseItem course = new CourseItem();
 			course.courseId = cursor.getLong(0);
 			course.courseName = cursor.getString(1);
 			course.type = cursor.getString(2);
@@ -143,8 +148,9 @@ public class DBService {
 			course.courseCode = cursor.getString(4);
 			course.scoreId = cursor.getString(5);
 			course.userId = cursor.getLong(6);
-		}
-		return course;
+			courses.add(course);
+		} while (cursor.moveToNext());
+		return courses;
 	}
 
 }
