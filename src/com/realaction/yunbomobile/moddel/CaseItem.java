@@ -13,4 +13,5 @@ public class CaseItem {
 	public String teacherName;
 	public long caseGroupId;
 	public String caseGroupName;
+	public String scoreId;
 }

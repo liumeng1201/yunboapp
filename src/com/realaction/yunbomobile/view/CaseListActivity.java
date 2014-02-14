@@ -60,6 +60,10 @@ public class CaseListActivity extends Activity {
 		caselist_img = (ImageView) findViewById(R.id.caselist_img);
 		caselist_info = (TextView) findViewById(R.id.caselist_info);
 		caselist_list = (ListView) findViewById(R.id.caselist_list);
+		caselists = new ArrayList<CaseItem>();
+		adapter = new CaseListAdpater(context, caselists);
+		caselist_list.setAdapter(adapter);
+		
 		initData();
 		setData();
 	}
@@ -82,25 +86,30 @@ public class CaseListActivity extends Activity {
 				"这门课程主要介绍化学动力学以及化学热力学，其中包括宏观系统的守恒性质，基本热力学，气体及液体化学反应的平衡性质，等等。讲师会通过一些简单常见的化学反应来传递化学反应的守恒性质，并介绍化学反应速率等知识点。"
 		};
 		
-		// TODO 需要优化
-		// 获取课程案例资源并与案例列表ListView绑定
-		new Thread() {
-			@Override
-			public void run() {
-				super.run();
-				List<NameValuePair> datas = new ArrayList<NameValuePair>();
-				datas.add(new BasicNameValuePair("scoreId", scoreId));
-				CasesUtils cu = new CasesUtils(context);
-				caselists = cu.getCasesList(url_student, datas);
-				mHandler.post(new Runnable() {
-					@Override
-					public void run() {
-						adapter = new CaseListAdpater(context, caselists);
-						caselist_list.setAdapter(adapter);
-					}
-				});
-			}
-		}.start();
+		if (AppInfo.network_avabile) {
+			// 网络可用的时候通过网络获取案例数据
+			// 获取课程案例资源并与案例列表ListView绑定
+			new Thread() {
+				@Override
+				public void run() {
+					super.run();
+					List<NameValuePair> datas = new ArrayList<NameValuePair>();
+					datas.add(new BasicNameValuePair("scoreId", scoreId));
+					CasesUtils cu = new CasesUtils(context);
+					caselists = cu.getCasesList(url_student, datas);
+					mHandler.post(new Runnable() {
+						@Override
+						public void run() {
+							// adapter = new CaseListAdpater(context, caselists);
+							// caselist_list.setAdapter(adapter);
+							adapter.refresh(caselists);
+						}
+					});
+				}
+			}.start();
+		} else {
+			// 网络不可用时通过数据库获取缓存的案例数据
+		}
 	}
 	
 	/**

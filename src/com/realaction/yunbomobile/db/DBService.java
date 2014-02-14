@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.realaction.yunbomobile.moddel.CaseItem;
 import com.realaction.yunbomobile.moddel.CourseItem;
 import com.realaction.yunbomobile.moddel.User;
 
@@ -83,6 +84,26 @@ public class DBService {
 	}
 
 	/**
+	 * 向案例表中插入数据不存在插入存在则更新
+	 * 
+	 * @param caseitem
+	 *            案例
+	 * @return 成功返回rowId失败返回-1
+	 */
+	public long insertCaseTb(CaseItem caseitem) {
+		ContentValues cv = new ContentValues();
+		cv.put(CaseTb.CASEID, caseitem.caseId);
+		cv.put(CaseTb.CASENAME, caseitem.caseName);
+		cv.put(CaseTb.KEYWORDS, caseitem.keyWords);
+		cv.put(CaseTb.DEVROLENAME, caseitem.devRoleName);
+		cv.put(CaseTb.TEACHERNAME, caseitem.teacherName);
+		cv.put(CaseTb.CASEGROUPID, caseitem.caseGroupId);
+		cv.put(CaseTb.CASEGROUPNAME, caseitem.caseGroupName);
+		cv.put(CaseTb.SCOREID, caseitem.scoreId);
+		return db.replace(CaseTb.CASETB, null, cv);
+	}
+
+	/**
 	 * 根据userId查找user
 	 * 
 	 * @param userId
@@ -151,6 +172,32 @@ public class DBService {
 			courses.add(course);
 		} while (cursor.moveToNext());
 		return courses;
+	}
+
+	/**
+	 * 根据scoreId查找用户所有的课程案例
+	 * 
+	 * @param scoreId
+	 * @return scoreId对应的案例列表
+	 */
+	public List<CaseItem> findCasesByscoreId(String scoredId) {
+		List<CaseItem> cases = new ArrayList<CaseItem>();
+		Cursor cursor = db.rawQuery(CaseTb.FIND_CASE_BY_SCOREID,
+				new String[] { String.valueOf(scoredId) });
+		cursor.moveToFirst();
+		do {
+			CaseItem caseitem = new CaseItem();
+			caseitem.caseId = cursor.getLong(0);
+			caseitem.caseName = cursor.getString(1);
+			caseitem.keyWords = cursor.getString(2);
+			caseitem.devRoleName = cursor.getString(3);
+			caseitem.teacherName = cursor.getString(4);
+			caseitem.caseGroupId = cursor.getLong(5);
+			caseitem.caseGroupName = cursor.getString(6);
+			caseitem.scoreId = cursor.getString(7);
+			cases.add(caseitem);
+		} while (cursor.moveToNext());
+		return cases;
 	}
 
 }

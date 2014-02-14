@@ -26,6 +26,11 @@ public class CaseListAdpater extends BaseAdapter {
 		this.context = context;
 		this.list = list;
 	}
+	
+	public void refresh(List<CaseItem> list) {
+		this.list = list;
+		notifyDataSetChanged();
+	}
 
 	@Override
 	public int getCount() {
