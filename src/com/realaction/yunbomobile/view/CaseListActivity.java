@@ -5,14 +5,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -22,10 +18,10 @@ import android.widget.TextView;
 
 import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.adapter.CaseListAdpater;
+import com.realaction.yunbomobile.db.DBService;
 import com.realaction.yunbomobile.moddel.CaseItem;
 import com.realaction.yunbomobile.utils.AppInfo;
 import com.realaction.yunbomobile.utils.AsyncTaskGetCaseList;
-import com.realaction.yunbomobile.utils.CasesUtils;
 import com.realaction.yunbomobile.utils.UserUtils;
 import com.squareup.picasso.Picasso;
 
@@ -45,6 +41,7 @@ public class CaseListActivity extends Activity {
 	
 	private List<CaseItem> caselists;
 	private CaseListAdpater adapter;
+	private DBService dbService;
 	
 	private String[] img_urls;
 	private String[] course_infos;
@@ -54,6 +51,7 @@ public class CaseListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_caselist);
 		context = CaseListActivity.this;
+		dbService = new DBService(context);
 		userTypeId = (new UserUtils(context)).getUserTypeId();
 		// 获取从课程列表界面跳转过来的Intent
 		Intent intent = getIntent();
@@ -100,7 +98,7 @@ public class CaseListActivity extends Activity {
 					super.run();
 					List<NameValuePair> datas = new ArrayList<NameValuePair>();
 					datas.add(new BasicNameValuePair("scoreId", scoreId));
-					CasesUtils cu = new CasesUtils(context);
+					CasesUtils cu = new CasesUtils(context, scoreId);
 					caselists = cu.getCasesList(url_student, datas);
 					mHandler.post(new Runnable() {
 						@Override
@@ -122,6 +120,10 @@ public class CaseListActivity extends Activity {
 			}
 		} else {
 			// 网络不可用时通过数据库获取缓存的案例数据
+			caselists = dbService.findCasesByscoreId(scoreId);
+			if (caselists != null) {
+				adapter.refresh(caselists);
+			}
 		}
 	
 		Random random = new Random();
@@ -136,6 +138,12 @@ public class CaseListActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		dbService.close();
 	}
 
 }

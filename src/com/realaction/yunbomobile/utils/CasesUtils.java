@@ -21,9 +21,11 @@ import com.realaction.yunbomobile.moddel.CaseItem;
  */
 public class CasesUtils {
 	private Context context;
+	private String scoreId;
 
-	public CasesUtils(Context context) {
+	public CasesUtils(Context context, String scoreId) {
 		this.context = context;
+		this.scoreId = scoreId;
 	}
 
 	/**
@@ -41,7 +43,7 @@ public class CasesUtils {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser parser = factory.newSAXParser();
 			XMLReader xmlreader = parser.getXMLReader();
-			CasesHandler handler = new CasesHandler(context);
+			CasesHandler handler = new CasesHandler(context, scoreId);
 			xmlreader.setContentHandler(handler);
 			InputSource source = new InputSource(xmlStream);
 			xmlreader.parse(source);

@@ -187,7 +187,7 @@ public class LoginActivity extends Activity {
 			// 判断输入的用户数据是否为之前已登陆过的用户
 			AppInfo.network_avabile = false;
 			User user = dbService.findUserByuserName(et_name.getText().toString());
-			if (user.password != null && (user.password).equals(et_passwd.getText().toString())) {
+			if (user != null && user.password != null && (user.password).equals(et_passwd.getText().toString())) {
 				uu.saveUserInfoToPref(user.userName, user.password,
 						user.realName, user.userTypeId, user.stuNo, user.empNo,
 						user.profileUrl, cb_rmbuser.isChecked());

@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.realaction.yunbomobile.moddel.CaseItem;
 import com.realaction.yunbomobile.moddel.CourseItem;
@@ -136,17 +137,21 @@ public class DBService {
 		User user = new User();
 		Cursor cursor = db.rawQuery(UserTb.FIND_USER_BY_USERNAME,
 				new String[] { username });
-		if (cursor.moveToNext()) {
-			user.userId = cursor.getLong(0);
-			user.userName = cursor.getString(1);
-			user.password = cursor.getString(2);
-			user.realName = cursor.getString(3);
-			user.userTypeId = cursor.getInt(4);
-			user.profileUrl = cursor.getString(5);
-			user.stuNo = cursor.getString(6);
-			user.empNo = cursor.getString(7);
+		if (cursor.getCount() > 0) {
+			if (cursor.moveToNext()) {
+				user.userId = cursor.getLong(0);
+				user.userName = cursor.getString(1);
+				user.password = cursor.getString(2);
+				user.realName = cursor.getString(3);
+				user.userTypeId = cursor.getInt(4);
+				user.profileUrl = cursor.getString(5);
+				user.stuNo = cursor.getString(6);
+				user.empNo = cursor.getString(7);
+			}
+			return user;
+		} else {
+			return null;
 		}
-		return user;
 	}
 
 	/**
@@ -159,19 +164,23 @@ public class DBService {
 		List<CourseItem> courses = new ArrayList<CourseItem>();
 		Cursor cursor = db.rawQuery(CourseTb.FIND_COURSE_BY_USERID,
 				new String[] { String.valueOf(userId) });
-		cursor.moveToFirst();
-		do {
-			CourseItem course = new CourseItem();
-			course.courseId = cursor.getLong(0);
-			course.courseName = cursor.getString(1);
-			course.type = cursor.getString(2);
-			course.icon = cursor.getString(3);
-			course.courseCode = cursor.getString(4);
-			course.scoreId = cursor.getString(5);
-			course.userId = cursor.getLong(6);
-			courses.add(course);
-		} while (cursor.moveToNext());
-		return courses;
+		if (cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			do {
+				CourseItem course = new CourseItem();
+				course.courseId = cursor.getLong(0);
+				course.courseName = cursor.getString(1);
+				course.type = cursor.getString(2);
+				course.icon = cursor.getString(3);
+				course.courseCode = cursor.getString(4);
+				course.scoreId = cursor.getString(5);
+				course.userId = cursor.getLong(6);
+				courses.add(course);
+			} while (cursor.moveToNext());
+			return courses;
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -184,20 +193,25 @@ public class DBService {
 		List<CaseItem> cases = new ArrayList<CaseItem>();
 		Cursor cursor = db.rawQuery(CaseTb.FIND_CASE_BY_SCOREID,
 				new String[] { String.valueOf(scoredId) });
-		cursor.moveToFirst();
-		do {
-			CaseItem caseitem = new CaseItem();
-			caseitem.caseId = cursor.getLong(0);
-			caseitem.caseName = cursor.getString(1);
-			caseitem.keyWords = cursor.getString(2);
-			caseitem.devRoleName = cursor.getString(3);
-			caseitem.teacherName = cursor.getString(4);
-			caseitem.caseGroupId = cursor.getLong(5);
-			caseitem.caseGroupName = cursor.getString(6);
-			caseitem.scoreId = cursor.getString(7);
-			cases.add(caseitem);
-		} while (cursor.moveToNext());
-		return cases;
+		Log.d("lm", "count = " + cursor.getCount());
+		if (cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			do {
+				CaseItem caseitem = new CaseItem();
+				caseitem.caseId = cursor.getLong(0);
+				caseitem.caseName = cursor.getString(1);
+				caseitem.keyWords = cursor.getString(2);
+				caseitem.devRoleName = cursor.getString(3);
+				caseitem.teacherName = cursor.getString(4);
+				caseitem.caseGroupId = cursor.getLong(5);
+				caseitem.caseGroupName = cursor.getString(6);
+				caseitem.scoreId = cursor.getString(7);
+				cases.add(caseitem);
+			} while (cursor.moveToNext());
+			return cases;
+		} else {
+			return null;
+		}
 	}
 
 }

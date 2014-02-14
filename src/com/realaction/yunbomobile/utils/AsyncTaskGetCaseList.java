@@ -43,7 +43,7 @@ public class AsyncTaskGetCaseList extends AsyncTask<String, Integer, List<CaseIt
 		}
 		List<NameValuePair> datas = new ArrayList<NameValuePair>();
 		datas.add(new BasicNameValuePair("scoreId", scoreId));
-		CasesUtils cu = new CasesUtils(context);
+		CasesUtils cu = new CasesUtils(context, scoreId);
 		return cu.getCasesList(url_student, datas);
 	}
 

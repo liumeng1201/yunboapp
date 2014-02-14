@@ -148,8 +148,7 @@ public class MyCoursePage extends Fragment {
 			}.start();
 			*/
 			// 以异步任务方式获取课程数据并更新列表
-			AsyncTaskGetCourseList async = new AsyncTaskGetCourseList(context,
-					adapter_bixiu);
+			AsyncTaskGetCourseList async = new AsyncTaskGetCourseList(context, adapter_bixiu);
 			String[] params = { String.valueOf(currentUser.userTypeId),
 					String.valueOf(currentUser.userId) };
 			try {
@@ -162,7 +161,9 @@ public class MyCoursePage extends Fragment {
 		} else {
 			// 网络不可用的时候通过访问数据库中缓存的数据来获取要显示的数据
 			list_bixiu = dbService.findCoursesByuserId(currentUser.userId);
-			adapter_bixiu.refresh(list_bixiu);
+			if (list_bixiu != null) {
+				adapter_bixiu.refresh(list_bixiu);
+			}
 		}
 	}
 

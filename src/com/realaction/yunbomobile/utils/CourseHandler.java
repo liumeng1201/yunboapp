@@ -37,13 +37,6 @@ public class CourseHandler extends DefaultHandler {
 		return courseList;
 	}
 
-	// 收尾工作
-	@Override
-	public void endDocument() throws SAXException {
-		super.endDocument();
-		dbService.close();
-	}
-
 	// 初始化工作
 	@Override
 	public void startDocument() throws SAXException {
@@ -51,17 +44,18 @@ public class CourseHandler extends DefaultHandler {
 		courseList = new ArrayList<CourseItem>();
 		dbService = new DBService(context);
 	}
+	
+	// 收尾工作
+	@Override
+	public void endDocument() throws SAXException {
+		super.endDocument();
+		dbService.close();
+	}
 
 	@Override
 	public void characters(char[] ch, int start, int length)
 			throws SAXException {
 		super.characters(ch, start, length);
-	}
-
-	@Override
-	public void endElement(String uri, String localName, String qName)
-			throws SAXException {
-		super.endElement(uri, localName, qName);
 	}
 
 	@Override
@@ -91,9 +85,15 @@ public class CourseHandler extends DefaultHandler {
 				break;
 			}
 			item.userId = userId;
-			dbService.insertCourseTb(item);
 			courseList.add(item);
+			dbService.insertCourseTb(item);
 		}
+	}
+	
+	@Override
+	public void endElement(String uri, String localName, String qName)
+			throws SAXException {
+		super.endElement(uri, localName, qName);
 	}
 
 }
