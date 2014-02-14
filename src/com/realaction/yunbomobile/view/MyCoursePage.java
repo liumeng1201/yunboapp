@@ -2,6 +2,7 @@ package com.realaction.yunbomobile.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -25,6 +26,7 @@ import com.realaction.yunbomobile.db.DBService;
 import com.realaction.yunbomobile.moddel.CourseItem;
 import com.realaction.yunbomobile.moddel.User;
 import com.realaction.yunbomobile.utils.AppInfo;
+import com.realaction.yunbomobile.utils.AsyncTaskGetCourseList;
 import com.realaction.yunbomobile.utils.CourseUtils;
 import com.realaction.yunbomobile.utils.UserUtils;
 
@@ -39,10 +41,10 @@ public class MyCoursePage extends Fragment {
 	private UserUtils userUtils;
 	private DBService dbService;
 	private User currentUser;
-	
+
 	private String url_coursestu = AppInfo.base_url + "/formobile/formobileGetStudentCourse.action";
 	private String url_coursetea = AppInfo.base_url + "/formobile/formobileGetTeacherCourse.action";
-	
+
 	private MyCourseListAdapter adapter_bixiu;
 	private MyCourseListAdapter adapter_xuanxiu;
 	private List<CourseItem> list_bixiu;
@@ -73,19 +75,19 @@ public class MyCoursePage extends Fragment {
 		context = getActivity().getApplicationContext();
 		userUtils = new UserUtils(context);
 		dbService = new DBService(context);
-//		currentUser = new User();
 		currentUser = dbService.findUserByuserName(userUtils.getUserName());
 		list_bixiu = new ArrayList<CourseItem>();
 		list_xuanxiu = new ArrayList<CourseItem>();
-		
-		/*----------------------------------------------*/
+
+		/*--------------选修课测试数据------------*/
 		for (int i = 1; i < 51; i++) {
 			CourseItem ci2 = new CourseItem();
 			ci2.courseName = "选修课程  " + i;
 			list_xuanxiu.add(ci2);
 		}
-		/*----------------------------------------------*/
-		
+		/*-----------------------------------*/
+
+		adapter_bixiu = new MyCourseListAdapter(context, list_bixiu);
 		adapter_xuanxiu = new MyCourseListAdapter(context, list_xuanxiu);
 	}
 
@@ -95,7 +97,7 @@ public class MyCoursePage extends Fragment {
 		View view = inflater.inflate(R.layout.fragment_mycourse, null);
 		final ListView course_bixiu = (ListView) view.findViewById(R.id.mycourse_list1);
 		ListView course_xuanxiu = (ListView) view.findViewById(R.id.mycourse_list2);
-		
+
 		TabHost tabhost = (TabHost) view.findViewById(R.id.tabhost);
 		tabhost.setup();
 		tabhost.addTab(tabhost.newTabSpec("tab1")
@@ -104,8 +106,24 @@ public class MyCoursePage extends Fragment {
 		tabhost.addTab(tabhost.newTabSpec("tab2")
 				.setIndicator(getResources().getString(R.string.course_xuanxiu))
 				.setContent(R.id.mycourse_list2));
-		
-		/****************************/
+
+		course_bixiu.setAdapter(adapter_bixiu);
+		course_xuanxiu.setAdapter(adapter_xuanxiu);
+
+		course_bixiu.setOnItemClickListener(listener_bixiu);
+		course_xuanxiu.setOnItemClickListener(listener_xuanxiu);
+
+		refreshCoursesList();
+
+		return view;
+	}
+
+	/**
+	 * 更新课程列表的内容
+	 */
+	private void refreshCoursesList() {
+		/*
+		 * 以新线程的方式获取课程数据并更新列表
 		new Thread() {
 			@Override
 			public void run() {
@@ -127,23 +145,27 @@ public class MyCoursePage extends Fragment {
 				}
 				CourseUtils cu = new CourseUtils(context);
 				list_bixiu = cu.getCourseList(url, datas);
-				
+
 				mHandler.post(new Runnable() {
 					@Override
 					public void run() {
-						adapter_bixiu = new MyCourseListAdapter(context, list_bixiu);
-						course_bixiu.setAdapter(adapter_bixiu);
+						adapter_bixiu.refresh(list_bixiu);
 					}
 				});
 			}
 		}.start();
-		/****************************/
-		
-		course_xuanxiu.setAdapter(adapter_xuanxiu);
-		
-		course_bixiu.setOnItemClickListener(listener_bixiu);
-		course_xuanxiu.setOnItemClickListener(listener_xuanxiu);
-		return view;
+		*/
+		// 以异步任务方式获取课程数据并更新列表
+		AsyncTaskGetCourseList async = new AsyncTaskGetCourseList(context, adapter_bixiu);
+		String[] params = { String.valueOf(currentUser.userTypeId),
+				String.valueOf(currentUser.userId) };
+		try {
+			list_bixiu = async.execute(params).get();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

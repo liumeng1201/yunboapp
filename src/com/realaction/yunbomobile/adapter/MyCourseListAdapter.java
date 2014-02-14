@@ -26,6 +26,11 @@ public class MyCourseListAdapter extends BaseAdapter {
 		this.context = context;
 		this.list = list;
 	}
+	
+	public void refresh(List<CourseItem> list) {
+		this.list = list;
+		notifyDataSetChanged();
+	}
 
 	@Override
 	public int getCount() {
