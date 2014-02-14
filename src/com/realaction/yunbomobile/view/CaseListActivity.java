@@ -3,6 +3,7 @@ package com.realaction.yunbomobile.view;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -23,7 +24,9 @@ import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.adapter.CaseListAdpater;
 import com.realaction.yunbomobile.moddel.CaseItem;
 import com.realaction.yunbomobile.utils.AppInfo;
+import com.realaction.yunbomobile.utils.AsyncTaskGetCaseList;
 import com.realaction.yunbomobile.utils.CasesUtils;
+import com.realaction.yunbomobile.utils.UserUtils;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -33,9 +36,8 @@ import com.squareup.picasso.Picasso;
  */
 public class CaseListActivity extends Activity {
 	private Context context;
-	private Handler mHandler;
-	private String url_student = AppInfo.base_url + "/formobile/formobileGetStudentCases.action";
-	private String url_teacher = AppInfo.base_url + "/formobile/formobileGetTeacherCases.action";
+	private int userTypeId;
+
 	private String scoreId;
 	private ImageView caselist_img;
 	private TextView caselist_info;
@@ -52,7 +54,7 @@ public class CaseListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_caselist);
 		context = CaseListActivity.this;
-		mHandler = new Handler();
+		userTypeId = (new UserUtils(context)).getUserTypeId();
 		// 获取从课程列表界面跳转过来的Intent
 		Intent intent = getIntent();
 		scoreId = intent.getStringExtra("scoreId");
@@ -64,14 +66,13 @@ public class CaseListActivity extends Activity {
 		adapter = new CaseListAdpater(context, caselists);
 		caselist_list.setAdapter(adapter);
 		
-		initData();
-		setData();
+		init();
 	}
 	
 	/**
-	 * 初始化案例资源列表界面所需要的各种数据
+	 * 设置案例资源列表界面所需要的各种数据
 	 */
-	private void initData() {
+	private void init() {
 		img_urls = new String[] {
 				"http://www.sinaimg.cn/edu/157/2012/0426/U5525P352T157D278F5318DT20120426173631.jpg", 
 				"http://www.sinaimg.cn/edu/157/2012/0227/U6506P352T157D262F5318DT20120227052106.jpg", 
@@ -87,8 +88,12 @@ public class CaseListActivity extends Activity {
 		};
 		
 		if (AppInfo.network_avabile) {
-			// 网络可用的时候通过网络获取案例数据
-			// 获取课程案例资源并与案例列表ListView绑定
+			// 网络可用的时候通过网络获取课程案例数据并通知adapter更新
+			/*
+			// 方式一
+			final Handler mHandler = new Handler();
+			final String url_student = AppInfo.base_url + "/formobile/formobileGetStudentCases.action";
+			final String url_teacher = AppInfo.base_url + "/formobile/formobileGetTeacherCases.action";
 			new Thread() {
 				@Override
 				public void run() {
@@ -100,22 +105,25 @@ public class CaseListActivity extends Activity {
 					mHandler.post(new Runnable() {
 						@Override
 						public void run() {
-							// adapter = new CaseListAdpater(context, caselists);
-							// caselist_list.setAdapter(adapter);
 							adapter.refresh(caselists);
 						}
 					});
 				}
-			}.start();
+			}.start(); */
+			// 方式二
+			AsyncTaskGetCaseList async = new AsyncTaskGetCaseList(context, adapter);
+			String[] params = new String[] { scoreId, String.valueOf(userTypeId)};
+			try {
+				caselists = async.execute(params).get();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			}
 		} else {
 			// 网络不可用时通过数据库获取缓存的案例数据
 		}
-	}
 	
-	/**
-	 * 为界面各个组件设置数据
-	 */
-	private void setData() {
 		Random random = new Random();
 		Picasso.with(context).load(img_urls[Math.abs((random.nextInt()) % 5)]).into(caselist_img);
 		caselist_info.setText(course_infos[Math.abs((random.nextInt()) % 5)]);
