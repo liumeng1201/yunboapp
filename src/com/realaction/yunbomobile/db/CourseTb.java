@@ -24,14 +24,16 @@ public class CourseTb {
 			+ COURSEID + " integer, " + COURSENAME + " varchar(50), " + TYPE
 			+ " varchar(50), " + ICON + " varchar(50), " + COURSECODE
 			+ " varchar(50), " + SCOREID + " varchar(32), " + USERID + " integer)";
-	// 创建课程表courseId唯一索引
-	public static final String CREATE_COURSE_TB_UNIQUE_INDEX = "CREATE UNIQUE INDEX "
-			+ COURSE_TB_UNIQUE_INDEX + " ON " + COURSETB + "(" + COURSEID + ")";
 	// 根据userId查找课程
 	public static final String FIND_COURSE_BY_USERID = "select " + COURSEID
 			+ "," + COURSENAME + "," + TYPE + "," + ICON + "," + COURSECODE
 			+ "," + SCOREID + "," + USERID + " from " + COURSETB + " where "
 			+ USERID + "=?";
+	// 根据courseId和userId查找课程
+	public static final String FIND_COURSE_BY_COURSEIDANDUSERID = "select "
+			+ COURSEID + "," + COURSENAME + "," + TYPE + "," + ICON + ","
+			+ COURSECODE + "," + SCOREID + "," + USERID + " from " + COURSETB
+			+ " where " + COURSEID + "=? and " + USERID + "=?";
 	// 删除课程表
 	public static final String DROP_COURSE_TB = "DROP TABLE IF EXISTS "
 			+ COURSETB;

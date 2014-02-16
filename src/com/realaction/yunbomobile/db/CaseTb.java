@@ -26,14 +26,17 @@ public class CaseTb {
 			+ " varchar(200), " + DEVROLENAME + " varchar(50), " + TEACHERNAME
 			+ " varchar(50), " + CASEGROUPID + " integer, " + CASEGROUPNAME
 			+ " varchar(32), " + SCOREID + " varchar(32))";
-	// 创建案例表caseId唯一索引
-	public static final String CREATE_CASE_TB_UNIQUE_INDEX = "CREATE UNIQUE INDEX "
-			+ CASE_TB_UNIQUE_INDEX + " ON " + CASETB + "(" + CASEID + ")";
 	// 根据scoreId查找案例
 	public static final String FIND_CASE_BY_SCOREID = "select " + CASEID + ","
 			+ CASENAME + "," + KEYWORDS + "," + DEVROLENAME + ","
 			+ TEACHERNAME + "," + CASEGROUPID + "," + CASEGROUPNAME + ","
 			+ SCOREID + " from " + CASETB + " where " + SCOREID + "=?";
+	// 根据scoreId和caseId查找案例
+	public static final String FIND_CASE_BY_SCOREIDANDCASEID = "select "
+			+ CASEID + "," + CASENAME + "," + KEYWORDS + "," + DEVROLENAME
+			+ "," + TEACHERNAME + "," + CASEGROUPID + "," + CASEGROUPNAME + ","
+			+ SCOREID + " from " + CASETB + " where " + SCOREID + "=? and "
+			+ CASEID + "=?";
 	// 删除课程表
 	public static final String DROP_CASE_TB = "DROP TABLE IF EXISTS " + CASETB;
 }

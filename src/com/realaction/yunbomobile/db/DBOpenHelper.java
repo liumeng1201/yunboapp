@@ -28,10 +28,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 		db.execSQL(UserTb.CREATE_USER_TB_UNIQUE_INDEX);
 		// 创建课程表
 		db.execSQL(CourseTb.CREATE_COURSE_TB);
-		db.execSQL(CourseTb.CREATE_COURSE_TB_UNIQUE_INDEX);
 		// 创建案例表
 		db.execSQL(CaseTb.CREATE_CASE_TB);
-		db.execSQL(CaseTb.CREATE_CASE_TB_UNIQUE_INDEX);
 		// 创建最常浏览记录表
 		// 创建历史浏览记录表
 	}

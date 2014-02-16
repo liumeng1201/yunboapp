@@ -86,7 +86,7 @@ public class CourseHandler extends DefaultHandler {
 			}
 			item.userId = userId;
 			courseList.add(item);
-			dbService.insertCourseTb(item);
+			Log.d("lm", "insert result = " + dbService.insertCourseTb2(item));
 		}
 	}
 	

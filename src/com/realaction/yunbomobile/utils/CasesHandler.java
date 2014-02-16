@@ -72,7 +72,7 @@ public class CasesHandler extends DefaultHandler {
 			item.caseGroupName = attributes.getValue("caseGroupName");
 			item.scoreId = scoreId;
 			casesList.add(item);
-			Log.d("lm", "insert result = " + dbService.insertCaseTb(item));
+			Log.d("lm", "insert result = " + dbService.insertCaseTb2(item));
 		}
 	}
 	
