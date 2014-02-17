@@ -32,6 +32,12 @@ public class DrawerCaseViewExpandableAdapter extends BaseExpandableListAdapter {
 		this.groupArray = groupArray;
 		this.childArray = childArray;
 	}
+	
+	public void refresh(List<CaseViewGroupItem> groupArray, List<List<CaseSourcesItem>> childArray) {
+		this.groupArray = groupArray;
+		this.childArray = childArray;
+		notifyDataSetChanged();
+	}
 
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
