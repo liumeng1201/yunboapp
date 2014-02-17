@@ -7,7 +7,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.realaction.yunbomobile.moddel.CaseItem;
 import com.realaction.yunbomobile.moddel.CourseItem;
@@ -81,34 +80,21 @@ public class DBService {
 		cv.put(CourseTb.COURSECODE, course.courseCode);
 		cv.put(CourseTb.SCOREID, course.scoreId);
 		cv.put(CourseTb.USERID, course.userId);
-		return db.replace(CourseTb.COURSETB, null, cv);
-	}
-	
-	public long insertCourseTb2(CourseItem course) {
-		ContentValues cv = new ContentValues();
-		cv.put(CourseTb.COURSEID, course.courseId);
-		cv.put(CourseTb.COURSENAME, course.courseName);
-		cv.put(CourseTb.TYPE, course.type);
-		cv.put(CourseTb.ICON, course.icon);
-		cv.put(CourseTb.COURSECODE, course.courseCode);
-		cv.put(CourseTb.SCOREID, course.scoreId);
-		cv.put(CourseTb.USERID, course.userId);
 		Cursor cursor = db.rawQuery(
 				CourseTb.FIND_COURSE_BY_COURSEIDANDUSERID,
 				new String[] { String.valueOf(course.courseId),
 						String.valueOf(course.userId) });
 		if (cursor.getCount() > 0) {
-			// 已存在记录则替换
+			// 已存在记录则返回该记录的Id
 			cursor.moveToFirst();
 			return cursor.getLong(0);
-//			return 0;
 		} else {
 			cursor.close();
 			// 不存在记录则插入
 			return db.insert(CourseTb.COURSETB, null, cv);
 		}
 	}
-
+	
 	/**
 	 * 向案例表中插入数据不存在插入存在则更新
 	 * 
@@ -126,28 +112,16 @@ public class DBService {
 		cv.put(CaseTb.CASEGROUPID, caseitem.caseGroupId);
 		cv.put(CaseTb.CASEGROUPNAME, caseitem.caseGroupName);
 		cv.put(CaseTb.SCOREID, caseitem.scoreId);
-		return db.replace(CaseTb.CASETB, null, cv);
-	}
-	
-	public long insertCaseTb2(CaseItem caseitem) {
-		ContentValues cv = new ContentValues();
-		cv.put(CaseTb.CASEID, caseitem.caseId);
-		cv.put(CaseTb.CASENAME, caseitem.caseName);
-		cv.put(CaseTb.KEYWORDS, caseitem.keyWords);
-		cv.put(CaseTb.DEVROLENAME, caseitem.devRoleName);
-		cv.put(CaseTb.TEACHERNAME, caseitem.teacherName);
-		cv.put(CaseTb.CASEGROUPID, caseitem.caseGroupId);
-		cv.put(CaseTb.CASEGROUPNAME, caseitem.caseGroupName);
-		cv.put(CaseTb.SCOREID, caseitem.scoreId);
 		Cursor cursor = db.rawQuery(
 				CaseTb.FIND_CASE_BY_SCOREIDANDCASEID,
 				new String[] { caseitem.scoreId,
 						String.valueOf(caseitem.caseId) });
 		if (cursor.getCount() > 0) {
+			// 存在记录则返回该记录的ID
 			cursor.moveToFirst();
 			return cursor.getLong(0);
-//			return 0;
 		} else {
+			// 不存在记录则插入
 			cursor.close();
 			return db.insert(CaseTb.CASETB, null, cv);
 		}
@@ -242,7 +216,6 @@ public class DBService {
 		List<CaseItem> cases = new ArrayList<CaseItem>();
 		Cursor cursor = db.rawQuery(CaseTb.FIND_CASE_BY_SCOREID,
 				new String[] { String.valueOf(scoredId) });
-		Log.d("lm", "count = " + cursor.getCount());
 		if (cursor.getCount() > 0) {
 			cursor.moveToFirst();
 			do {

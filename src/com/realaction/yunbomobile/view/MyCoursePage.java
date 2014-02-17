@@ -45,6 +45,7 @@ public class MyCoursePage extends Fragment {
 		public void onItemClick(AdapterView<?> parent, View view, int position, long location) {
 			CourseItem ci = list_bixiu.get(position);
 			Intent intent = new Intent(context, CaseListActivity.class);
+			intent.putExtra("courseName", ci.courseName);
 			intent.putExtra("scoreId", ci.scoreId);
 			startActivity(intent);
 		}
