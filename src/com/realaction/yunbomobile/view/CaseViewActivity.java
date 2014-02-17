@@ -37,6 +37,11 @@ import com.realaction.yunbomobile.utils.CaseSourcesUtils;
 import com.realaction.yunbomobile.view.caseviews.CaseViewFragment;
 import com.realaction.yunbomobile.view.caseviews.VideoViewActivity;
 
+/**
+ * 课程案例资源查看界面
+ * 
+ * @author liumeng
+ */
 public class CaseViewActivity extends Activity {
 	private static final String TAG = "CaseViewActivity";
 	private Context context;
@@ -49,10 +54,14 @@ public class CaseViewActivity extends Activity {
 	
 	private List<CaseSourcesItem> cvcil1;
 
+	// 案例资源分类目录列表,如:实验指导书、实验答案等分类目录
 	private List<CaseViewGroupItem> groupArray;
+	// 案例资源列表,如:实验指导书分类下的各个指导书
 	private List<List<CaseSourcesItem>> childArray;
 	private DrawerCaseViewExpandableAdapter expandableAdapter;
 	private ExpandableListView mDrawerListExpandable;
+	
+	private long caseId;
 	
 	private String url = AppInfo.base_url + "/formobile/formobileGetCaseSources.action";
 
@@ -68,43 +77,10 @@ public class CaseViewActivity extends Activity {
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout_caseview);
 		mDrawerListExpandable = (ExpandableListView) findViewById(R.id.left_drawer_caseview_expandable);
 		Intent intent = getIntent();
-		final long caseId = intent.getLongExtra("caseId", -1);
+		caseId = intent.getLongExtra("caseId", -1);
 		
-		new Thread() {
-			@Override
-			public void run() {
-				super.run();
-				CaseSourcesUtils csu = new CaseSourcesUtils(context);
-				List<NameValuePair> datas = new ArrayList<NameValuePair>();
-				datas.add(new BasicNameValuePair("caseId", Long.toString(caseId)));
-				cvcil1 = csu.getCaseSourcesList(url, datas);
-
-				// TODO 根据内容自动获取要显示的菜单项
-				CaseViewGroupItem cvgi1 = new CaseViewGroupItem();
-				cvgi1.groupname = "实验指导书";
-				childArray.add(cvcil1);
-				groupArray.add(cvgi1);
-
-				CaseViewGroupItem cvgi4 = new CaseViewGroupItem();
-				cvgi4.groupname = "视频";
-				List<CaseSourcesItem> cvcil4 = new ArrayList<CaseSourcesItem>();
-				for (int i = 0; i < 2; i++) {
-					CaseSourcesItem cvci = new CaseSourcesItem();
-					cvci.guideDocName = "视频  " + (i + 1);
-					cvcil4.add(cvci);
-				}
-				childArray.add(cvcil4);
-				groupArray.add(cvgi4);
-				mHandler.post(new Runnable() {
-					@Override
-					public void run() {
-						mDrawerListExpandable.setAdapter(new DrawerCaseViewExpandableAdapter(context, groupArray, childArray));
-					}
-				});
-			}
-		}.start();
-
-
+		loadCaseSourceList();
+		
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,	GravityCompat.START);
 		mDrawerListExpandable
 				.setOnChildClickListener(new OnChildClickListener() {
@@ -119,8 +95,7 @@ public class CaseViewActivity extends Activity {
 						} else {
 							/*-------------------------------------------------------*/
 							FinalHttp fh = new FinalHttp();
-							final String download_url = //"http://192.168.2.31:10000/资源库/案例库/JP10RYX20130322132635367xxxListener开发/指导书/Listener开发实验指导书.doc.raf";
-									AppInfo.base_url + "/" + cvcil1.get(childPosition).guideTmp;
+							final String download_url = AppInfo.base_url + "/" + cvcil1.get(childPosition).guideTmp;
 							Log.d(TAG, "download_url = " + download_url);
 							HttpHandler handler = fh.download(download_url,
 									"/mnt/sdcard/" + cvcil1.get(childPosition).guideDocName,
@@ -184,11 +159,46 @@ public class CaseViewActivity extends Activity {
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 	}
+	
+	// 加载课程案例资源内容列表
+	private void loadCaseSourceList() {
+		new Thread() {
+			@Override
+			public void run() {
+				super.run();
+				CaseSourcesUtils csu = new CaseSourcesUtils(context);
+				List<NameValuePair> datas = new ArrayList<NameValuePair>();
+				datas.add(new BasicNameValuePair("caseId", Long.toString(caseId)));
+				cvcil1 = csu.getCaseSourcesList(url, datas);
+
+				// TODO 根据内容自动获取要显示的菜单项
+				CaseViewGroupItem cvgi1 = new CaseViewGroupItem();
+				cvgi1.groupname = "实验指导书";
+				childArray.add(cvcil1);
+				groupArray.add(cvgi1);
+
+				CaseViewGroupItem cvgi4 = new CaseViewGroupItem();
+				cvgi4.groupname = "视频";
+				List<CaseSourcesItem> cvcil4 = new ArrayList<CaseSourcesItem>();
+				for (int i = 0; i < 2; i++) {
+					CaseSourcesItem cvci = new CaseSourcesItem();
+					cvci.guideDocName = "视频  " + (i + 1);
+					cvcil4.add(cvci);
+				}
+				childArray.add(cvcil4);
+				groupArray.add(cvgi4);
+				mHandler.post(new Runnable() {
+					@Override
+					public void run() {
+						mDrawerListExpandable.setAdapter(new DrawerCaseViewExpandableAdapter(context, groupArray, childArray));
+					}
+				});
+			}
+		}.start();
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// The action bar home/up action should open or close the drawer.
-		// ActionBarDrawerToggle will take care of this.
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
