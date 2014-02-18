@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.realaction.yunbomobile.moddel.CaseGuideDocItem;
 import com.realaction.yunbomobile.moddel.CaseItem;
 import com.realaction.yunbomobile.moddel.CourseItem;
 import com.realaction.yunbomobile.moddel.User;
@@ -65,7 +66,7 @@ public class DBService {
 	}
 
 	/**
-	 * 向课程表中插入数据不存在插入存在则更新
+	 * 向课程表中插入数据不存在插入存在则返回ID
 	 * 
 	 * @param course
 	 *            课程
@@ -96,7 +97,7 @@ public class DBService {
 	}
 	
 	/**
-	 * 向案例表中插入数据不存在插入存在则更新
+	 * 向案例表中插入数据不存在插入存在则返回ID
 	 * 
 	 * @param caseitem
 	 *            案例
@@ -124,6 +125,38 @@ public class DBService {
 			// 不存在记录则插入
 			cursor.close();
 			return db.insert(CaseTb.CASETB, null, cv);
+		}
+	}
+	
+	/**
+	 * 向课程案例资源实验指导书表插入数据不存在插入存在则返回ID
+	 * 
+	 * @param item
+	 *            实验指导书
+	 * @return 成功返回rowId失败返回-1
+	 */
+	public long insertCaseGuideDocTb(CaseGuideDocItem item) {
+		ContentValues cv = new ContentValues();
+		cv.put(CaseGuideDocTb.GUIDEID, item.guideId);
+		cv.put(CaseGuideDocTb.GUIDEDOCNAME, item.guideDocName);
+		cv.put(CaseGuideDocTb.GUIDEDOCDESC, item.guideDocDesc);
+		cv.put(CaseGuideDocTb.GUIDEDOCPATH, item.guideDocPath);
+		cv.put(CaseGuideDocTb.MEDIATYPEID, item.mediaTypeId);
+		cv.put(CaseGuideDocTb.CASEID, item.caseId);
+		cv.put(CaseGuideDocTb.ISDOWNLOAD, item.isDownload);
+		cv.put(CaseGuideDocTb.LOCALPATH, item.localPath);
+		Cursor cursor = db.rawQuery(
+				CaseGuideDocTb.FIND_CASEGUIDEDOC_BY_CASEIDANDGUIDEID,
+				new String[] { String.valueOf(item.caseId),
+						String.valueOf(item.guideId) });
+		if (cursor.getCount() > 0) {
+			// 存在记录则返回该记录的ID
+			cursor.moveToFirst();
+			return cursor.getLong(0);
+		} else {
+			// 不存在记录则插入
+			cursor.close();
+			return db.insert(CaseGuideDocTb.CASEGUIDEDOCTB, null, cv);
 		}
 	}
 
@@ -231,6 +264,36 @@ public class DBService {
 				cases.add(caseitem);
 			} while (cursor.moveToNext());
 			return cases;
+		} else {
+			return null;
+		}
+	}
+	
+	/**
+	 * 根据caseId查询该案例下所有的实验指导书列表
+	 * 
+	 * @param caseId
+	 * @return caseId对应的所有案例下的实验指导书列表
+	 */
+	public List<CaseGuideDocItem> findCaseGuideDocsBycaseId(String caseId) {
+		List<CaseGuideDocItem> guideDocs = new ArrayList<CaseGuideDocItem>();
+		Cursor cursor = db.rawQuery(CaseGuideDocTb.FIND_CASEGUIDEDOC_BY_CASEID,
+				new String[] { caseId });
+		if (cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			do {
+				CaseGuideDocItem item = new CaseGuideDocItem();
+				item.guideId = cursor.getLong(0);
+				item.guideDocName = cursor.getString(1);
+				item.guideDocDesc = cursor.getString(2);
+				item.guideDocPath = cursor.getString(3);
+				item.mediaTypeId = cursor.getInt(4);
+				item.caseId = cursor.getLong(5);
+				item.isDownload = cursor.getInt(6);
+				item.localPath = cursor.getString(7);
+				guideDocs.add(item);
+			} while (cursor.moveToNext());
+			return guideDocs;
 		} else {
 			return null;
 		}

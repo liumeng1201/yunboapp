@@ -17,7 +17,6 @@ public class CaseTb {
 	public static final String CASEGROUPID = "caseGroupId";
 	public static final String CASEGROUPNAME = "caseGroupName";
 	public static final String SCOREID = "scoreId";
-	public static final String CASE_TB_UNIQUE_INDEX = "unique_index_caseId";
 
 	// 创建案例表
 	public static final String CREATE_CASE_TB = "CREATE TABLE IF NOT EXISTS "

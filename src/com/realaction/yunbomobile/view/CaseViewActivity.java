@@ -28,7 +28,8 @@ import android.widget.ExpandableListView.OnChildClickListener;
 
 import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.adapter.DrawerCaseViewExpandableAdapter;
-import com.realaction.yunbomobile.moddel.CaseSourcesItem;
+import com.realaction.yunbomobile.db.DBService;
+import com.realaction.yunbomobile.moddel.CaseGuideDocItem;
 import com.realaction.yunbomobile.moddel.CaseViewGroupItem;
 import com.realaction.yunbomobile.utils.AppInfo;
 import com.realaction.yunbomobile.utils.AsyncTaskGetCaseSourceList;
@@ -43,6 +44,7 @@ import com.realaction.yunbomobile.view.caseviews.VideoViewActivity;
 public class CaseViewActivity extends Activity {
 	private static final String TAG = "CaseViewActivity";
 	private Context context;
+	private DBService dbService;
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private CharSequence mDrawerTitle;
@@ -53,7 +55,7 @@ public class CaseViewActivity extends Activity {
 	// 案例资源分类目录列表,如:实验指导书、实验答案等分类目录
 	private List<CaseViewGroupItem> groupArray;
 	// 案例资源列表,如:实验指导书分类下的各个指导书
-	private List<List<CaseSourcesItem>> childArray;
+	private List<List<CaseGuideDocItem>> childArray;
 	private DrawerCaseViewExpandableAdapter expandableAdapter;
 	private ExpandableListView mDrawerListExpandable;
 	private long caseId;
@@ -63,9 +65,10 @@ public class CaseViewActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_caseview);
 		context = CaseViewActivity.this;
+		dbService = new DBService(context);
 		mTitle = mDrawerTitle = getTitle();
 		groupArray = new ArrayList<CaseViewGroupItem>();
-		childArray = new ArrayList<List<CaseSourcesItem>>();
+		childArray = new ArrayList<List<CaseGuideDocItem>>();
 		map = new HashMap<String, Object>();
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout_caseview);
 		mDrawerListExpandable = (ExpandableListView) findViewById(R.id.left_drawer_caseview_expandable);
@@ -157,16 +160,26 @@ public class CaseViewActivity extends Activity {
 	
 	// 加载课程案例资源内容列表
 	private void loadCaseSourceList() {
-		// 以异步任务的方式获取资源
-		AsyncTaskGetCaseSourceList async = new AsyncTaskGetCaseSourceList(context, expandableAdapter);
-		try {
-			map = (async.execute(new String[] {String.valueOf(caseId)})).get();
-			groupArray = (List<CaseViewGroupItem>) map.get("group");
-			childArray = (List<List<CaseSourcesItem>>) map.get("child");
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
+		if (AppInfo.network_avabile) {
+			// 如果网络可用则以异步任务的方式获取资源
+			AsyncTaskGetCaseSourceList async = new AsyncTaskGetCaseSourceList(context, expandableAdapter);
+			try {
+				map = (async.execute(new String[] { String.valueOf(caseId) })).get();
+				groupArray = (List<CaseViewGroupItem>) map.get("group");
+				childArray = (List<List<CaseGuideDocItem>>) map.get("child");
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			}
+		} else {
+			// 如果网络不可用则从数据库中获取缓存的资源
+			List<CaseGuideDocItem> caseguidedoclist = dbService.findCaseGuideDocsBycaseId(String.valueOf(caseId));
+			childArray.add(caseguidedoclist);
+			CaseViewGroupItem groupitem = new CaseViewGroupItem();
+			groupitem.groupname = "实验指导书";
+			groupArray.add(groupitem);
+			expandableAdapter.refresh(groupArray, childArray);
 		}
 	}
 
@@ -199,4 +212,11 @@ public class CaseViewActivity extends Activity {
 		super.onConfigurationChanged(newConfig);
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		dbService.close();
+	}
+	
 }

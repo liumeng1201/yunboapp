@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.moddel.CaseItem;
-import com.realaction.yunbomobile.moddel.CaseSourcesItem;
+import com.realaction.yunbomobile.moddel.CaseGuideDocItem;
 import com.realaction.yunbomobile.moddel.CaseViewGroupItem;
 import com.realaction.yunbomobile.moddel.CourseItem;
 
@@ -24,16 +24,16 @@ import com.realaction.yunbomobile.moddel.CourseItem;
 public class DrawerCaseViewExpandableAdapter extends BaseExpandableListAdapter {
 	private Context context;
 	private List<CaseViewGroupItem> groupArray;
-	private List<List<CaseSourcesItem>> childArray;
+	private List<List<CaseGuideDocItem>> childArray;
 
 	public DrawerCaseViewExpandableAdapter(Context context,
-			List<CaseViewGroupItem> groupArray, List<List<CaseSourcesItem>> childArray) {
+			List<CaseViewGroupItem> groupArray, List<List<CaseGuideDocItem>> childArray) {
 		this.context = context;
 		this.groupArray = groupArray;
 		this.childArray = childArray;
 	}
 	
-	public void refresh(List<CaseViewGroupItem> groupArray, List<List<CaseSourcesItem>> childArray) {
+	public void refresh(List<CaseViewGroupItem> groupArray, List<List<CaseGuideDocItem>> childArray) {
 		this.groupArray = groupArray;
 		this.childArray = childArray;
 		notifyDataSetChanged();

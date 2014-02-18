@@ -16,7 +16,6 @@ public class CourseTb {
 	public static final String COURSECODE = "courseCode";
 	public static final String SCOREID = "scoreId";
 	public static final String USERID = "userId";
-	public static final String COURSE_TB_UNIQUE_INDEX = "unique_index_courseId";
 
 	// 创建课程表
 	public static final String CREATE_COURSE_TB = "CREATE TABLE IF NOT EXISTS "

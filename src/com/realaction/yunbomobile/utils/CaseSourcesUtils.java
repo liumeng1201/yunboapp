@@ -10,7 +10,7 @@ import org.apache.http.NameValuePair;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
-import com.realaction.yunbomobile.moddel.CaseSourcesItem;
+import com.realaction.yunbomobile.moddel.CaseGuideDocItem;
 
 import android.content.Context;
 import android.util.Log;
@@ -24,7 +24,7 @@ public class CaseSourcesUtils {
 		this.context = context;
 	}
 
-	public List<CaseSourcesItem> getCaseSourcesList(String url, List<NameValuePair> datas) {
+	public List<CaseGuideDocItem> getCaseSourcesList(String url, List<NameValuePair> datas) {
 		InputStream xmlStream = HttpTool.sendDataByPost(url, datas);
 //		Log.d(TAG, HttpTool.convertStreamToString(xmlStream));
 		try {
@@ -35,7 +35,7 @@ public class CaseSourcesUtils {
 			xmlreader.setContentHandler(handler);
 			InputSource source = new InputSource(xmlStream);
 			xmlreader.parse(source);
-			List<CaseSourcesItem> items = handler.getCaseSourcesList();
+			List<CaseGuideDocItem> items = handler.getCaseSourcesList();
 			return items;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -12,7 +12,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.realaction.yunbomobile.adapter.DrawerCaseViewExpandableAdapter;
-import com.realaction.yunbomobile.moddel.CaseSourcesItem;
+import com.realaction.yunbomobile.moddel.CaseGuideDocItem;
 import com.realaction.yunbomobile.moddel.CaseViewGroupItem;
 
 /**
@@ -35,13 +35,13 @@ public class AsyncTaskGetCaseSourceList extends AsyncTask<String, Integer, Map> 
 		// params: caseId
 		Map map = new HashMap<String, Object>();
 		List<CaseViewGroupItem> groupArray = new ArrayList<CaseViewGroupItem>();
-		List<List<CaseSourcesItem>> childArray = new ArrayList<List<CaseSourcesItem>>();
+		List<List<CaseGuideDocItem>> childArray = new ArrayList<List<CaseGuideDocItem>>();
 		long caseId = Long.parseLong(params[0]);
 		
 		CaseSourcesUtils csu = new CaseSourcesUtils(context);
 		List<NameValuePair> datas = new ArrayList<NameValuePair>();
 		datas.add(new BasicNameValuePair("caseId", Long.toString(caseId)));
-		List<CaseSourcesItem> casesourcelist = csu.getCaseSourcesList(url, datas);
+		List<CaseGuideDocItem> casesourcelist = csu.getCaseSourcesList(url, datas);
 
 		// TODO 根据内容自动获取要显示的菜单项,将要显示的内容分类存放
 		CaseViewGroupItem cvgi1 = new CaseViewGroupItem();
@@ -51,9 +51,9 @@ public class AsyncTaskGetCaseSourceList extends AsyncTask<String, Integer, Map> 
 
 		CaseViewGroupItem cvgi4 = new CaseViewGroupItem();
 		cvgi4.groupname = "视频";
-		List<CaseSourcesItem> cvcil4 = new ArrayList<CaseSourcesItem>();
+		List<CaseGuideDocItem> cvcil4 = new ArrayList<CaseGuideDocItem>();
 		for (int i = 0; i < 2; i++) {
-			CaseSourcesItem cvci = new CaseSourcesItem();
+			CaseGuideDocItem cvci = new CaseGuideDocItem();
 			cvci.guideDocName = "视频  " + (i + 1);
 			cvcil4.add(cvci);
 		}
@@ -69,6 +69,6 @@ public class AsyncTaskGetCaseSourceList extends AsyncTask<String, Integer, Map> 
 	protected void onPostExecute(Map result) {
 		super.onPostExecute(result);
 		adapter.refresh((List<CaseViewGroupItem>) (result.get("group")),
-				(List<List<CaseSourcesItem>>) (result.get("child")));
+				(List<List<CaseGuideDocItem>>) (result.get("child")));
 	}
 }

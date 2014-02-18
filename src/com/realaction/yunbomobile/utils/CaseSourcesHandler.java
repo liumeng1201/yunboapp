@@ -7,14 +7,17 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.realaction.yunbomobile.moddel.CaseSourcesItem;
-
 import android.content.Context;
+import android.util.Log;
+
+import com.realaction.yunbomobile.db.DBService;
+import com.realaction.yunbomobile.moddel.CaseGuideDocItem;
 
 public class CaseSourcesHandler extends DefaultHandler {
 	private static final String TAG = "CaseSourcesHandler";
 	private Context context;
-	private List<CaseSourcesItem> casesourcesList;
+	private List<CaseGuideDocItem> casesourcesList;
+	private DBService dbService;
 
 	public CaseSourcesHandler(Context context) {
 		this.context = context;
@@ -23,21 +26,23 @@ public class CaseSourcesHandler extends DefaultHandler {
 	/**
 	 * @return 课程树List
 	 */
-	public List<CaseSourcesItem> getCaseSourcesList() {
+	public List<CaseGuideDocItem> getCaseSourcesList() {
 		return casesourcesList;
-	}
-
-	// 收尾工作
-	@Override
-	public void endDocument() throws SAXException {
-		super.endDocument();
 	}
 
 	// 初始化工作
 	@Override
 	public void startDocument() throws SAXException {
 		super.startDocument();
-		casesourcesList = new ArrayList<CaseSourcesItem>();
+		casesourcesList = new ArrayList<CaseGuideDocItem>();
+		dbService = new DBService(context);
+	}
+	
+	// 收尾工作
+	@Override
+	public void endDocument() throws SAXException {
+		super.endDocument();
+		dbService.close();
 	}
 
 	@Override
@@ -57,7 +62,7 @@ public class CaseSourcesHandler extends DefaultHandler {
 			Attributes attributes) throws SAXException {
 		super.startElement(uri, localName, qName, attributes);
 		if (localName.equals("caseguidedoc")) {
-			CaseSourcesItem item = new CaseSourcesItem();
+			CaseGuideDocItem item = new CaseGuideDocItem();
 			item.guideId = Long.parseLong(attributes.getValue("guideId"));
 			item.guideDocName = attributes.getValue("guideDocName");
 			item.guideDocDesc = attributes.getValue("guideDocDesc");
@@ -65,6 +70,9 @@ public class CaseSourcesHandler extends DefaultHandler {
 			item.guideTmp = attributes.getValue("guideTmp");
 			item.mediaTypeId = Integer.parseInt(attributes.getValue("mediaTypeId"));
 			item.caseId = Long.parseLong(attributes.getValue("caseId"));
+			item.isDownload = 0;
+			item.localPath = String.valueOf(0);
+			Log.d("lm", "result = " + dbService.insertCaseGuideDocTb(item));
 			casesourcesList.add(item);
 		}
 	}
