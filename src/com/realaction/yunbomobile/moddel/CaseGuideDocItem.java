@@ -17,4 +17,11 @@ public class CaseGuideDocItem {
 	public int isDownload;
 	// ±¾µØÂ·¾¶
 	public String localPath;
+
+	public CaseGuideDocItem() {
+	}
+
+	public CaseGuideDocItem(String str) {
+		this.guideDocName = str;
+	}
 }

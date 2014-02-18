@@ -143,6 +143,7 @@ public class LoginActivity extends Activity {
 	private boolean login(String url, List<NameValuePair> datas) {
 		InputStream is = HttpTool.sendDataByPost(url, datas);
 		if (is != null) {
+			AppInfo.network_avabile = true;
 			String result = HttpTool.convertStreamToString(is);
 			String resultarray[] = result.split("\\$");
 			Log.d(TAG, result);

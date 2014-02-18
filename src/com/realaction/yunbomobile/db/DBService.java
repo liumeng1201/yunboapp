@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.realaction.yunbomobile.moddel.CaseDocItem;
 import com.realaction.yunbomobile.moddel.CaseGuideDocItem;
 import com.realaction.yunbomobile.moddel.CaseItem;
 import com.realaction.yunbomobile.moddel.CourseItem;
@@ -159,6 +160,38 @@ public class DBService {
 			return db.insert(CaseGuideDocTb.CASEGUIDEDOCTB, null, cv);
 		}
 	}
+	
+	/**
+	 * 向课程案例资源答案表插入数据不存在插入存在则返回ID
+	 * 
+	 * @param item
+	 *            答案
+	 * @return 成功返回rowId失败返回-1
+	 */
+	public long insertCaseDocTb(CaseDocItem item) {
+		ContentValues cv = new ContentValues();
+		cv.put(CaseDocTb.DOCID, item.docId);
+		cv.put(CaseDocTb.DOCNAME, item.docName);
+		cv.put(CaseDocTb.DOCDESC, item.docDesc);
+		cv.put(CaseDocTb.DOCPATH, item.docPath);
+		cv.put(CaseDocTb.DOCTYPEID, item.docTypeId);
+		cv.put(CaseDocTb.CASEID, item.caseId);
+		cv.put(CaseDocTb.ISDOWNLOAD, item.isDownload);
+		cv.put(CaseDocTb.LOCALPATH, item.localPath);
+		Cursor cursor = db.rawQuery(
+				CaseDocTb.FIND_CASEDOC_BY_CASEIDANDDOCID,
+				new String[] { String.valueOf(item.caseId),
+						String.valueOf(item.docId) });
+		if (cursor.getCount() > 0) {
+			// 存在记录则返回该记录的ID
+			cursor.moveToFirst();
+			return cursor.getLong(0);
+		} else {
+			// 不存在记录则插入
+			cursor.close();
+			return db.insert(CaseDocTb.CASEDOCTB, null, cv);
+		}
+	}
 
 	/**
 	 * 根据userId查找user
@@ -273,7 +306,7 @@ public class DBService {
 	 * 根据caseId查询该案例下所有的实验指导书列表
 	 * 
 	 * @param caseId
-	 * @return caseId对应的所有案例下的实验指导书列表
+	 * @return caseId对应的案例下所有实验指导书列表
 	 */
 	public List<CaseGuideDocItem> findCaseGuideDocsBycaseId(String caseId) {
 		List<CaseGuideDocItem> guideDocs = new ArrayList<CaseGuideDocItem>();
@@ -294,6 +327,36 @@ public class DBService {
 				guideDocs.add(item);
 			} while (cursor.moveToNext());
 			return guideDocs;
+		} else {
+			return null;
+		}
+	}
+	
+	/**
+	 * 根据caseId查询该案例下所有的答案列表
+	 * 
+	 * @param caseId
+	 * @return caseId对应的案例下所有答案列表
+	 */
+	public List<CaseDocItem> findCaseDocsBycaseId(String caseId) {
+		List<CaseDocItem> caseDocs = new ArrayList<CaseDocItem>();
+		Cursor cursor = db.rawQuery(CaseDocTb.FIND_CASEDOC_BY_CASEID,
+				new String[] { caseId });
+		if (cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			do {
+				CaseDocItem item = new CaseDocItem();
+				item.docId = cursor.getLong(0);
+				item.docName = cursor.getString(1);
+				item.docDesc = cursor.getString(2);
+				item.docPath = cursor.getString(3);
+				item.docTypeId = cursor.getInt(4);
+				item.caseId = cursor.getLong(5);
+				item.isDownload = cursor.getInt(6);
+				item.localPath = cursor.getString(7);
+				caseDocs.add(item);
+			} while (cursor.moveToNext());
+			return caseDocs;
 		} else {
 			return null;
 		}

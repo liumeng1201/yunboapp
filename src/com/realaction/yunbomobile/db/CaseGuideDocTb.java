@@ -1,5 +1,10 @@
 package com.realaction.yunbomobile.db;
 
+/**
+ * 课程案例资源实验指导书表字段及SQL语句
+ * 
+ * @author liumeng
+ */
 public class CaseGuideDocTb {
 	public static final String CASEGUIDEDOCTB = "t_caseguidedoc";
 	
@@ -33,6 +38,6 @@ public class CaseGuideDocTb {
 			+ LOCALPATH + " from " + CASEGUIDEDOCTB + " where " + CASEID + "=? and "
 			+ GUIDEID + "=?";
 	// 删除课程案例资源实验指导书表
-	public static final String DROP_CASE_TB = "DROP TABLE IF EXISTS " + CASEGUIDEDOCTB;
+	public static final String DROP_CASEGUIDEDOC_TB = "DROP TABLE IF EXISTS " + CASEGUIDEDOCTB;
 
 }

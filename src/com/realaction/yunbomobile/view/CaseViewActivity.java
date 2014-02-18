@@ -85,7 +85,7 @@ public class CaseViewActivity extends Activity {
 					@Override
 					public boolean onChildClick(ExpandableListView parent,
 							View v, int groupPosition, int childPosition, long id) {
-						if (groupPosition == 1) {
+						if (groupPosition == 2) {
 							Intent intent = new Intent(context, VideoViewActivity.class);
 							intent.putExtra("filepath", "/sdcard/bbb.mp4");
 							startActivity(intent);
@@ -176,9 +176,24 @@ public class CaseViewActivity extends Activity {
 			// 如果网络不可用则从数据库中获取缓存的资源
 			List<CaseGuideDocItem> caseguidedoclist = dbService.findCaseGuideDocsBycaseId(String.valueOf(caseId));
 			childArray.add(caseguidedoclist);
-			CaseViewGroupItem groupitem = new CaseViewGroupItem();
-			groupitem.groupname = "实验指导书";
-			groupArray.add(groupitem);
+			CaseViewGroupItem groupitem1 = new CaseViewGroupItem();
+			groupitem1.groupname = "实验指导";
+			groupArray.add(groupitem1);
+			
+			List<CaseGuideDocItem> answer = new ArrayList<CaseGuideDocItem>();
+			answer.add(new CaseGuideDocItem("查看答案"));
+			childArray.add(answer);
+			CaseViewGroupItem groupanswer = new CaseViewGroupItem();
+			groupanswer.groupname = "实验答案";
+			groupArray.add(groupanswer);
+			
+			List<CaseGuideDocItem> video = new ArrayList<CaseGuideDocItem>();
+			video.add(new CaseGuideDocItem("查看视频"));
+			childArray.add(video);
+			CaseViewGroupItem groupvideo = new CaseViewGroupItem();
+			groupvideo.groupname = "实验答案";
+			groupArray.add(groupvideo);
+			
 			expandableAdapter.refresh(groupArray, childArray);
 		}
 	}

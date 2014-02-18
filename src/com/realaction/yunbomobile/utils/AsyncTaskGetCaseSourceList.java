@@ -45,20 +45,29 @@ public class AsyncTaskGetCaseSourceList extends AsyncTask<String, Integer, Map> 
 
 		// TODO 根据内容自动获取要显示的菜单项,将要显示的内容分类存放
 		CaseViewGroupItem cvgi1 = new CaseViewGroupItem();
-		cvgi1.groupname = "实验指导书";
+		cvgi1.groupname = "实验指导";
 		childArray.add(casesourcelist);
 		groupArray.add(cvgi1);
 
-		CaseViewGroupItem cvgi4 = new CaseViewGroupItem();
-		cvgi4.groupname = "视频";
-		List<CaseGuideDocItem> cvcil4 = new ArrayList<CaseGuideDocItem>();
+		CaseViewGroupItem cvgi2 = new CaseViewGroupItem();
+		cvgi2.groupname = "实验答案";
+		List<CaseGuideDocItem> cvcil2 = new ArrayList<CaseGuideDocItem>();
+		CaseGuideDocItem cvci2 = new CaseGuideDocItem();
+		cvci2.guideDocName = "查看答案";
+		cvcil2.add(cvci2);
+		childArray.add(cvcil2);
+		groupArray.add(cvgi2);
+		
+		CaseViewGroupItem cvgi3 = new CaseViewGroupItem();
+		cvgi3.groupname = "测试视频";
+		List<CaseGuideDocItem> cvcil3 = new ArrayList<CaseGuideDocItem>();
 		for (int i = 0; i < 2; i++) {
 			CaseGuideDocItem cvci = new CaseGuideDocItem();
 			cvci.guideDocName = "视频  " + (i + 1);
-			cvcil4.add(cvci);
+			cvcil3.add(cvci);
 		}
-		childArray.add(cvcil4);
-		groupArray.add(cvgi4);
+		childArray.add(cvcil3);
+		groupArray.add(cvgi3);
 		
 		map.put("group", groupArray);
 		map.put("child", childArray);

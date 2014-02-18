@@ -32,6 +32,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 		db.execSQL(CaseTb.CREATE_CASE_TB);
 		// 创建课程案例实验指导书表
 		db.execSQL(CaseGuideDocTb.CREATE_CASEGUIDEDOC_TB);
+		// 创建课程案例答案表
+		db.execSQL(CaseDocTb.CREATE_CASEDOC_TB);
 		// 创建最常浏览记录表
 		// 创建历史浏览记录表
 	}
@@ -41,6 +43,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 		db.execSQL(UserTb.DROP_USER_TB);
 		db.execSQL(CourseTb.DROP_COURSE_TB);
 		db.execSQL(CaseTb.DROP_CASE_TB);
+		db.execSQL(CaseGuideDocTb.DROP_CASEGUIDEDOC_TB);
+		db.execSQL(CaseDocTb.DROP_CASEDOC_TB);
 		onCreate(db);
 	}
 

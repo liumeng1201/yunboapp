@@ -11,6 +11,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.realaction.yunbomobile.db.DBService;
+import com.realaction.yunbomobile.moddel.CaseDocItem;
 import com.realaction.yunbomobile.moddel.CaseGuideDocItem;
 
 public class CaseSourcesHandler extends DefaultHandler {
@@ -74,6 +75,18 @@ public class CaseSourcesHandler extends DefaultHandler {
 			item.localPath = String.valueOf(0);
 			Log.d("lm", "result = " + dbService.insertCaseGuideDocTb(item));
 			casesourcesList.add(item);
+		}
+		if (localName.equals("casedoc")) {
+			CaseDocItem item = new CaseDocItem();
+			item.docId = Long.parseLong(attributes.getValue("docId"));
+			item.docName = attributes.getValue("docName");
+			item.docDesc = attributes.getValue("docDesc");
+			item.docPath = attributes.getValue("docPath");
+			item.docTypeId = Integer.parseInt(attributes.getValue("docTypeId"));
+			item.caseId = Long.parseLong(attributes.getValue("caseId"));
+			item.isDownload = 0;
+			item.localPath = String.valueOf(0);
+			Log.d("lm", "result = " + dbService.insertCaseDocTb(item));
 		}
 	}
 }
