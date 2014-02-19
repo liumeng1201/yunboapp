@@ -50,7 +50,6 @@ public class CaseViewActivity extends Activity {
 	private long caseId;
 	// 用来保存由异步任务获取的课程案例资源列表
 	private Map map;
-	private List<CaseDocItem> answerList;
 	// 案例资源分类目录列表,如:实验指导书、实验答案等分类目录
 	private List<CaseViewGroupItem> groupArray;
 	// 案例资源列表,如:实验指导书分类下的各个指导书
@@ -105,7 +104,6 @@ public class CaseViewActivity extends Activity {
 		mTitle = mDrawerTitle = getTitle();
 		groupArray = new ArrayList<CaseViewGroupItem>();
 		childArray = new ArrayList<List<CaseGuideDocItem>>();
-		answerList = new ArrayList<CaseDocItem>();
 		map = new HashMap<String, Object>();
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout_caseview);
 		mDrawerListExpandable = (ExpandableListView) findViewById(R.id.left_drawer_caseview_expandable);
@@ -148,7 +146,6 @@ public class CaseViewActivity extends Activity {
 				map = (async.execute(new String[] { String.valueOf(caseId) })).get();
 				groupArray = (List<CaseViewGroupItem>) map.get("group");
 				childArray = (List<List<CaseGuideDocItem>>) map.get("child");
-				answerList = (List<CaseDocItem>) map.get("answer");
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} catch (ExecutionException e) {
@@ -158,9 +155,9 @@ public class CaseViewActivity extends Activity {
 			// 如果网络不可用则从数据库中获取缓存的资源
 			List<CaseGuideDocItem> caseguidedoclist = dbService.findCaseGuideDocsBycaseId(String.valueOf(caseId));
 			childArray.add(caseguidedoclist);
-			CaseViewGroupItem groupitem1 = new CaseViewGroupItem();
-			groupitem1.groupname = "实验指导";
-			groupArray.add(groupitem1);
+			CaseViewGroupItem groupguidedoc = new CaseViewGroupItem();
+			groupguidedoc.groupname = "实验指导";
+			groupArray.add(groupguidedoc);
 			
 			List<CaseGuideDocItem> answer = new ArrayList<CaseGuideDocItem>();
 			answer.add(new CaseGuideDocItem("查看答案"));
