@@ -1,7 +1,9 @@
 package com.realaction.yunbomobile.utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -18,17 +20,24 @@ public class CaseSourcesHandler extends DefaultHandler {
 	private static final String TAG = "CaseSourcesHandler";
 	private Context context;
 	private List<CaseGuideDocItem> casesourcesList;
+	private List<CaseDocItem> casedocsList;
 	private DBService dbService;
+	
+	private Map<String, Object> casesourcesList2;
 
 	public CaseSourcesHandler(Context context) {
 		this.context = context;
 	}
 
 	/**
-	 * @return 课程树List
+	 * @return 课程案例实验指导书List
 	 */
 	public List<CaseGuideDocItem> getCaseSourcesList() {
 		return casesourcesList;
+	}
+	
+	public Map<String, Object> getCaseSourcesList2() {
+		return casesourcesList2;
 	}
 
 	// 初始化工作
@@ -36,6 +45,8 @@ public class CaseSourcesHandler extends DefaultHandler {
 	public void startDocument() throws SAXException {
 		super.startDocument();
 		casesourcesList = new ArrayList<CaseGuideDocItem>();
+		casedocsList = new ArrayList<CaseDocItem>();
+		casesourcesList2 = new HashMap<String, Object>();
 		dbService = new DBService(context);
 	}
 	
@@ -73,7 +84,7 @@ public class CaseSourcesHandler extends DefaultHandler {
 			item.caseId = Long.parseLong(attributes.getValue("caseId"));
 			item.isDownload = 0;
 			item.localPath = String.valueOf(0);
-			Log.d("lm", "result = " + dbService.insertCaseGuideDocTb(item));
+			Log.d("lm", "insertCaseGuideDocTb result = " + dbService.insertCaseGuideDocTb(item));
 			casesourcesList.add(item);
 		}
 		if (localName.equals("casedoc")) {
@@ -86,7 +97,10 @@ public class CaseSourcesHandler extends DefaultHandler {
 			item.caseId = Long.parseLong(attributes.getValue("caseId"));
 			item.isDownload = 0;
 			item.localPath = String.valueOf(0);
-			Log.d("lm", "result = " + dbService.insertCaseDocTb(item));
+			Log.d("lm", "insertCaseDocTb result = " + dbService.insertCaseDocTb(item));
+			casedocsList.add(item);
 		}
+		casesourcesList2.put("guide", casesourcesList);
+		casesourcesList2.put("doc", casedocsList);
 	}
 }

@@ -2,6 +2,10 @@ package com.realaction.yunbomobile.view.caseviews;
 
 import java.io.File;
 
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.HttpHandler;
+
 import org.vudroid.pdfdroid.codec.PdfContext;
 
 import com.lm.pdfviewer.DecodeService;
@@ -15,6 +19,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +31,12 @@ import android.widget.FrameLayout;
  * @author liumeng
  */
 public class CaseViewFragment extends Fragment {
+	private static final String TAG = "CaseViewFragment";
 
 	private Context context;
 	private String filepath;
+	private String download_url;
+	private String target_name;
 	private DecodeService decodeService;
 	private DocumentView documentView;
 	private CurrentPageModel currentPageModel;
@@ -44,7 +52,36 @@ public class CaseViewFragment extends Fragment {
 		Bundle bundle = this.getArguments();
 		if (bundle != null) {
 			filepath = bundle.getString("filepath");
+			download_url = bundle.getString("download_url");
+			target_name = bundle.getString("target_name");
 		}
+		
+		/*-------------------------------------------------------*/
+		FinalHttp fh = new FinalHttp();
+		HttpHandler handler = fh.download(download_url, target_name,
+				true, new AjaxCallBack<File>() {
+					@Override
+					public void onStart() {
+						super.onStart();
+						Log.d(TAG, "start download --> " + download_url);
+					}
+					@Override
+					public void onFailure(Throwable t, int errorNo, String strMsg) {
+						super.onFailure(t, errorNo, strMsg);
+						Log.d(TAG, "fail to download --> " + download_url);
+					}
+					@Override
+					public void onLoading(long count, long current) {
+						super.onLoading(count, current);
+						Log.d(TAG, "下载进度: " + current + "/" + count);
+					}
+					@Override
+					public void onSuccess(File t) {
+						super.onSuccess(t);
+						Log.d(TAG, "下载完成: " + (t == null ? "null" : t.getAbsoluteFile().toString()));
+					}
+				});
+		/*-------------------------------------------------------*/
 
 		initDecodeService();
 		final ZoomModel zoomModel = new ZoomModel();
