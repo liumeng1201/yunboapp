@@ -25,7 +25,6 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.adapter.DrawerCaseViewExpandableAdapter;
 import com.realaction.yunbomobile.db.DBService;
-import com.realaction.yunbomobile.moddel.CaseDocItem;
 import com.realaction.yunbomobile.moddel.CaseGuideDocItem;
 import com.realaction.yunbomobile.moddel.CaseViewGroupItem;
 import com.realaction.yunbomobile.utils.AppInfo;

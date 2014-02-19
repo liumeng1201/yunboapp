@@ -12,7 +12,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.realaction.yunbomobile.adapter.DrawerCaseViewExpandableAdapter;
-import com.realaction.yunbomobile.moddel.CaseDocItem;
 import com.realaction.yunbomobile.moddel.CaseGuideDocItem;
 import com.realaction.yunbomobile.moddel.CaseViewGroupItem;
 
@@ -43,14 +42,11 @@ public class AsyncTaskGetCaseSourceList extends AsyncTask<String, Integer, Map> 
 		List<NameValuePair> datas = new ArrayList<NameValuePair>();
 		datas.add(new BasicNameValuePair("caseId", Long.toString(caseId)));
 		List<CaseGuideDocItem> casesourcelist = csu.getCaseSourcesList(url, datas);
-//		Map<String, Object> sourcelists =  csu.getCaseSourcesList2(url, datas);
-//		List<CaseGuideDocItem> guidedoclists = (List<CaseGuideDocItem>) sourcelists.get("guide");
 
 		// TODO 根据内容自动获取要显示的菜单项,将要显示的内容分类存放
 		CaseViewGroupItem cvgi1 = new CaseViewGroupItem();
 		cvgi1.groupname = "实验指导";
 		childArray.add(casesourcelist);
-//		childArray.add(guidedoclists);
 		groupArray.add(cvgi1);
 
 		CaseViewGroupItem cvgi2 = new CaseViewGroupItem();

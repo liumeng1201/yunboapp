@@ -1,9 +1,7 @@
 package com.realaction.yunbomobile.utils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -23,8 +21,6 @@ public class CaseSourcesHandler extends DefaultHandler {
 	private List<CaseDocItem> casedocsList;
 	private DBService dbService;
 	
-//	private Map<String, Object> casesourcesList2;
-
 	public CaseSourcesHandler(Context context) {
 		this.context = context;
 	}
@@ -36,17 +32,12 @@ public class CaseSourcesHandler extends DefaultHandler {
 		return casesourcesList;
 	}
 	
-//	public Map<String, Object> getCaseSourcesList2() {
-//		return casesourcesList2;
-//	}
-
 	// 初始化工作
 	@Override
 	public void startDocument() throws SAXException {
 		super.startDocument();
 		casesourcesList = new ArrayList<CaseGuideDocItem>();
 		casedocsList = new ArrayList<CaseDocItem>();
-//		casesourcesList2 = new HashMap<String, Object>();
 		dbService = new DBService(context);
 	}
 	
@@ -100,7 +91,5 @@ public class CaseSourcesHandler extends DefaultHandler {
 			Log.d("lm", "insertCaseDocTb result = " + dbService.insertCaseDocTb(item));
 			casedocsList.add(item);
 		}
-//		casesourcesList2.put("guide", casesourcesList);
-//		casesourcesList2.put("doc", casedocsList);
 	}
 }
