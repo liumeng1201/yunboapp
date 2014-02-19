@@ -74,7 +74,6 @@ public class CaseSourcesHandler extends DefaultHandler {
 			item.mediaTypeId = Integer.parseInt(attributes.getValue("mediaTypeId"));
 			item.caseId = Long.parseLong(attributes.getValue("caseId"));
 			item.isDownload = 0;
-			item.localPath = String.valueOf(0);
 			Log.d("lm", "insertCaseGuideDocTb result = " + dbService.insertCaseGuideDocTb(item));
 			casesourcesList.add(item);
 		}
@@ -87,7 +86,6 @@ public class CaseSourcesHandler extends DefaultHandler {
 			item.docTypeId = Integer.parseInt(attributes.getValue("docTypeId"));
 			item.caseId = Long.parseLong(attributes.getValue("caseId"));
 			item.isDownload = 0;
-			item.localPath = String.valueOf(0);
 			Log.d("lm", "insertCaseDocTb result = " + dbService.insertCaseDocTb(item));
 			casedocsList.add(item);
 		}
