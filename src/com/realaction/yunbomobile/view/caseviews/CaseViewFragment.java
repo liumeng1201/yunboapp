@@ -32,6 +32,7 @@ import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.db.DBService;
 import com.realaction.yunbomobile.moddel.CaseGuideDocItem;
 import com.realaction.yunbomobile.utils.AppInfo;
+import com.realaction.yunbomobile.utils.MyDialog;
 
 /**
  * 案例资源查看Fragment,用来展示案例的具体内容
@@ -42,6 +43,7 @@ public class CaseViewFragment extends Fragment {
 	private static final String TAG = "CaseViewFragment";
 
 	private Context context;
+	private MyDialog dialog;
 	private String filepath;
 	private String download_url;
 	private String target_name;
@@ -64,6 +66,8 @@ public class CaseViewFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 
 		context = getActivity().getApplicationContext();
+		dialog = new MyDialog(getActivity());
+		dialog.create();
 		dbService = new DBService(context);
 		Bundle bundle = this.getArguments();
 		if (bundle != null) {
@@ -147,6 +151,7 @@ public class CaseViewFragment extends Fragment {
 		guidedoc = dbService.findCaseGuideDocBycaseIdAndguideId(String.valueOf(caseId), String.valueOf(guideId));
 		if (AppInfo.network_avabile
 				&& ((guidedoc == null) || (guidedoc != null && (guidedoc.isDownload == 0)))) {
+			dialog.show();
 			// 实验指导书未缓存在本地且网络可用，则下载该指导书并显示
 			FinalHttp fh = new FinalHttp();
 			HttpHandler handler = fh.download(downloadurl, targetname, true,
@@ -161,6 +166,7 @@ public class CaseViewFragment extends Fragment {
 						public void onFailure(Throwable t, int errorNo, String strMsg) {
 							super.onFailure(t, errorNo, strMsg);
 							Log.d(TAG, "fail to download --> ");
+							dialog.dismiss();
 							layout_dl_fail_retry.setVisibility(View.VISIBLE);
 							layout_no_resource.setVisibility(View.GONE);
 							documentView.setVisibility(View.GONE);
@@ -175,6 +181,7 @@ public class CaseViewFragment extends Fragment {
 						@Override
 						public void onSuccess(File t) {
 							super.onSuccess(t);
+							dialog.dismiss();
 							// TODO 下载成功之后修改guidedoc中isDownload和localPaht的值并更新
 							guidedoc.isDownload = 1;
 							guidedoc.localPath = targetname;

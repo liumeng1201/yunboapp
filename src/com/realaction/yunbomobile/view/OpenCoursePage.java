@@ -58,8 +58,8 @@ public class OpenCoursePage extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long location) {
-				Intent intent = new Intent(context, CaseListActivity.class);
-				startActivity(intent);
+//				Intent intent = new Intent(context, CaseListActivity.class);
+//				startActivity(intent);
 			}
 		});
 		return view;
