@@ -8,6 +8,8 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ import com.realaction.yunbomobile.moddel.CourseItem;
 import com.realaction.yunbomobile.moddel.User;
 import com.realaction.yunbomobile.utils.AppInfo;
 import com.realaction.yunbomobile.utils.AsyncTaskGetCourseList;
+import com.realaction.yunbomobile.utils.MyDialog;
 import com.realaction.yunbomobile.utils.UserUtils;
 
 /**
@@ -31,10 +34,27 @@ import com.realaction.yunbomobile.utils.UserUtils;
  * @author liumeng
  */
 public class MyCoursePage extends Fragment {
+	public static final int CANCEL_DIALOG = 1000;
+	public static final int SHOW_DIALOG = 1001;
+	
 	private Context context;
 	private UserUtils userUtils;
 	private DBService dbService;
 	private User currentUser;
+	
+	private MyDialog dialog;
+	private Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			if (msg.what == CANCEL_DIALOG) {
+				dialog.dismiss();
+			}
+			if (msg.what == SHOW_DIALOG) {
+				dialog.show();
+			}
+		}
+	};
 
 	private MyCourseListAdapter adapter_bixiu;
 	private MyCourseListAdapter adapter_xuanxiu;
@@ -53,8 +73,8 @@ public class MyCoursePage extends Fragment {
 	private OnItemClickListener listener_xuanxiu = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long location) {
-			Intent intent = new Intent(context, CaseListActivity.class);
-			startActivity(intent);
+//			Intent intent = new Intent(context, CaseListActivity.class);
+//			startActivity(intent);
 		}
 	};
 
@@ -66,6 +86,8 @@ public class MyCoursePage extends Fragment {
 		super.onCreate(savedInstanceState);
 		context = getActivity().getApplicationContext();
 		userUtils = new UserUtils(context);
+		dialog = new MyDialog(getActivity());
+		dialog.create();
 		dbService = new DBService(context);
 		currentUser = dbService.findUserByuserName(userUtils.getUserName());
 		list_bixiu = new ArrayList<CourseItem>();
@@ -114,42 +136,11 @@ public class MyCoursePage extends Fragment {
 	 * 更新课程列表的内容
 	 */
 	private void refreshCoursesList() {
+		handler.sendEmptyMessage(SHOW_DIALOG);
 		if (AppInfo.network_avabile) {
 			// 网络可用的时候通过网络获取要显示的数据
-			/* 以新线程的方式获取课程数据并更新列表 
-			final Handler mHandler = new Handler();
-	        final String url_coursestu = AppInfo.base_url + "/formobile/formobileGetStudentCourse.action";
-	        final String url_coursetea = AppInfo.base_url + "/formobile/formobileGetTeacherCourse.action";
-			new Thread() {
-				@Override
-				public void run() {
-					super.run();
-					String url = null;
-					List<NameValuePair> datas = new ArrayList<NameValuePair>();
-					switch (currentUser.userTypeId) {
-					case 10: // 学生
-						datas.add(new BasicNameValuePair("stuId", Long.toString(currentUser.userId)));
-						url = url_coursestu;
-						break;
-					case 20:
-					case 40: // 老师
-						datas.add(new BasicNameValuePair("teaId", Long.toString(currentUser.userId)));
-						url = url_coursetea;
-						break;
-					}
-					CourseUtils cu = new CourseUtils(context, String.valueOf(currentUser.userId));
-					list_bixiu = cu.getCourseList(url, datas);
-					mHandler.post(new Runnable() {
-						@Override
-						public void run() {
-							adapter_bixiu.refresh(list_bixiu);
-						}
-					});
-				}
-			}.start();
-			*/
 			// 以异步任务方式获取课程数据并更新列表
-			AsyncTaskGetCourseList async = new AsyncTaskGetCourseList(context, adapter_bixiu);
+			AsyncTaskGetCourseList async = new AsyncTaskGetCourseList(context, handler, adapter_bixiu);
 			String[] params = { String.valueOf(currentUser.userTypeId),
 					String.valueOf(currentUser.userId) };
 			try {
@@ -163,6 +154,7 @@ public class MyCoursePage extends Fragment {
 			// 网络不可用的时候通过访问数据库中缓存的数据来获取要显示的数据
 			list_bixiu = dbService.findCoursesByuserId(currentUser.userId);
 			if (list_bixiu != null) {
+				dialog.dismiss();
 				adapter_bixiu.refresh(list_bixiu);
 			}
 		}

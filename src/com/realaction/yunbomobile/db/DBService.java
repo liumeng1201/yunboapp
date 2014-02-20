@@ -333,6 +333,36 @@ public class DBService {
 	}
 	
 	/**
+	 * 通过caseId和guideId查找对应的caseguidedoc
+	 * 
+	 * @param caseId
+	 * @param guideId
+	 * @return caseguidedoc
+	 */
+	public CaseGuideDocItem findCaseGuideDocBycaseIdAndguideId(String caseId, String guideId) {
+		CaseGuideDocItem guideItem = new CaseGuideDocItem();
+		Cursor cursor = db.rawQuery(
+				CaseGuideDocTb.FIND_CASEGUIDEDOC_BY_CASEIDANDGUIDEID,
+				new String[] { caseId, guideId });
+		if (cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			do {
+				guideItem.guideId = cursor.getLong(0);
+				guideItem.guideDocName = cursor.getString(1);
+				guideItem.guideDocDesc = cursor.getString(2);
+				guideItem.guideDocPath = cursor.getString(3);
+				guideItem.mediaTypeId = cursor.getInt(4);
+				guideItem.caseId = cursor.getLong(5);
+				guideItem.isDownload = cursor.getInt(6);
+				guideItem.localPath = cursor.getString(7);
+			} while (cursor.moveToNext());
+			return guideItem;
+		} else {
+			return null;
+		}
+	}
+	
+	/**
 	 * 根据caseId查询该案例下所有的答案列表
 	 * 
 	 * @param caseId
@@ -360,6 +390,25 @@ public class DBService {
 		} else {
 			return null;
 		}
+	}
+	
+	/**
+	 * 更新课程案例实验指导书表
+	 * 
+	 * @param item
+	 * @return 受影响的行数
+	 */
+	public int updateCaseGuideDoc(CaseGuideDocItem item) {
+		ContentValues cv = new ContentValues();
+		cv.put(CaseGuideDocTb.GUIDEID, item.guideId);
+		cv.put(CaseGuideDocTb.GUIDEDOCNAME, item.guideDocName);
+		cv.put(CaseGuideDocTb.GUIDEDOCDESC, item.guideDocDesc);
+		cv.put(CaseGuideDocTb.GUIDEDOCPATH, item.guideDocPath);
+		cv.put(CaseGuideDocTb.MEDIATYPEID, item.mediaTypeId);
+		cv.put(CaseGuideDocTb.CASEID, item.caseId);
+		cv.put(CaseGuideDocTb.ISDOWNLOAD, item.isDownload);
+		cv.put(CaseGuideDocTb.LOCALPATH, item.localPath);
+		return db.update(CaseGuideDocTb.CASEGUIDEDOCTB, cv, CaseGuideDocTb.GUIDEID + "=" + item.guideId, null);
 	}
 
 }

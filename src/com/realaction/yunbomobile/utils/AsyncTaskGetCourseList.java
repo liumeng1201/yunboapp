@@ -8,9 +8,11 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 
 import com.realaction.yunbomobile.adapter.MyCourseListAdapter;
 import com.realaction.yunbomobile.moddel.CourseItem;
+import com.realaction.yunbomobile.view.MyCoursePage;
 
 /**
  * 获取课程列表并提醒adapter更新数据
@@ -22,10 +24,12 @@ public class AsyncTaskGetCourseList extends AsyncTask<String, Integer, List<Cour
 	private String url_coursetea = AppInfo.base_url + "/formobile/formobileGetTeacherCourse.action";
 
 	private Context context;
+	private Handler handler;
 	private MyCourseListAdapter adapter;
 
-	public AsyncTaskGetCourseList(Context context, MyCourseListAdapter adapter) {
+	public AsyncTaskGetCourseList(Context context, Handler handler, MyCourseListAdapter adapter) {
 		this.context = context;
+		this.handler = handler;
 		this.adapter = adapter;
 	}
 
@@ -57,6 +61,7 @@ public class AsyncTaskGetCourseList extends AsyncTask<String, Integer, List<Cour
 	protected void onPostExecute(List<CourseItem> result) {
 		super.onPostExecute(result);
 		// 通知课程列表更新数据
+		handler.sendEmptyMessage(MyCoursePage.CANCEL_DIALOG);
 		adapter.refresh(result);
 	}
 

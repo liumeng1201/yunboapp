@@ -10,10 +10,12 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 
 import com.realaction.yunbomobile.adapter.DrawerCaseViewExpandableAdapter;
 import com.realaction.yunbomobile.moddel.CaseGuideDocItem;
 import com.realaction.yunbomobile.moddel.CaseViewGroupItem;
+import com.realaction.yunbomobile.view.CaseViewActivity;
 
 /**
  * 获取课程案例资源列表并通知adapter更新数据
@@ -23,10 +25,12 @@ import com.realaction.yunbomobile.moddel.CaseViewGroupItem;
 public class AsyncTaskGetCaseSourceList extends AsyncTask<String, Integer, Map> {
 	private String url = AppInfo.base_url + "/formobile/formobileGetCaseSources.action";
 	private Context context;
+	private Handler handler;
 	private DrawerCaseViewExpandableAdapter adapter;
 	
-	public AsyncTaskGetCaseSourceList(Context context, DrawerCaseViewExpandableAdapter adapter) {
+	public AsyncTaskGetCaseSourceList(Context context, Handler handler, DrawerCaseViewExpandableAdapter adapter) {
 		this.context = context;
+		this.handler = handler;
 		this.adapter = adapter;
 	}
 
@@ -75,6 +79,7 @@ public class AsyncTaskGetCaseSourceList extends AsyncTask<String, Integer, Map> 
 	@Override
 	protected void onPostExecute(Map result) {
 		super.onPostExecute(result);
+		handler.sendEmptyMessage(CaseViewActivity.CANCEL_DIALOG);
 		adapter.refresh((List<CaseViewGroupItem>) (result.get("group")),
 				(List<List<CaseGuideDocItem>>) (result.get("child")));
 	}

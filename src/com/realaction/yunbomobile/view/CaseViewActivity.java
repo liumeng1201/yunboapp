@@ -13,6 +13,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -29,6 +31,7 @@ import com.realaction.yunbomobile.moddel.CaseGuideDocItem;
 import com.realaction.yunbomobile.moddel.CaseViewGroupItem;
 import com.realaction.yunbomobile.utils.AppInfo;
 import com.realaction.yunbomobile.utils.AsyncTaskGetCaseSourceList;
+import com.realaction.yunbomobile.utils.MyDialog;
 import com.realaction.yunbomobile.view.caseviews.AnswerViewFragment;
 import com.realaction.yunbomobile.view.caseviews.CaseViewFragment;
 import com.realaction.yunbomobile.view.caseviews.VideoViewActivity;
@@ -40,7 +43,18 @@ import com.realaction.yunbomobile.view.caseviews.VideoViewActivity;
  */
 public class CaseViewActivity extends Activity {
 	private static final String TAG = "CaseViewActivity";
+	public static final int CANCEL_DIALOG = 1000;
 	private Context context;
+	private MyDialog dialog;
+	private Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			if (msg.what == CANCEL_DIALOG) {
+				dialog.dismiss();
+			}
+		}
+	};
 	private DBService dbService;
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -77,13 +91,16 @@ public class CaseViewActivity extends Activity {
 				final String download_url = AppInfo.base_url + "/"
 						+ (childArray.get(groupPosition)).get(childPosition).guideTmp;
 				final String target_name = "/mnt/sdcard/" + (childArray.get(groupPosition)).get(childPosition).guideDocName;
-				Log.d(TAG, "download_url = " + download_url + "\ntarget_name = " + target_name);
+				long guideId = (childArray.get(groupPosition)).get(childPosition).guideId;
+				Log.d(TAG, "download_url = " + download_url + "\ntarget_name = " + target_name + "\nguide_id = " + guideId);
 				
 				Fragment fragment = new CaseViewFragment();
 				Bundle bundle = new Bundle();
 				bundle.putString("filepath", "/sdcard/aa.pdf");
 				bundle.putString("download_url", download_url);
 				bundle.putString("target_name", target_name);
+				bundle.putLong("guideId", guideId);
+				bundle.putLong("caseId", caseId);
 				fragment.setArguments(bundle);
 				FragmentManager fragmentManager = getFragmentManager();
 				fragmentManager.beginTransaction().replace(R.id.content_frame_caseview, fragment).commit();
@@ -99,6 +116,8 @@ public class CaseViewActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_caseview);
 		context = CaseViewActivity.this;
+		dialog = new MyDialog(context);
+		dialog.create();
 		dbService = new DBService(context);
 		mTitle = mDrawerTitle = getTitle();
 		groupArray = new ArrayList<CaseViewGroupItem>();
@@ -138,9 +157,10 @@ public class CaseViewActivity extends Activity {
 	
 	// 加载课程案例资源内容列表
 	private void loadCaseSourceList() {
+		dialog.show();
 		if (AppInfo.network_avabile) {
 			// 如果网络可用则以异步任务的方式获取资源
-			AsyncTaskGetCaseSourceList async = new AsyncTaskGetCaseSourceList(context, expandableAdapter);
+			AsyncTaskGetCaseSourceList async = new AsyncTaskGetCaseSourceList(context, handler, expandableAdapter);
 			try {
 				map = (async.execute(new String[] { String.valueOf(caseId) })).get();
 				groupArray = (List<CaseViewGroupItem>) map.get("group");
@@ -172,6 +192,7 @@ public class CaseViewActivity extends Activity {
 			groupvideo.groupname = "测试视频";
 			groupArray.add(groupvideo);
 			
+			dialog.dismiss();
 			expandableAdapter.refresh(groupArray, childArray);
 		}
 	}

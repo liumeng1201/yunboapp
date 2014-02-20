@@ -8,4 +8,6 @@ public class AppInfo {
 	
 	// 网络是否可用标志
 	public static boolean network_avabile = true;
+	// 软件基础目录
+	public static final String base_dir = "/mnt/sdcard/.yunbo";
 }

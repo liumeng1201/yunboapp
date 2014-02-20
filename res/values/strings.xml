@@ -84,4 +84,9 @@
         <item>30</item>
     </string-array>
 
+    <string name="dl_fail_retry">下载失败，请重试</string>
+    <string name="dl_btn_retry">重试</string>
+    <string name="caseview_no_resource">资源未缓存，请链接网络后查看</string>
+    
+    <string name="dialog_load">载入中，请稍候...</string>
 </resources>

@@ -8,6 +8,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -20,6 +22,7 @@ import com.realaction.yunbomobile.db.DBService;
 import com.realaction.yunbomobile.moddel.CaseItem;
 import com.realaction.yunbomobile.utils.AppInfo;
 import com.realaction.yunbomobile.utils.AsyncTaskGetCaseList;
+import com.realaction.yunbomobile.utils.MyDialog;
 import com.realaction.yunbomobile.utils.UserUtils;
 
 /**
@@ -28,6 +31,8 @@ import com.realaction.yunbomobile.utils.UserUtils;
  * @author liumeng
  */
 public class CaseListActivity extends Activity {
+	public static final int CANCEL_DIALOG = 1000;
+	
 	private Context context;
 	private int userTypeId;
 	private String scoreId;
@@ -38,12 +43,24 @@ public class CaseListActivity extends Activity {
 	private List<CaseItem> caselists;
 	private CaseListAdpater adapter;
 	private DBService dbService;
+	private MyDialog dialog;
+	private Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			if (msg.what == CANCEL_DIALOG) {
+				dialog.dismiss();
+			}
+		}
+	};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_caselist);
 		context = CaseListActivity.this;
+		dialog = new MyDialog(context);
+		dialog.create();
 		dbService = new DBService(context);
 		userTypeId = (new UserUtils(context)).getUserTypeId();
 		// 获取从课程列表界面跳转过来的Intent
@@ -65,31 +82,10 @@ public class CaseListActivity extends Activity {
 	 * 设置案例资源列表界面所需要的各种数据
 	 */
 	private void init() {
+		dialog.show();
 		if (AppInfo.network_avabile) {
 			// 网络可用的时候通过网络获取课程案例数据并通知adapter更新
-			/*
-			// 方式一
-			final Handler mHandler = new Handler();
-			final String url_student = AppInfo.base_url + "/formobile/formobileGetStudentCases.action";
-			final String url_teacher = AppInfo.base_url + "/formobile/formobileGetTeacherCases.action";
-			new Thread() {
-				@Override
-				public void run() {
-					super.run();
-					List<NameValuePair> datas = new ArrayList<NameValuePair>();
-					datas.add(new BasicNameValuePair("scoreId", scoreId));
-					CasesUtils cu = new CasesUtils(context, scoreId);
-					caselists = cu.getCasesList(url_student, datas);
-					mHandler.post(new Runnable() {
-						@Override
-						public void run() {
-							adapter.refresh(caselists);
-						}
-					});
-				}
-			}.start(); */
-			// 方式二
-			AsyncTaskGetCaseList async = new AsyncTaskGetCaseList(context, adapter);
+			AsyncTaskGetCaseList async = new AsyncTaskGetCaseList(context, handler, adapter);
 			String[] params = new String[] { scoreId, String.valueOf(userTypeId)};
 			try {
 				caselists = async.execute(params).get();
@@ -102,6 +98,7 @@ public class CaseListActivity extends Activity {
 			// 网络不可用时通过数据库获取缓存的案例数据
 			caselists = dbService.findCasesByscoreId(scoreId);
 			if (caselists != null) {
+				dialog.dismiss();
 				adapter.refresh(caselists);
 			}
 		}

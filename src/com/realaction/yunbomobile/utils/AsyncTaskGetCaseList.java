@@ -8,19 +8,23 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 
 import com.realaction.yunbomobile.adapter.CaseListAdpater;
 import com.realaction.yunbomobile.moddel.CaseItem;
+import com.realaction.yunbomobile.view.CaseListActivity;
 
 public class AsyncTaskGetCaseList extends AsyncTask<String, Integer, List<CaseItem>> {
 	private String url_student = AppInfo.base_url + "/formobile/formobileGetStudentCases.action";
 	private String url_teacher = AppInfo.base_url + "/formobile/formobileGetTeacherCases.action";
 	
 	private Context context;
+	private Handler handler;
 	private CaseListAdpater adapter;
 	
-	public AsyncTaskGetCaseList(Context context, CaseListAdpater adapter) {
+	public AsyncTaskGetCaseList(Context context, Handler handler, CaseListAdpater adapter) {
 		this.context = context;
+		this.handler = handler;
 		this.adapter = adapter;
 	}
 
@@ -51,6 +55,7 @@ public class AsyncTaskGetCaseList extends AsyncTask<String, Integer, List<CaseIt
 	protected void onPostExecute(List<CaseItem> result) {
 		super.onPostExecute(result);
 		// 通知案例列表更新数据
+		handler.sendEmptyMessage(CaseListActivity.CANCEL_DIALOG);
 		adapter.refresh(result);
 	}
 
