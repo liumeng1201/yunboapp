@@ -97,8 +97,8 @@ public class CaseListActivity extends Activity {
 		} else {
 			// 网络不可用时通过数据库获取缓存的案例数据
 			caselists = dbService.findCasesByscoreId(scoreId);
+			dialog.dismiss();
 			if (caselists != null) {
-				dialog.dismiss();
 				adapter.refresh(caselists);
 			}
 		}

@@ -153,8 +153,8 @@ public class MyCoursePage extends Fragment {
 		} else {
 			// 网络不可用的时候通过访问数据库中缓存的数据来获取要显示的数据
 			list_bixiu = dbService.findCoursesByuserId(currentUser.userId);
+			handler.sendEmptyMessage(CANCEL_DIALOG);
 			if (list_bixiu != null) {
-				dialog.dismiss();
 				adapter_bixiu.refresh(list_bixiu);
 			}
 		}
