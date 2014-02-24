@@ -20,6 +20,8 @@ public class CaseSourcesHandler extends DefaultHandler {
 	private List<CaseGuideDocItem> casesourcesList;
 	private List<CaseDocItem> casedocsList;
 	private DBService dbService;
+	private long caseId;
+	private String casedir;
 	
 	public CaseSourcesHandler(Context context) {
 		this.context = context;
@@ -67,7 +69,9 @@ public class CaseSourcesHandler extends DefaultHandler {
 			item.mediaTypeId = Integer.parseInt(attributes.getValue("mediaTypeId"));
 			item.guidedir = attributes.getValue("guidedir");
 			item.casedir = attributes.getValue("casedir");
+			casedir = item.casedir;
 			item.caseId = Long.parseLong(attributes.getValue("caseId"));
+			caseId = item.caseId;
 			item.isDownload = 0;
 			casesourcesList.add(item);
 		}
@@ -97,6 +101,7 @@ public class CaseSourcesHandler extends DefaultHandler {
 			for (CaseDocItem item : casedocsList) {
 				dbService.insertCaseDocTb(item);
 			}
+			dbService.updateCaseDir(caseId, casedir);
 			dbService.setTransactionSuccessful();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -146,6 +146,21 @@ public class DBService {
 	}
 	
 	/**
+	 * 更新caseTb表中casedir的值
+	 * 
+	 * @param caseId
+	 *            要更新的case的caseId
+	 * @param casedir
+	 *            要更新的casedir的值
+	 * @return 受影响的行数
+	 */
+	public int updateCaseDir(long caseId, String casedir) {
+		ContentValues cv = new ContentValues();
+		cv.put(CaseTb.CASEDIR, casedir);
+		return db.update(CaseTb.CASETB, cv, CaseTb.CASEID + "=?", new String[] {String.valueOf(caseId)});
+	}
+	
+	/**
 	 * 向课程案例资源实验指导书表插入数据不存在插入存在则返回ID
 	 * 
 	 * @param item
@@ -197,6 +212,7 @@ public class DBService {
 		cv.put(CaseDocTb.CASEID, item.caseId);
 		cv.put(CaseDocTb.ISDOWNLOAD, item.isDownload);
 		cv.put(CaseDocTb.LOCALPATH, item.localPath);
+		cv.put(CaseDocTb.DOCDIR, item.docdir);
 		Cursor cursor = db.rawQuery(
 				CaseDocTb.FIND_CASEDOC_BY_CASEIDANDDOCID,
 				new String[] { String.valueOf(item.caseId),
@@ -320,6 +336,7 @@ public class DBService {
 				caseitem.caseGroupId = cursor.getLong(5);
 				caseitem.caseGroupName = cursor.getString(6);
 				caseitem.scoreId = cursor.getString(7);
+				caseitem.casedir = cursor.getString(8);
 				cases.add(caseitem);
 			} while (cursor.moveToNext());
 			cursor.close();
@@ -418,6 +435,7 @@ public class DBService {
 				item.caseId = cursor.getLong(5);
 				item.isDownload = cursor.getInt(6);
 				item.localPath = cursor.getString(7);
+				item.docdir = cursor.getString(8);
 				caseDocs.add(item);
 			} while (cursor.moveToNext());
 			cursor.close();

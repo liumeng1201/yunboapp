@@ -17,6 +17,7 @@ public class CaseTb {
 	public static final String CASEGROUPID = "caseGroupId";
 	public static final String CASEGROUPNAME = "caseGroupName";
 	public static final String SCOREID = "scoreId";
+	public static final String CASEDIR = "casedir";
 
 	// 创建案例表
 	public static final String CREATE_CASE_TB = "CREATE TABLE IF NOT EXISTS "
@@ -24,17 +25,17 @@ public class CaseTb {
 			+ CASEID + " integer, " + CASENAME + " varchar(128), " + KEYWORDS
 			+ " varchar(200), " + DEVROLENAME + " varchar(50), " + TEACHERNAME
 			+ " varchar(50), " + CASEGROUPID + " integer, " + CASEGROUPNAME
-			+ " varchar(32), " + SCOREID + " varchar(32))";
+			+ " varchar(32), " + SCOREID + " varchar(32)," + CASEDIR + " varchar(1024))";
 	// 根据scoreId查找案例
 	public static final String FIND_CASE_BY_SCOREID = "select " + CASEID + ","
 			+ CASENAME + "," + KEYWORDS + "," + DEVROLENAME + ","
 			+ TEACHERNAME + "," + CASEGROUPID + "," + CASEGROUPNAME + ","
-			+ SCOREID + " from " + CASETB + " where " + SCOREID + "=?";
+			+ SCOREID + "," + CASEDIR + " from " + CASETB + " where " + SCOREID + "=?";
 	// 根据scoreId和caseId查找案例
 	public static final String FIND_CASE_BY_SCOREIDANDCASEID = "select "
 			+ CASEID + "," + CASENAME + "," + KEYWORDS + "," + DEVROLENAME
 			+ "," + TEACHERNAME + "," + CASEGROUPID + "," + CASEGROUPNAME + ","
-			+ SCOREID + " from " + CASETB + " where " + SCOREID + "=? and "
+			+ SCOREID + "," + CASEDIR + " from " + CASETB + " where " + SCOREID + "=? and "
 			+ CASEID + "=?";
 	// 删除课程表
 	public static final String DROP_CASE_TB = "DROP TABLE IF EXISTS " + CASETB;

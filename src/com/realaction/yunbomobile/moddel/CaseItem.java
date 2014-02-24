@@ -14,4 +14,5 @@ public class CaseItem {
 	public long caseGroupId;
 	public String caseGroupName;
 	public String scoreId;
+	public String casedir;
 }
