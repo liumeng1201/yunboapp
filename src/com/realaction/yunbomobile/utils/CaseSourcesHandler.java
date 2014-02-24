@@ -40,13 +40,6 @@ public class CaseSourcesHandler extends DefaultHandler {
 		casedocsList = new ArrayList<CaseDocItem>();
 		dbService = new DBService(context);
 	}
-	
-	// 收尾工作
-	@Override
-	public void endDocument() throws SAXException {
-		super.endDocument();
-		dbService.close();
-	}
 
 	@Override
 	public void characters(char[] ch, int start, int length)
@@ -76,9 +69,6 @@ public class CaseSourcesHandler extends DefaultHandler {
 			item.casedir = attributes.getValue("casedir");
 			item.caseId = Long.parseLong(attributes.getValue("caseId"));
 			item.isDownload = 0;
-			dbService.insertCaseGuideDocTb(item);
-			Log.d("ln", "guidename=" + item.guideDocName + "\nguidepath=" + item.guideDocPath 
-					+ "\nguidedir=" + item.guidedir + "\ncasedir=" + item.casedir);
 			casesourcesList.add(item);
 		}
 		if (localName.equals("casedoc")) {
@@ -91,9 +81,28 @@ public class CaseSourcesHandler extends DefaultHandler {
 			item.docdir = attributes.getValue("docdir");
 			item.caseId = Long.parseLong(attributes.getValue("caseId"));
 			item.isDownload = 0;
-			dbService.insertCaseDocTb(item);
-			Log.d("ln", "docname=" + item.docName + "\ndocpath=" + item.docPath + "\ndocdir=" + item.docdir);
 			casedocsList.add(item);
 		}
+	}
+	
+	// 收尾工作
+	@Override
+	public void endDocument() throws SAXException {
+		super.endDocument();
+		dbService.beginTransaction();
+		try {
+			for (CaseGuideDocItem item : casesourcesList) {
+				dbService.insertCaseGuideDocTb(item);
+			}
+			for (CaseDocItem item : casedocsList) {
+				dbService.insertCaseDocTb(item);
+			}
+			dbService.setTransactionSuccessful();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbService.endTransaction();
+		}
+		dbService.close();
 	}
 }

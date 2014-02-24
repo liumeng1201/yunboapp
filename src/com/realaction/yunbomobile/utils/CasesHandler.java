@@ -8,7 +8,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.realaction.yunbomobile.db.DBService;
 import com.realaction.yunbomobile.moddel.CaseItem;
@@ -49,12 +48,6 @@ public class CasesHandler extends DefaultHandler {
 		casesList = new ArrayList<CaseItem>();
 		dbService = new DBService(context);
 	}
-	
-	@Override
-	public void endDocument() throws SAXException {
-		super.endDocument();
-		dbService.close();
-	}
 
 	@Override
 	public void startElement(String uri, String localName, String qName,
@@ -72,7 +65,6 @@ public class CasesHandler extends DefaultHandler {
 			item.caseGroupName = attributes.getValue("caseGroupName");
 			item.scoreId = scoreId;
 			casesList.add(item);
-			dbService.insertCaseTb(item);
 		}
 	}
 	
@@ -80,6 +72,23 @@ public class CasesHandler extends DefaultHandler {
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
 		super.endElement(uri, localName, qName);
+	}
+	
+	@Override
+	public void endDocument() throws SAXException {
+		super.endDocument();
+		dbService.beginTransaction();
+		try {
+			for (CaseItem item : casesList) {
+				dbService.insertCaseTb(item);
+			}
+			dbService.setTransactionSuccessful();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbService.endTransaction();
+		}
+		dbService.close();
 	}
 
 }

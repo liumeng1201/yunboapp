@@ -27,6 +27,18 @@ public class DBService {
 		dbHelper = new DBOpenHelper(context);
 		db = dbHelper.getWritableDatabase();
 	}
+	
+	public void beginTransaction() {
+		db.beginTransaction();
+	}
+	
+	public void setTransactionSuccessful() {
+		db.setTransactionSuccessful();
+	}
+	
+	public void endTransaction() {
+		db.endTransaction();
+	}
 
 	/**
 	 * 删除指定名字的表
@@ -89,7 +101,9 @@ public class DBService {
 		if (cursor.getCount() > 0) {
 			// 已存在记录则返回该记录的Id
 			cursor.moveToFirst();
-			return cursor.getLong(0);
+			long result = cursor.getLong(0);
+			cursor.close();
+			return result;
 		} else {
 			cursor.close();
 			// 不存在记录则插入
@@ -121,7 +135,9 @@ public class DBService {
 		if (cursor.getCount() > 0) {
 			// 存在记录则返回该记录的ID
 			cursor.moveToFirst();
-			return cursor.getLong(0);
+			long result = cursor.getLong(0);
+			cursor.close();
+			return result;
 		} else {
 			// 不存在记录则插入
 			cursor.close();
@@ -146,6 +162,7 @@ public class DBService {
 		cv.put(CaseGuideDocTb.CASEID, item.caseId);
 		cv.put(CaseGuideDocTb.ISDOWNLOAD, item.isDownload);
 		cv.put(CaseGuideDocTb.LOCALPATH, item.localPath);
+		cv.put(CaseGuideDocTb.GUIDEDIR, item.guidedir);
 		Cursor cursor = db.rawQuery(
 				CaseGuideDocTb.FIND_CASEGUIDEDOC_BY_CASEIDANDGUIDEID,
 				new String[] { String.valueOf(item.caseId),
@@ -153,7 +170,9 @@ public class DBService {
 		if (cursor.getCount() > 0) {
 			// 存在记录则返回该记录的ID
 			cursor.moveToFirst();
-			return cursor.getLong(0);
+			long result = cursor.getLong(0);
+			cursor.close();
+			return result;
 		} else {
 			// 不存在记录则插入
 			cursor.close();
@@ -185,7 +204,9 @@ public class DBService {
 		if (cursor.getCount() > 0) {
 			// 存在记录则返回该记录的ID
 			cursor.moveToFirst();
-			return cursor.getLong(0);
+			long result = cursor.getLong(0);
+			cursor.close();
+			return result;
 		} else {
 			// 不存在记录则插入
 			cursor.close();
@@ -213,6 +234,7 @@ public class DBService {
 			user.stuNo = cursor.getString(6);
 			user.empNo = cursor.getString(7);
 		}
+		cursor.close();
 		return user;
 	}
 
@@ -237,8 +259,10 @@ public class DBService {
 				user.stuNo = cursor.getString(6);
 				user.empNo = cursor.getString(7);
 			}
+			cursor.close();
 			return user;
 		} else {
+			cursor.close();
 			return null;
 		}
 	}
@@ -266,8 +290,10 @@ public class DBService {
 				course.userId = cursor.getLong(6);
 				courses.add(course);
 			} while (cursor.moveToNext());
+			cursor.close();
 			return courses;
 		} else {
+			cursor.close();
 			return null;
 		}
 	}
@@ -296,8 +322,10 @@ public class DBService {
 				caseitem.scoreId = cursor.getString(7);
 				cases.add(caseitem);
 			} while (cursor.moveToNext());
+			cursor.close();
 			return cases;
 		} else {
+			cursor.close();
 			return null;
 		}
 	}
@@ -324,10 +352,13 @@ public class DBService {
 				item.caseId = cursor.getLong(5);
 				item.isDownload = cursor.getInt(6);
 				item.localPath = cursor.getString(7);
+				item.guidedir = cursor.getString(8);
 				guideDocs.add(item);
 			} while (cursor.moveToNext());
+			cursor.close();
 			return guideDocs;
 		} else {
+			cursor.close();
 			return null;
 		}
 	}
@@ -355,9 +386,12 @@ public class DBService {
 				guideItem.caseId = cursor.getLong(5);
 				guideItem.isDownload = cursor.getInt(6);
 				guideItem.localPath = cursor.getString(7);
+				guideItem.guidedir = cursor.getString(8);
 			} while (cursor.moveToNext());
+			cursor.close();
 			return guideItem;
 		} else {
+			cursor.close();
 			return null;
 		}
 	}
@@ -386,8 +420,10 @@ public class DBService {
 				item.localPath = cursor.getString(7);
 				caseDocs.add(item);
 			} while (cursor.moveToNext());
+			cursor.close();
 			return caseDocs;
 		} else {
+			cursor.close();
 			return null;
 		}
 	}
