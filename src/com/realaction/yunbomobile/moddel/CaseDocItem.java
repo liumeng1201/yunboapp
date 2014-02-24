@@ -11,6 +11,7 @@ public class CaseDocItem {
 	public String docDesc;
 	public String docPath;
 	public int docTypeId;
+	public String docdir;
 	public long caseId;
 	public int isDownload;
 	public String localPath;

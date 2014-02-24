@@ -72,9 +72,13 @@ public class CaseSourcesHandler extends DefaultHandler {
 			item.guideDocPath = attributes.getValue("guideDocPath");
 			item.guideTmp = attributes.getValue("guideTmp");
 			item.mediaTypeId = Integer.parseInt(attributes.getValue("mediaTypeId"));
+			item.guidedir = attributes.getValue("guidedir");
+			item.casedir = attributes.getValue("casedir");
 			item.caseId = Long.parseLong(attributes.getValue("caseId"));
 			item.isDownload = 0;
-			Log.d("lm", "insertCaseGuideDocTb result = " + dbService.insertCaseGuideDocTb(item));
+			dbService.insertCaseGuideDocTb(item);
+			Log.d("ln", "guidename=" + item.guideDocName + "\nguidepath=" + item.guideDocPath 
+					+ "\nguidedir=" + item.guidedir + "\ncasedir=" + item.casedir);
 			casesourcesList.add(item);
 		}
 		if (localName.equals("casedoc")) {
@@ -84,9 +88,11 @@ public class CaseSourcesHandler extends DefaultHandler {
 			item.docDesc = attributes.getValue("docDesc");
 			item.docPath = attributes.getValue("docPath");
 			item.docTypeId = Integer.parseInt(attributes.getValue("docTypeId"));
+			item.docdir = attributes.getValue("docdir");
 			item.caseId = Long.parseLong(attributes.getValue("caseId"));
 			item.isDownload = 0;
-			Log.d("lm", "insertCaseDocTb result = " + dbService.insertCaseDocTb(item));
+			dbService.insertCaseDocTb(item);
+			Log.d("ln", "docname=" + item.docName + "\ndocpath=" + item.docPath + "\ndocdir=" + item.docdir);
 			casedocsList.add(item);
 		}
 	}
