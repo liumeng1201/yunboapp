@@ -1,5 +1,9 @@
 package com.realaction.yunbomobile.view;
 
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -88,15 +92,22 @@ public class CaseViewActivity extends Activity {
 				setTitle(childArray.get(groupPosition).get(childPosition).guideDocName);
 				mDrawerLayout.closeDrawer(mDrawerListExpandable);
 			} else {
-				final String download_url = AppInfo.base_url + "/"
-						+ (childArray.get(groupPosition)).get(childPosition).guideTmp;
-				final String target_name = "/mnt/sdcard/" + (childArray.get(groupPosition)).get(childPosition).guideDocName;
+				String download_url = AppInfo.base_url + "/"
+						+ (childArray.get(groupPosition)).get(childPosition).guideDocPath;
+				try {
+					String tmp = URLEncoder.encode(download_url, "UTF-8");
+					tmp = tmp.replaceAll("\\+", "%20");
+					tmp = tmp.replaceAll("%3A", ":").replaceAll("%2F", "/");
+					download_url = tmp;
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+				String target_name = AppInfo.base_dir + "/" + (childArray.get(groupPosition)).get(childPosition).guideDocPath;
 				long guideId = (childArray.get(groupPosition)).get(childPosition).guideId;
 				Log.d(TAG, "download_url = " + download_url + "\ntarget_name = " + target_name + "\nguide_id = " + guideId);
 				
 				Fragment fragment = new CaseViewFragment();
 				Bundle bundle = new Bundle();
-				bundle.putString("filepath", "/sdcard/aa.pdf");
 				bundle.putString("download_url", download_url);
 				bundle.putString("target_name", target_name);
 				bundle.putLong("guideId", guideId);

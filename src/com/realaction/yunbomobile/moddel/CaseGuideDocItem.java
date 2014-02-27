@@ -10,7 +10,6 @@ public class CaseGuideDocItem {
 	public String guideDocName;
 	public String guideDocDesc;
 	public String guideDocPath;
-	public int mediaTypeId;
 	public String guideTmp;
 	public String guidedir;
 	public String casedir;

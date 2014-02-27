@@ -13,7 +13,6 @@ public class CaseDocTb {
 	public static final String DOCNAME = "docName";
 	public static final String DOCDESC = "docDesc";
 	public static final String DOCPATH = "docPath";
-	public static final String DOCTYPEID = "docTypeId";
 	public static final String CASEID = "caseId";
 	public static final String ISDOWNLOAD = "isDownload";
 	public static final String LOCALPATH = "localPath";
@@ -22,21 +21,21 @@ public class CaseDocTb {
 	// 创建课程案例资源答案资源表
 	public static final String CREATE_CASEDOC_TB = "CREATE TABLE IF NOT EXISTS "
 			+ CASEDOCTB + " (" + ID + " integer primary key autoincrement, "
-			+ DOCID + " integer, " + DOCNAME + " varchar(128), " + DOCDESC
-			+ " varchar(256), " + DOCPATH + " varchar(1024), " + DOCTYPEID
-			+ " integer, " + CASEID + " integer, " + ISDOWNLOAD + " integer, "
+			+ DOCID + " integer, " + DOCNAME + " varchar(128), "
+			+ DOCDESC + " varchar(256), " + DOCPATH + " varchar(1024), "
+			+ CASEID + " integer, " + ISDOWNLOAD + " integer, "
 			+ LOCALPATH + " varchar(1024)," + DOCDIR + " varchar(1024))";
 	// 根据caseId查找案例答案资源
 	public static final String FIND_CASEDOC_BY_CASEID = "select " + DOCID + ","
-			+ DOCNAME + "," + DOCDESC + "," + DOCPATH + "," + DOCTYPEID + ","
-			+ CASEID + "," + ISDOWNLOAD + "," + LOCALPATH + "," + DOCDIR
-			+ " from " + CASEDOCTB + " where " + CASEID + "=?";
+			+ DOCNAME + "," + DOCDESC + "," + DOCPATH + "," + CASEID + ","
+			+ ISDOWNLOAD + "," + LOCALPATH + "," + DOCDIR + " from "
+			+ CASEDOCTB + " where " + CASEID + "=?";
 	// 根据caseId和docId查找答案资源
 	public static final String FIND_CASEDOC_BY_CASEIDANDDOCID = "select "
 			+ DOCID + "," + DOCNAME + "," + DOCDESC + "," + DOCPATH + ","
-			+ DOCTYPEID + "," + CASEID + "," + ISDOWNLOAD + "," + LOCALPATH
-			+ "," + DOCDIR + " from " + CASEDOCTB + " where " + CASEID
-			+ "=? and " + DOCID + "=?";
+			+ CASEID + "," + ISDOWNLOAD + "," + LOCALPATH + "," + DOCDIR
+			+ " from " + CASEDOCTB + " where " + CASEID + "=? and " + DOCID
+			+ "=?";
 	// 删除课程案例答案资源表
 	public static final String DROP_CASEDOC_TB = "DROP TABLE IF EXISTS "
 			+ CASEDOCTB;

@@ -1,6 +1,7 @@
 package com.realaction.yunbomobile.view.caseviews;
 
 import java.io.File;
+import java.net.URI;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -44,7 +45,6 @@ public class CaseViewFragment extends Fragment {
 
 	private Context context;
 	private MyDialog dialog;
-	private String filepath;
 	private String download_url;
 	private String target_name;
 	private long guideId;
@@ -71,7 +71,6 @@ public class CaseViewFragment extends Fragment {
 		dbService = new DBService(context);
 		Bundle bundle = this.getArguments();
 		if (bundle != null) {
-			filepath = bundle.getString("filepath");
 			download_url = bundle.getString("download_url");
 			target_name = bundle.getString("target_name");
 			guideId = bundle.getLong("guideId");
@@ -152,57 +151,66 @@ public class CaseViewFragment extends Fragment {
 		if (AppInfo.network_avabile
 				&& ((guidedoc == null) || (guidedoc != null && (guidedoc.isDownload == 0)))) {
 			dialog.show();
-			// 实验指导书未缓存在本地且网络可用，则下载该指导书并显示
-			FinalHttp fh = new FinalHttp();
-			HttpHandler handler = fh.download(downloadurl, targetname, true,
-					new AjaxCallBack<File>() {
-						@Override
-						public void onStart() {
-							super.onStart();
-							Log.d(TAG, "start download --> " + downloadurl);
-						}
+			File file = new File(targetname);
+			if (!(file.getParentFile().exists())) {
+				// 当文件目录不存在时则创建
+				file.getParentFile().mkdirs();
+			}
+			if (!file.exists()) {
+				// 实验指导书未缓存在本地且网络可用，则下载该指导书并显示
+				FinalHttp fh = new FinalHttp();
+				HttpHandler handler = fh.download(downloadurl, targetname, true, new AjaxCallBack<File>() {
+							@Override
+							public void onStart() {
+								super.onStart();
+								Log.d(TAG, "start download --> " + downloadurl);
+							}
 
-						@Override
-						public void onFailure(Throwable t, int errorNo, String strMsg) {
-							super.onFailure(t, errorNo, strMsg);
-							Log.d(TAG, "fail to download --> ");
-							dialog.dismiss();
-							layout_dl_fail_retry.setVisibility(View.VISIBLE);
-							layout_no_resource.setVisibility(View.GONE);
-							documentView.setVisibility(View.GONE);
-						}
+							@Override
+							public void onFailure(Throwable t, int errorNo, String strMsg) {
+								super.onFailure(t, errorNo, strMsg);
+								Log.d(TAG, "fail to download");
+								dialog.dismiss();
+								layout_dl_fail_retry.setVisibility(View.VISIBLE);
+								layout_no_resource.setVisibility(View.GONE);
+								documentView.setVisibility(View.GONE);
+							}
 
-						@Override
-						public void onLoading(long count, long current) {
-							super.onLoading(count, current);
-							Log.d(TAG, "下载进度: " + current + "/" + count);
-						}
+							@Override
+							public void onLoading(long count, long current) {
+								super.onLoading(count, current);
+								Log.d(TAG, "下载进度: " + current + "/" + count);
+							}
 
-						@Override
-						public void onSuccess(File t) {
-							super.onSuccess(t);
-							dialog.dismiss();
-							// TODO 下载成功之后修改guidedoc中isDownload和localPaht的值并更新
-							guidedoc.isDownload = 1;
-							guidedoc.localPath = targetname;
-							dbService.updateCaseGuideDoc(guidedoc);
-							decodeService.open(Uri.fromFile(new File(filepath)));
-							documentView.showDocument();
-							// decodeService.open(Uri.fromFile(new File(targetname)));
-							Log.d(TAG, "下载完成: "
-									+ (t == null ? "null" : t.getAbsoluteFile().toString()));
-						}
-					});
+							@Override
+							public void onSuccess(File t) {
+								super.onSuccess(t);
+								dialog.dismiss();
+								guidedoc.isDownload = 1;
+								guidedoc.localPath = targetname;
+								dbService.updateCaseGuideDoc(guidedoc);
+								decodeService.open(Uri.fromFile(new File(targetname)));
+								documentView.showDocument();
+								Log.d(TAG, "下载完成: " + (t == null ? "null" : t.getAbsoluteFile().toString()));
+							}
+						});
+			} else {
+				// 当文件存在是则直接显示
+				dialog.dismiss();
+				decodeService.open(Uri.fromFile(new File(targetname)));
+				documentView.showDocument();
+			}
 		} else if (guidedoc.isDownload == 1) {
 			// 实验指导书已下载到本地
+			dialog.dismiss();
 			layout_dl_fail_retry.setVisibility(View.VISIBLE);
 			layout_no_resource.setVisibility(View.GONE);
 			documentView.setVisibility(View.GONE);
-			String filepath = AppInfo.base_dir + guidedoc.localPath;
-			decodeService.open(Uri.fromFile(new File(filepath)));
+			decodeService.open(Uri.fromFile(new File(targetname)));
 			documentView.showDocument();
 		} else {
 			// 无网络且未缓存，则不可用
+			dialog.dismiss();
 			layout_dl_fail_retry.setVisibility(View.GONE);
 			layout_no_resource.setVisibility(View.VISIBLE);
 			documentView.setVisibility(View.GONE);

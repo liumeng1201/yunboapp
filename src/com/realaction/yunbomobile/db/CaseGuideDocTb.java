@@ -13,7 +13,6 @@ public class CaseGuideDocTb {
 	public static final String GUIDEDOCNAME = "guideDocName";
 	public static final String GUIDEDOCDESC = "guideDocDesc";
 	public static final String GUIDEDOCPATH = "guideDocPath";
-	public static final String MEDIATYPEID = "mediaTypeId";
 	public static final String CASEID = "caseId";
 	public static final String ISDOWNLOAD = "isDownload";
 	public static final String LOCALPATH = "localPath";
@@ -24,20 +23,22 @@ public class CaseGuideDocTb {
 			+ CASEGUIDEDOCTB + " (" + ID + " integer primary key autoincrement, "
 			+ GUIDEID + " integer, " + GUIDEDOCNAME + " varchar(128), "
 			+ GUIDEDOCDESC + " varchar(256), " + GUIDEDOCPATH + " varchar(1024), "
-			+ MEDIATYPEID + " integer, " + CASEID + " integer, " + ISDOWNLOAD + " integer, "
+			+ CASEID + " integer, " + ISDOWNLOAD + " integer, "
 			+ LOCALPATH + " varchar(1024)," + GUIDEDIR + " varchar(1024))";
 	// 根据caseId查找案例实验指导书
 	public static final String FIND_CASEGUIDEDOC_BY_CASEID = "select "
 			+ GUIDEID + "," + GUIDEDOCNAME + "," + GUIDEDOCDESC + ","
-			+ GUIDEDOCPATH + "," + MEDIATYPEID + "," + CASEID + ","
-			+ ISDOWNLOAD + "," + LOCALPATH + "," + GUIDEDIR + " from "
-			+ CASEGUIDEDOCTB + " where " + CASEID + "=?";
+			+ GUIDEDOCPATH + "," + CASEID + "," + ISDOWNLOAD + "," + LOCALPATH
+			+ "," + GUIDEDIR + " from " + CASEGUIDEDOCTB + " where " + CASEID
+			+ "=?";
 	// 根据caseId和guideId查找实验指导书
 	public static final String FIND_CASEGUIDEDOC_BY_CASEIDANDGUIDEID = "select "
-			+ GUIDEID + "," + GUIDEDOCNAME + "," + GUIDEDOCDESC + "," + GUIDEDOCPATH + ","
-			+ MEDIATYPEID + "," + CASEID + "," + ISDOWNLOAD + "," + LOCALPATH + ","
-			+ GUIDEDIR + " from " + CASEGUIDEDOCTB + " where " + CASEID + "=? and " + GUIDEID + "=?";
+			+ GUIDEID + "," + GUIDEDOCNAME + "," + GUIDEDOCDESC + ","
+			+ GUIDEDOCPATH + "," + CASEID + "," + ISDOWNLOAD + ","
+			+ LOCALPATH + "," + GUIDEDIR + " from " + CASEGUIDEDOCTB
+			+ " where " + CASEID + "=? and " + GUIDEID + "=?";
 	// 删除课程案例资源实验指导书表
-	public static final String DROP_CASEGUIDEDOC_TB = "DROP TABLE IF EXISTS " + CASEGUIDEDOCTB;
+	public static final String DROP_CASEGUIDEDOC_TB = "DROP TABLE IF EXISTS "
+			+ CASEGUIDEDOCTB;
 
 }
