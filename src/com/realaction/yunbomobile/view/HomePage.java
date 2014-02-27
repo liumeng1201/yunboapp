@@ -100,8 +100,8 @@ public class HomePage extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long location) {
-				Intent intent = new Intent(context, CaseViewActivity.class);
-				startActivity(intent);
+//				Intent intent = new Intent(context, CaseViewActivity.class);
+//				startActivity(intent);
 			}
 		};
 	}
@@ -127,13 +127,13 @@ public class HomePage extends Fragment {
 		case LIST_FAV:
 			// TODO 从数据库中查询出最常浏览的5条记录
 			for (int i = 0; i < 5; i++) {
-				list.add("my favorite : " + (i + 1));
+				list.add("最常浏览 : " + (i + 1));
 			}
 			break;
 		case LIST_HIS:
 			// TODO 从数据库中查询出最后浏览的5条记录
 			for (int i = 0; i < 5; i++) {
-				list.add("my history : " + (i + 1));
+				list.add("历史记录 : " + (i + 1));
 			}
 			break;
 		default:
