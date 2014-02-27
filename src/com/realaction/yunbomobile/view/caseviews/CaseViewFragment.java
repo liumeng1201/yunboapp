@@ -203,9 +203,9 @@ public class CaseViewFragment extends Fragment {
 		} else if (guidedoc.isDownload == 1) {
 			// 实验指导书已下载到本地
 			dialog.dismiss();
-			layout_dl_fail_retry.setVisibility(View.VISIBLE);
+			layout_dl_fail_retry.setVisibility(View.GONE);
 			layout_no_resource.setVisibility(View.GONE);
-			documentView.setVisibility(View.GONE);
+			documentView.setVisibility(View.VISIBLE);
 			decodeService.open(Uri.fromFile(new File(targetname)));
 			documentView.showDocument();
 		} else {

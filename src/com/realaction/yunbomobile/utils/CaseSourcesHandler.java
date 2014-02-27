@@ -65,8 +65,6 @@ public class CaseSourcesHandler extends DefaultHandler {
 			item.guideDocName = attributes.getValue("guideDocName");
 			item.guideDocDesc = attributes.getValue("guideDocDesc");
 			item.guideDocPath = attributes.getValue("guideDocPath");
-			item.guideTmp = attributes.getValue("guideTmp");
-			item.guidedir = attributes.getValue("guidedir");
 			item.casedir = attributes.getValue("casedir");
 			casedir = item.casedir;
 			item.caseId = Long.parseLong(attributes.getValue("caseId"));
@@ -80,7 +78,6 @@ public class CaseSourcesHandler extends DefaultHandler {
 			item.docName = attributes.getValue("docName");
 			item.docDesc = attributes.getValue("docDesc");
 			item.docPath = attributes.getValue("docPath");
-			item.docdir = attributes.getValue("docdir");
 			item.caseId = Long.parseLong(attributes.getValue("caseId"));
 			item.isDownload = 0;
 			casedocsList.add(item);

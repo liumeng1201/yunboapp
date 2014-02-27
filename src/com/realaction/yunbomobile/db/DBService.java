@@ -176,7 +176,6 @@ public class DBService {
 		cv.put(CaseGuideDocTb.CASEID, item.caseId);
 		cv.put(CaseGuideDocTb.ISDOWNLOAD, item.isDownload);
 		cv.put(CaseGuideDocTb.LOCALPATH, item.localPath);
-		cv.put(CaseGuideDocTb.GUIDEDIR, item.guidedir);
 		Cursor cursor = db.rawQuery(
 				CaseGuideDocTb.FIND_CASEGUIDEDOC_BY_CASEIDANDGUIDEID,
 				new String[] { String.valueOf(item.caseId),
@@ -210,7 +209,6 @@ public class DBService {
 		cv.put(CaseDocTb.CASEID, item.caseId);
 		cv.put(CaseDocTb.ISDOWNLOAD, item.isDownload);
 		cv.put(CaseDocTb.LOCALPATH, item.localPath);
-		cv.put(CaseDocTb.DOCDIR, item.docdir);
 		Cursor cursor = db.rawQuery(
 				CaseDocTb.FIND_CASEDOC_BY_CASEIDANDDOCID,
 				new String[] { String.valueOf(item.caseId),
@@ -366,7 +364,6 @@ public class DBService {
 				item.caseId = cursor.getLong(4);
 				item.isDownload = cursor.getInt(5);
 				item.localPath = cursor.getString(6);
-				item.guidedir = cursor.getString(7);
 				guideDocs.add(item);
 			} while (cursor.moveToNext());
 			cursor.close();
@@ -399,7 +396,6 @@ public class DBService {
 				guideItem.caseId = cursor.getLong(4);
 				guideItem.isDownload = cursor.getInt(5);
 				guideItem.localPath = cursor.getString(6);
-				guideItem.guidedir = cursor.getString(7);
 			} while (cursor.moveToNext());
 			cursor.close();
 			return guideItem;
@@ -430,7 +426,6 @@ public class DBService {
 				item.caseId = cursor.getLong(4);
 				item.isDownload = cursor.getInt(5);
 				item.localPath = cursor.getString(6);
-				item.docdir = cursor.getString(7);
 				caseDocs.add(item);
 			} while (cursor.moveToNext());
 			cursor.close();

@@ -10,7 +10,6 @@ public class CaseDocItem {
 	public String docName;
 	public String docDesc;
 	public String docPath;
-	public String docdir;
 	public long caseId;
 	public int isDownload;
 	public String localPath;
