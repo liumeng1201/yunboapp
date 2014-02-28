@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.adapter.CaseListAdpater;
@@ -106,9 +107,17 @@ public class CaseListActivity extends Activity {
 		caselist_list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long location) {
-				Intent intent = new Intent(context, CaseViewActivity.class);
-				intent.putExtra("caseId", caselists.get(position).caseId);
-				startActivity(intent);
+				if (AppInfo.network_avabile) {
+					Intent intent = new Intent(context, CaseViewActivity.class);
+					intent.putExtra("caseId", caselists.get(position).caseId);
+					startActivity(intent);
+				} else if (dbService.findCaseGuideDocsBycaseId(String.valueOf(caselists.get(position).caseId)) != null) {
+					Intent intent = new Intent(context, CaseViewActivity.class);
+					intent.putExtra("caseId", caselists.get(position).caseId);
+					startActivity(intent);
+				} else {
+					Toast.makeText(context, R.string.no_res_cache_can_not_open, Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 	}

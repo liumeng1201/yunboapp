@@ -189,6 +189,9 @@ public class CaseViewFragment extends Fragment {
 								guidedoc.isDownload = 1;
 								guidedoc.localPath = targetname;
 								dbService.updateCaseGuideDoc(guidedoc);
+								layout_dl_fail_retry.setVisibility(View.GONE);
+								layout_no_resource.setVisibility(View.GONE);
+								documentView.setVisibility(View.VISIBLE);
 								decodeService.open(Uri.fromFile(new File(targetname)));
 								documentView.showDocument();
 								Log.d(TAG, "下载完成: " + (t == null ? "null" : t.getAbsoluteFile().toString()));
@@ -197,6 +200,9 @@ public class CaseViewFragment extends Fragment {
 			} else {
 				// 当文件存在是则直接显示
 				dialog.dismiss();
+				layout_dl_fail_retry.setVisibility(View.GONE);
+				layout_no_resource.setVisibility(View.GONE);
+				documentView.setVisibility(View.VISIBLE);
 				decodeService.open(Uri.fromFile(new File(targetname)));
 				documentView.showDocument();
 			}

@@ -95,6 +95,7 @@ public class CaseViewActivity extends Activity {
 				String download_url = AppInfo.base_url + "/"
 						+ (childArray.get(groupPosition)).get(childPosition).guideDocPath;
 				try {
+					// 转换下载路径中的空格
 					String tmp = URLEncoder.encode(download_url, "UTF-8");
 					tmp = tmp.replaceAll("\\+", "%20");
 					tmp = tmp.replaceAll("%3A", ":").replaceAll("%2F", "/");
@@ -106,17 +107,27 @@ public class CaseViewActivity extends Activity {
 				long guideId = (childArray.get(groupPosition)).get(childPosition).guideId;
 				Log.d(TAG, "download_url = " + download_url + "\ntarget_name = " + target_name + "\nguide_id = " + guideId);
 				
-				Fragment fragment = new CaseViewFragment();
 				Bundle bundle = new Bundle();
 				bundle.putString("download_url", download_url);
 				bundle.putString("target_name", target_name);
 				bundle.putLong("guideId", guideId);
 				bundle.putLong("caseId", caseId);
-				fragment.setArguments(bundle);
-				FragmentManager fragmentManager = getFragmentManager();
-				fragmentManager.beginTransaction().replace(R.id.content_frame_caseview, fragment).commit();
-				setTitle(childArray.get(groupPosition).get(childPosition).guideDocName);
-				mDrawerLayout.closeDrawer(mDrawerListExpandable);
+				
+				if (target_name.toLowerCase().contains(".mp4")
+						|| target_name.toLowerCase().contains(".3gp")) {
+					// 视频
+					Intent intent = new Intent(context, VideoViewActivity.class);
+					intent.putExtras(bundle);
+					startActivity(intent);
+				} else {
+					// pdf文档资源
+					Fragment fragment = new CaseViewFragment();
+					fragment.setArguments(bundle);
+					FragmentManager fragmentManager = getFragmentManager();
+					fragmentManager.beginTransaction().replace(R.id.content_frame_caseview, fragment).commit();
+					setTitle(childArray.get(groupPosition).get(childPosition).guideDocName);
+					mDrawerLayout.closeDrawer(mDrawerListExpandable);
+				}
 			}
 			return true;
 		}

@@ -89,4 +89,5 @@
     <string name="caseview_no_resource">资源未缓存，请链接网络后查看</string>
     
     <string name="dialog_load">载入中，请稍候...</string>
+    <string name="no_res_cache_can_not_open">资源未缓存，无法查看</string>
 </resources>
