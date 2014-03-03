@@ -146,6 +146,48 @@ public class DBService {
 	}
 	
 	/**
+	 * 根据caseid和scoreid来更新case表中count的值,加1
+	 * 
+	 * @param caseId
+	 * @param scoreId
+	 * @return 受影响的行数
+	 */
+	public int updateCaseCount(long caseId, long scoreId) {
+		int count = 0;
+		Cursor cursor = db.rawQuery(CaseTb.FIND_CASE_BY_SCOREIDANDCASEID, new String[] {
+						String.valueOf(scoreId), String.valueOf(caseId) });
+		try {
+			cursor.moveToFirst();
+			count = cursor.getInt(9);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			count += 1;
+		}
+		ContentValues cv = new ContentValues();
+		cv.put(CaseTb.COUNT, count);
+		return db.update(CaseTb.CASETB, cv, CaseTb.CASEID + "=?" + " and "
+				+ CaseTb.SCOREID + "=?", new String[] { String.valueOf(caseId),
+				String.valueOf(scoreId) });
+	}
+	
+	/**
+	 * 根据caseid和scoreid来更新case表中time的值
+	 * 
+	 * @param caseId
+	 * @param scoreId
+	 * @param time
+	 * @return 受影响的行数
+	 */
+	public int updateCaseTime(long caseId, long scoreId, long time) {
+		ContentValues cv = new ContentValues();
+		cv.put(CaseTb.TIME, time);
+		return db.update(CaseTb.CASETB, cv, CaseTb.CASEID + "=?" + " and "
+				+ CaseTb.SCOREID + "=?", new String[] { String.valueOf(caseId),
+				String.valueOf(scoreId) });
+	}
+	
+	/**
 	 * 更新caseTb表中casedir的值
 	 * 
 	 * @param caseId
@@ -453,5 +495,104 @@ public class DBService {
 		cv.put(CaseGuideDocTb.LOCALPATH, item.localPath);
 		return db.update(CaseGuideDocTb.CASEGUIDEDOCTB, cv, CaseGuideDocTb.GUIDEID + "=" + item.guideId, null);
 	}
-
+	
+	/**
+	 * 根据userid获取该用户下的所有scoreid
+	 * 
+	 * @param userId
+	 * @return scoreId数组
+	 */
+	public String[] getUserScoreIds(long userId) {
+		StringBuffer sb = new StringBuffer();
+		Cursor cursor = db.rawQuery("select " + CourseTb.SCOREID + " from "
+				+ CourseTb.COURSETB + " where " + CourseTb.USERID + "=?",
+				new String[] { String.valueOf(userId) });
+		if (cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			ArrayList<String> list = new ArrayList<String>();
+			for (int i = 0; i < cursor.getCount(); i++) {
+				list.add(String.valueOf(cursor.getLong(0)));
+			}
+			String[] scoreids = new String[list.size()];
+			list.toArray(scoreids);
+			cursor.close();
+			return scoreids;
+		} else {
+			cursor.close();
+			return null;
+		}
+	}
+	
+	/**
+	 * 获取用户最常访问的5个case的列表
+	 * 
+	 * @param scoreids
+	 *            用户所有的scoreid
+	 * @return
+	 */
+	public List<CaseItem> findCasesOrderByCount(String[] scoreids) {
+		List<CaseItem> caselist = new ArrayList<CaseItem>();
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < scoreids.length; i++) {
+			sb.append('?');
+			if ((i - 1) > 0) {
+				sb.append(',');
+			}
+		}
+		Cursor cursor = db.rawQuery(CaseTb.FIND_CASE_ORDERBY_COUNT
+				+ " where scoreId in(" + sb.toString() + ")" + " order by "
+				+ CaseTb.COUNT + " limit 5", scoreids);
+		if (cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			do {
+				CaseItem caseitem = new CaseItem();
+				caseitem.caseId = cursor.getLong(0);
+				caseitem.caseName = cursor.getString(1);
+				caseitem.caseGroupId = cursor.getLong(2);
+				caseitem.scoreId = cursor.getString(3);
+				caseitem.casedir = cursor.getString(4);
+				caselist.add(caseitem);
+			} while (cursor.moveToNext());
+			cursor.close();
+			return caselist;
+		} else {
+			cursor.close();
+			return null;
+		}
+	}
+	
+	/**
+	 * 获取用户最后访问的5个case的列表
+	 * 
+	 * @param scoreids
+	 *            用户所有的scoreid
+	 * @return
+	 */
+	public List<CaseItem> findCasesOrderByTime(String[] scoreids) {
+		List<CaseItem> caselist = new ArrayList<CaseItem>();
+		StringBuffer sb = new StringBuffer();
+		for (String scoreid : scoreids) {
+			sb.append('?').append(',');
+		}
+		Cursor cursor = db.rawQuery(CaseTb.FIND_CASE_ORDERBY_COUNT
+				+ " where scoreId in(" + sb.toString() + ")" + " order by "
+				+ CaseTb.TIME + " limit 5", scoreids);
+		if (cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			do {
+				CaseItem caseitem = new CaseItem();
+				caseitem.caseId = cursor.getLong(0);
+				caseitem.caseName = cursor.getString(1);
+				caseitem.caseGroupId = cursor.getLong(2);
+				caseitem.scoreId = cursor.getString(3);
+				caseitem.casedir = cursor.getString(4);
+				caselist.add(caseitem);
+			} while (cursor.moveToNext());
+			cursor.close();
+			return caselist;
+		} else {
+			cursor.close();
+			return null;
+		}
+	}
 }

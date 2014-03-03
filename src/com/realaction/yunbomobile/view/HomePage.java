@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,9 +18,10 @@ import android.widget.TextView;
 
 import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.adapter.HomePageAdapter;
+import com.realaction.yunbomobile.db.DBService;
+import com.realaction.yunbomobile.moddel.CaseItem;
 import com.realaction.yunbomobile.utils.ImageUtils;
 import com.realaction.yunbomobile.utils.UserUtils;
-import com.squareup.picasso.Picasso;
 
 /**
  * Ê×Ò³½çÃæ
@@ -52,6 +52,8 @@ public class HomePage extends Fragment {
 	private HomePageAdapter user_his_adapter;
 	private OnItemClickListener listener;
 	private static final int LIST_HIS = 2;
+	
+	private DBService dbService;
 
 	public HomePage() { }
 
@@ -59,6 +61,7 @@ public class HomePage extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = getActivity().getApplicationContext();
+		dbService = new DBService(context);
 		initData();
 	}
 
@@ -104,6 +107,15 @@ public class HomePage extends Fragment {
 //				startActivity(intent);
 			}
 		};
+		
+		String[] scoreids = dbService.getUserScoreIds(dbService.findUserByuserName(userinfo.getUserName()).userId);
+		for (String scoreid : scoreids) {
+			Log.d("time", scoreid.toString());
+		}
+		List<CaseItem> list = dbService.findCasesOrderByCount(scoreids);
+		if (list.size() > 0) {
+			
+		}
 	}
 
 	/**
@@ -140,5 +152,11 @@ public class HomePage extends Fragment {
 			break;
 		}
 		return list;
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		dbService.close();
 	}
 }

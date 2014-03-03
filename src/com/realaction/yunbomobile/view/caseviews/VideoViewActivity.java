@@ -44,6 +44,7 @@ public class VideoViewActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_videoview);
 		context = VideoViewActivity.this;
+		dbService = new DBService(context);
 		videoView = (VideoView) findViewById(R.id.videoView);
 		vv_no_resource = (TextView) findViewById(R.id.vv_no_resouce);
 		vv_dl_fail_retry = (RelativeLayout) findViewById(R.id.vv_dl_fail_retry);
@@ -56,7 +57,9 @@ public class VideoViewActivity extends Activity {
 		guideId = bundle.getLong("guideId");
 		caseId = bundle.getLong("caseId");
 		
-		downAndShow(download_url, filepath);
+//		downAndShow(download_url, filepath);
+		displayvideo("/mnt/sdcard/bbb.mp4");
+		
 		btn_dl_fail_retry.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

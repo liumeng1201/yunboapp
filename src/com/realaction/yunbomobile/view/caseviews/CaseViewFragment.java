@@ -1,7 +1,6 @@
 package com.realaction.yunbomobile.view.caseviews;
 
 import java.io.File;
-import java.net.URI;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;

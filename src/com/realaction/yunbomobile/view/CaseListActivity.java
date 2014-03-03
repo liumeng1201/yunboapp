@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -107,13 +109,22 @@ public class CaseListActivity extends Activity {
 		caselist_list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long location) {
+				long caseid = caselists.get(position).caseId;
+				long scoreid = Long.parseLong(caselists.get(position).scoreId);
+				Time time = new Time("GMT+8");
+				time.setToNow();
+				long currenttime = time.toMillis(false);
 				if (AppInfo.network_avabile) {
+					dbService.updateCaseCount(caseid, scoreid);
+					dbService.updateCaseTime(caseid, scoreid, currenttime);
 					Intent intent = new Intent(context, CaseViewActivity.class);
-					intent.putExtra("caseId", caselists.get(position).caseId);
+					intent.putExtra("caseId", caseid);
 					startActivity(intent);
-				} else if (dbService.findCaseGuideDocsBycaseId(String.valueOf(caselists.get(position).caseId)) != null) {
+				} else if (dbService.findCaseGuideDocsBycaseId(String.valueOf(caseid)) != null) {
+					dbService.updateCaseCount(caseid, scoreid);
+					dbService.updateCaseTime(caseid, scoreid, currenttime);
 					Intent intent = new Intent(context, CaseViewActivity.class);
-					intent.putExtra("caseId", caselists.get(position).caseId);
+					intent.putExtra("caseId", caseid);
 					startActivity(intent);
 				} else {
 					Toast.makeText(context, R.string.no_res_cache_can_not_open, Toast.LENGTH_SHORT).show();
