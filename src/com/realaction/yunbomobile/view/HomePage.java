@@ -109,12 +109,14 @@ public class HomePage extends Fragment {
 		};
 		
 		String[] scoreids = dbService.getUserScoreIds(dbService.findUserByuserName(userinfo.getUserName()).userId);
-		for (String scoreid : scoreids) {
-			Log.d("time", scoreid.toString());
-		}
-		List<CaseItem> list = dbService.findCasesOrderByCount(scoreids);
-		if (list.size() > 0) {
-			
+		if (scoreids != null) {
+			for (String scoreid : scoreids) {
+				Log.d("time", scoreid.toString());
+			}
+			List<CaseItem> list = dbService.findCasesOrderByCount(scoreids);
+			if (list.size() > 0) {
+				
+			}
 		}
 	}
 
