@@ -42,7 +42,7 @@ public class HomePageAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public CaseItem getItem(int position) {
 		return list.get(position);
 	}
 

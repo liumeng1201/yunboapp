@@ -1,10 +1,10 @@
 package com.realaction.yunbomobile.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,7 +52,6 @@ public class HomePage extends Fragment {
 	private HomePageAdapter user_his_adapter;
 	private TextView user_no_favorite;
 	private TextView user_no_history;
-	private OnItemClickListener listener;
 	private static final int LIST_HIS = 2;
 	
 	private DBService dbService;
@@ -79,8 +78,6 @@ public class HomePage extends Fragment {
 		user_history = (ListView) view.findViewById(R.id.home_his_list);
 		user_no_favorite = (TextView) view.findViewById(R.id.home_fav_none);
 		user_no_history = (TextView) view.findViewById(R.id.home_his_none);
-		user_favorite.setOnItemClickListener(listener);
-		user_history.setOnItemClickListener(listener);
 
 		setData();
 		return view;
@@ -101,15 +98,6 @@ public class HomePage extends Fragment {
 		user_avater_url = userinfo.getUserAvatar();
 		Log.d(TAG, "user_avater_url = " + user_avater_url);
 
-		listener = new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					long location) {
-//				Intent intent = new Intent(context, CaseViewActivity.class);
-//				startActivity(intent);
-			}
-		};
-		
 		String[] scoreids = dbService.getUserScoreIds(dbService.findUserByuserName(userinfo.getUserName()).userId);
 		if (scoreids != null) {
 			for (String scoreid : scoreids) {
@@ -141,6 +129,7 @@ public class HomePage extends Fragment {
 			user_favorite.setVisibility(View.VISIBLE);
 			user_no_favorite.setVisibility(View.GONE);
 			user_favorite.setAdapter(user_fav_adapter);
+			user_favorite.setOnItemClickListener(new ListClickListener(user_fav_adapter));
 		} else {
 			user_favorite.setVisibility(View.GONE);
 			user_no_favorite.setVisibility(View.VISIBLE);
@@ -149,6 +138,7 @@ public class HomePage extends Fragment {
 			user_history.setVisibility(View.VISIBLE);
 			user_no_history.setVisibility(View.GONE);
 			user_history.setAdapter(user_his_adapter);
+			user_history.setOnItemClickListener(new ListClickListener(user_his_adapter));
 		} else {
 			user_history.setVisibility(View.GONE);
 			user_no_history.setVisibility(View.VISIBLE);
@@ -159,5 +149,24 @@ public class HomePage extends Fragment {
 	public void onDestroy() {
 		super.onDestroy();
 		dbService.close();
+	}
+	
+	private class ListClickListener implements OnItemClickListener {
+		private HomePageAdapter adapter;
+		
+		ListClickListener(HomePageAdapter adapter) {
+			this.adapter = adapter;
+		}
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long location) {
+			CaseItem caseitem = adapter.getItem(position);
+			long caseid = caseitem.caseId;
+			Intent intent = new Intent(context, CaseViewActivity.class);
+			intent.putExtra("caseId", caseid);
+			startActivity(intent);
+		}
+		
 	}
 }
