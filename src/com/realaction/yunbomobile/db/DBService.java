@@ -540,8 +540,9 @@ public class DBService {
 			}
 		}
 		Cursor cursor = db.rawQuery(CaseTb.FIND_CASE_ORDERBY_COUNT
-				+ " where scoreId in(" + sb.toString() + ")" + " order by "
-				+ CaseTb.COUNT + " limit 5", scoreids);
+				+ " where scoreId in(" + sb.toString() + ")" + " and "
+				+ CaseTb.COUNT + " > 0" + " order by " + CaseTb.COUNT
+				+ " desc limit 5", scoreids);
 		if (cursor.getCount() > 0) {
 			cursor.moveToFirst();
 			do {
@@ -571,12 +572,16 @@ public class DBService {
 	public List<CaseItem> findCasesOrderByTime(String[] scoreids) {
 		List<CaseItem> caselist = new ArrayList<CaseItem>();
 		StringBuffer sb = new StringBuffer();
-		for (String scoreid : scoreids) {
-			sb.append('?').append(',');
+		for (int i = 0; i < scoreids.length; i++) {
+			sb.append('?');
+			if ((i - 1) > 0) {
+				sb.append(',');
+			}
 		}
 		Cursor cursor = db.rawQuery(CaseTb.FIND_CASE_ORDERBY_COUNT
-				+ " where scoreId in(" + sb.toString() + ")" + " order by "
-				+ CaseTb.TIME + " limit 5", scoreids);
+				+ " where scoreId in(" + sb.toString() + ")" + " and "
+				+ CaseTb.TIME + " > 0" + " order by " + CaseTb.TIME
+				+ " desc limit 5", scoreids);
 		if (cursor.getCount() > 0) {
 			cursor.moveToFirst();
 			do {

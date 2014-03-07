@@ -50,6 +50,8 @@ public class HomePage extends Fragment {
 	// 用户最后浏览的5条记录
 	private ListView user_history;
 	private HomePageAdapter user_his_adapter;
+	private TextView user_no_favorite;
+	private TextView user_no_history;
 	private OnItemClickListener listener;
 	private static final int LIST_HIS = 2;
 	
@@ -75,6 +77,8 @@ public class HomePage extends Fragment {
 		user_class = (TextView) view.findViewById(R.id.home_class);
 		user_favorite = (ListView) view.findViewById(R.id.home_fav_list);
 		user_history = (ListView) view.findViewById(R.id.home_his_list);
+		user_no_favorite = (TextView) view.findViewById(R.id.home_fav_none);
+		user_no_history = (TextView) view.findViewById(R.id.home_his_none);
 		user_favorite.setOnItemClickListener(listener);
 		user_history.setOnItemClickListener(listener);
 
@@ -94,11 +98,9 @@ public class HomePage extends Fragment {
 			user_num_str = userinfo.getEmpNo();
 		}
 		user_class_str = userinfo.getUserTypeId() + "";
-		user_avater_url = userinfo.getUserAvatar();//"http://www.realaction.cn/template/images/logo.jpg";
+		user_avater_url = userinfo.getUserAvatar();
 		Log.d(TAG, "user_avater_url = " + user_avater_url);
 
-		user_fav_adapter = new HomePageAdapter(context, getDataFromDB(LIST_FAV));
-		user_his_adapter = new HomePageAdapter(context, getDataFromDB(LIST_HIS));
 		listener = new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -113,9 +115,13 @@ public class HomePage extends Fragment {
 			for (String scoreid : scoreids) {
 				Log.d("time", scoreid.toString());
 			}
-			List<CaseItem> list = dbService.findCasesOrderByCount(scoreids);
-			if (list.size() > 0) {
-				
+			List<CaseItem> fav_list = dbService.findCasesOrderByCount(scoreids);
+			if (fav_list != null && fav_list.size() > 0) {
+				user_fav_adapter = new HomePageAdapter(context, fav_list);
+			}
+			List<CaseItem> his_list = dbService.findCasesOrderByTime(scoreids);
+			if (his_list != null && his_list.size() > 0) {
+				user_his_adapter = new HomePageAdapter(context, his_list);
 			}
 		}
 	}
@@ -131,29 +137,22 @@ public class HomePage extends Fragment {
 		user_num.setText(user_num_str);
 		user_class.setText(user_class_str);
 
-		user_favorite.setAdapter(user_fav_adapter);
-		user_history.setAdapter(user_his_adapter);
-	}
-
-	private List<String> getDataFromDB(int flag) {
-		List<String> list = new ArrayList<String>();
-		switch (flag) {
-		case LIST_FAV:
-			// TODO 从数据库中查询出最常浏览的5条记录
-			for (int i = 0; i < 5; i++) {
-				list.add("最常浏览 : " + (i + 1));
-			}
-			break;
-		case LIST_HIS:
-			// TODO 从数据库中查询出最后浏览的5条记录
-			for (int i = 0; i < 5; i++) {
-				list.add("历史记录 : " + (i + 1));
-			}
-			break;
-		default:
-			break;
+		if (user_fav_adapter != null) {
+			user_favorite.setVisibility(View.VISIBLE);
+			user_no_favorite.setVisibility(View.GONE);
+			user_favorite.setAdapter(user_fav_adapter);
+		} else {
+			user_favorite.setVisibility(View.GONE);
+			user_no_favorite.setVisibility(View.VISIBLE);
 		}
-		return list;
+		if (user_his_adapter != null) {
+			user_history.setVisibility(View.VISIBLE);
+			user_no_history.setVisibility(View.GONE);
+			user_history.setAdapter(user_his_adapter);
+		} else {
+			user_history.setVisibility(View.GONE);
+			user_no_history.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override

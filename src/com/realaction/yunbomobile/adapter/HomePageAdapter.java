@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.realaction.yunbomobile.R;
+import com.realaction.yunbomobile.moddel.CaseItem;
 
 /**
  * 首页ListView适配器
@@ -19,7 +20,8 @@ import com.realaction.yunbomobile.R;
  */
 public class HomePageAdapter extends BaseAdapter {
 	private Context context;
-	private List<String> list;
+//	private List<String> list;
+	private List<CaseItem> list;
 
 	/**
 	 * 首页ListView适配器构造函数
@@ -27,9 +29,9 @@ public class HomePageAdapter extends BaseAdapter {
 	 * @param context
 	 *            上下文指针
 	 * @param list
-	 *            数据list,每一个item为一个字符串
+	 *            数据list
 	 */
-	public HomePageAdapter(Context context, List<String> list) {
+	public HomePageAdapter(Context context, List<CaseItem> list) {
 		this.context = context;
 		this.list = list;
 	}
@@ -61,7 +63,7 @@ public class HomePageAdapter extends BaseAdapter {
 			view.setTag(holder);
 		}
 		ViewHolder holder = (ViewHolder) view.getTag();
-		holder.item.setText(list.get(positon));
+		holder.item.setText(list.get(positon).caseName);
 		return view;
 	}
 
