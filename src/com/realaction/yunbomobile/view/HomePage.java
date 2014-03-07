@@ -46,13 +46,11 @@ public class HomePage extends Fragment {
 	// 用户最常浏览的5条记录
 	private ListView user_favorite;
 	private HomePageAdapter user_fav_adapter;
-	private static final int LIST_FAV = 1;
 	// 用户最后浏览的5条记录
 	private ListView user_history;
 	private HomePageAdapter user_his_adapter;
 	private TextView user_no_favorite;
 	private TextView user_no_history;
-	private static final int LIST_HIS = 2;
 	
 	private DBService dbService;
 
@@ -100,9 +98,6 @@ public class HomePage extends Fragment {
 
 		String[] scoreids = dbService.getUserScoreIds(dbService.findUserByuserName(userinfo.getUserName()).userId);
 		if (scoreids != null) {
-			for (String scoreid : scoreids) {
-				Log.d("time", scoreid.toString());
-			}
 			List<CaseItem> fav_list = dbService.findCasesOrderByCount(scoreids);
 			if (fav_list != null && fav_list.size() > 0) {
 				user_fav_adapter = new HomePageAdapter(context, fav_list);
