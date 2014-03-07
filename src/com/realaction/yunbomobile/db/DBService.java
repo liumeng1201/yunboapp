@@ -600,4 +600,33 @@ public class DBService {
 			return null;
 		}
 	}
+	
+	/**
+	 * 通过caseid查找caseitem
+	 * 
+	 * @param caseid要查找的caseid
+	 * @return caseitem
+	 */
+	public CaseItem findCaseByCaseId(long caseid) {
+		Cursor cursor = db.rawQuery(CaseTb.FIND_CASE_BY_CASEID,
+				new String[] { String.valueOf(caseid) });
+		if (cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			CaseItem item = new CaseItem();
+			item.caseId = cursor.getLong(0);
+			item.caseName = cursor.getString(1);
+			item.keyWords = cursor.getString(2);
+			item.devRoleName = cursor.getString(3);
+			item.teacherName = cursor.getString(4);
+			item.caseGroupId = cursor.getLong(5);
+			item.caseGroupName = cursor.getString(6);
+			item.scoreId = cursor.getString(7);
+			item.casedir = cursor.getString(8);
+			cursor.close();
+			return item;
+		} else {
+			cursor.close();
+			return null;
+		}
+	}
 }

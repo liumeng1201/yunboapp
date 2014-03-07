@@ -28,6 +28,7 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 
+import com.lm.filebrowser.FileBrowserActivity;
 import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.adapter.DrawerCaseViewExpandableAdapter;
 import com.realaction.yunbomobile.db.DBService;
@@ -82,13 +83,14 @@ public class CaseViewActivity extends Activity {
 				intent.putExtra("filepath", "/sdcard/bbb.mp4");
 				startActivity(intent);
 			} else if (groupPosition == 1) {
-				Fragment fragment = new AnswerViewFragment();
-				Bundle bundle = new Bundle();
-				// TODO 传递给AnswerFragment界面的参数
-				bundle.putLong("caseId", caseId);
-				fragment.setArguments(bundle);
-				FragmentManager fragmentManager = getFragmentManager();
-				fragmentManager.beginTransaction().replace(R.id.content_frame_caseview, fragment).commit();
+//				Fragment fragment = new AnswerViewFragment();
+//				Bundle bundle = new Bundle();
+//				bundle.putLong("caseId", caseId);
+//				fragment.setArguments(bundle);
+//				FragmentManager fragmentManager = getFragmentManager();
+//				fragmentManager.beginTransaction().replace(R.id.content_frame_caseview, fragment).commit();
+				Intent intent = new Intent(context, FileBrowserActivity.class);
+				intent.putExtra("caseId", caseId);
 				setTitle(childArray.get(groupPosition).get(childPosition).guideDocName);
 				mDrawerLayout.closeDrawer(mDrawerListExpandable);
 			} else {

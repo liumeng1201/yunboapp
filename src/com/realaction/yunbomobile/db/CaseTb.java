@@ -30,6 +30,11 @@ public class CaseTb {
 			+ " varchar(32), " + SCOREID + " varchar(32), " + CASEDIR
 			+ " varchar(1024), " + COUNT + " integer, " + TIME + " integer"
 			+ ")";
+	// 根据caseId查找案例
+	public static final String FIND_CASE_BY_CASEID = "select " + CASEID + ","
+			+ CASENAME + "," + KEYWORDS + "," + DEVROLENAME + "," + TEACHERNAME
+			+ "," + CASEGROUPID + "," + CASEGROUPNAME + "," + SCOREID + ","
+			+ CASEDIR + " from " + CASETB + " where " + CASEID + "=?";
 	// 根据scoreId查找案例
 	public static final String FIND_CASE_BY_SCOREID = "select " + CASEID + ","
 			+ CASENAME + "," + KEYWORDS + "," + DEVROLENAME + "," + TEACHERNAME
