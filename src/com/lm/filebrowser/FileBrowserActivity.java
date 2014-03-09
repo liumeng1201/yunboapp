@@ -10,6 +10,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,13 +45,14 @@ public class FileBrowserActivity extends ListActivity {
 		Intent intent = getIntent();
 		long caseid = intent.getLongExtra("caseId", -1);
 		doclist = dbService.findCaseDocsBycaseId(String.valueOf(caseid));
+		Log.d("lm", "caseid = " + caseid + "\ndoclist.length = " + doclist.size());
 		
 		// TODO 需要测试逻辑是否正确
 		createpaths(doclist);
 		
 		CaseItem item = dbService.findCaseByCaseId(caseid);
 		if (item != null) {
-			mRoot = item.casedir + "/答案";
+			mRoot = AppInfo.base_dir + "/" + item.casedir + "/答案";
 		}
 
 		setContentView(R.layout.file_explorer);

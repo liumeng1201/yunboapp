@@ -91,6 +91,7 @@ public class CaseViewActivity extends Activity {
 //				fragmentManager.beginTransaction().replace(R.id.content_frame_caseview, fragment).commit();
 				Intent intent = new Intent(context, FileBrowserActivity.class);
 				intent.putExtra("caseId", caseId);
+				startActivity(intent);
 				setTitle(childArray.get(groupPosition).get(childPosition).guideDocName);
 				mDrawerLayout.closeDrawer(mDrawerListExpandable);
 			} else {
