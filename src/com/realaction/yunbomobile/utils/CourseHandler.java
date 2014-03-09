@@ -82,6 +82,12 @@ public class CourseHandler extends DefaultHandler {
 			case 20:
 			case 40:
 				// ¿œ ¶
+				if ((attributes.getValue("scoreId")).equals("")
+						|| (attributes.getValue("scoreId") == null)) {
+					Log.d(TAG, "scoreid not exist");
+				} else {
+					item.scoreId = attributes.getValue("scoreId");
+				}
 				break;
 			}
 			item.userId = userId;
