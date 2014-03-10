@@ -45,7 +45,7 @@ public class FileBrowserAdapter extends BaseAdapter {
 
 	private void setRow(ViewHolder holder, int position) {
 		File file = mFiles[position];
-		holder.text.setText(file.getName());
+		holder.text.setText((file.getName()).replaceAll(".pdf", ""));
 		if (position == 0 && !isTop) {
 			holder.icon.setImageDrawable(mContext.getResources().getDrawable(
 					R.drawable.ic_menu_back));

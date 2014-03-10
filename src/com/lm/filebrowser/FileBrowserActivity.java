@@ -35,6 +35,7 @@ public class FileBrowserActivity extends ListActivity {
 	private Context context;
 	private DBService dbService;
 	private List<CaseDocItem> doclist;
+	private long caseid;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,21 +44,24 @@ public class FileBrowserActivity extends ListActivity {
 		dbService = new DBService(context);
 
 		Intent intent = getIntent();
-		long caseid = intent.getLongExtra("caseId", -1);
+		caseid = intent.getLongExtra("caseId", -1);
 		doclist = dbService.findCaseDocsBycaseId(String.valueOf(caseid));
-		Log.d("lm", "caseid = " + caseid + "\ndoclist.length = " + doclist.size());
-		
-		// TODO 需要测试逻辑是否正确
-		createpaths(doclist);
-		
-		CaseItem item = dbService.findCaseByCaseId(caseid);
-		if (item != null) {
-			mRoot = AppInfo.base_dir + "/" + item.casedir + "/答案";
-		}
+		if (doclist != null) {
+			Log.d("lm", "caseid = " + caseid + "\ndoclist.length = " + doclist.size());
 
-		setContentView(R.layout.file_explorer);
-		mTextViewLocation = (TextView) findViewById(R.id.textview_path);
-		getDirectory(mRoot);
+			createpaths(doclist);
+
+			CaseItem item = dbService.findCaseByCaseId(caseid);
+			if (item != null) {
+				mRoot = AppInfo.base_dir + "/" + item.casedir + "/答案";
+			}
+
+			setContentView(R.layout.file_explorer);
+			mTextViewLocation = (TextView) findViewById(R.id.textview_path);
+			getDirectory(mRoot);
+		} else {
+			setContentView(R.layout.file_explorer_nores);
+		}
 	}
 	
 	/**
@@ -128,17 +132,23 @@ public class FileBrowserActivity extends ListActivity {
 						Toast.LENGTH_SHORT).show();
 			}
 		} else {
-			showDoc(doclist.get(position));
+			showDoc(file.getAbsolutePath());
 		}
 	}
 
-	private void showDoc(CaseDocItem caseDocItem) {
+	private void showDoc(String filepath) {
 		Intent intent = new Intent(context, AnswerViewActivity.class);
-		intent.putExtra("docId", caseDocItem.docId);
-		intent.putExtra("docName", caseDocItem.docName);
-		intent.putExtra("caseId", caseDocItem.caseId);
-		intent.putExtra("docPath", caseDocItem.docPath);
-		startActivity(intent);
+		String[] tmp = filepath.split(AppInfo.base_dir + "/");
+		if (tmp.length > 1) {
+			String docpath = tmp[1];
+			Log.d("lm", "docpath = " + docpath);
+			CaseDocItem item = dbService.findCaseDocBydocPath(docpath);
+			intent.putExtra("docId", item.docId);
+			intent.putExtra("docName", item.docName);
+			intent.putExtra("caseId", item.caseId);
+			intent.putExtra("docPath", item.docPath);
+			startActivity(intent);
+		}
 	}
 
 	@Override

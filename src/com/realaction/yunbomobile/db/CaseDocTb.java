@@ -34,6 +34,11 @@ public class CaseDocTb {
 			+ DOCID + "," + DOCNAME + "," + DOCDESC + "," + DOCPATH + ","
 			+ CASEID + "," + ISDOWNLOAD + "," + LOCALPATH + " from "
 			+ CASEDOCTB + " where " + CASEID + "=? and " + DOCID + "=?";
+	// 根据docPath查找答案资源
+	public static final String FIND_CASEDOC_BY_DOCPATH = "select " + DOCID + ","
+			+ DOCNAME + "," + DOCDESC + "," + DOCPATH + "," + CASEID + ","
+			+ ISDOWNLOAD + "," + LOCALPATH + " from " + CASEDOCTB
+			+ " where " + DOCPATH + "=?";
 	// 删除课程案例答案资源表
 	public static final String DROP_CASEDOC_TB = "DROP TABLE IF EXISTS "
 			+ CASEDOCTB;

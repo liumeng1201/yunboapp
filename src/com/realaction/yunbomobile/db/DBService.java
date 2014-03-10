@@ -486,11 +486,11 @@ public class DBService {
 	 * @return caseId和docId说对应的实验答案
 	 */
 	public CaseDocItem findCaseDocBycaseIdAnddocId(String caseId, String docId) {
-		CaseDocItem item = new CaseDocItem();
 		Cursor cursor = db.rawQuery(CaseDocTb.FIND_CASEDOC_BY_CASEIDANDDOCID,
 				new String[] { caseId, docId });
 		if (cursor.getCount() > 0) {
 			cursor.moveToFirst();
+			CaseDocItem item = new CaseDocItem();
 			item.docId = cursor.getLong(0);
 			item.docName = cursor.getString(1);
 			item.docDesc = cursor.getString(2);
@@ -498,6 +498,34 @@ public class DBService {
 			item.caseId = cursor.getLong(4);
 			item.isDownload = cursor.getInt(5);
 			item.localPath = cursor.getString(6);
+			cursor.close();
+			return item;
+		} else {
+			cursor.close();
+			return null;
+		}
+	}
+	
+	/**
+	 * 根据docPath查找对应的实验答案资源
+	 * 
+	 * @param docPath
+	 * @return 与docPath对应的答案资源
+	 */
+	public CaseDocItem findCaseDocBydocPath(String docPath) {
+		Cursor cursor = db.rawQuery(CaseDocTb.FIND_CASEDOC_BY_DOCPATH,
+				new String[] { docPath });
+		if (cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			CaseDocItem item = new CaseDocItem();
+			item.docId = cursor.getLong(0);
+			item.docName = cursor.getString(1);
+			item.docDesc = cursor.getString(2);
+			item.docPath = cursor.getString(3);
+			item.caseId = cursor.getLong(4);
+			item.isDownload = cursor.getInt(5);
+			item.localPath = cursor.getString(6);
+			cursor.close();
 			return item;
 		} else {
 			cursor.close();
