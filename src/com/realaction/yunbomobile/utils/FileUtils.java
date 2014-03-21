@@ -38,7 +38,7 @@ public class FileUtils {
 	 * @param delFolder
 	 *            是否删除文件夹标识
 	 */
-	public void delFileAndFolder(String filePath, boolean delFolder) {
+	public static void delFileAndFolder(String filePath, boolean delFolder) {
 		if (!TextUtils.isEmpty(filePath)) {
 			File file = new File(filePath);
 			if (file.isDirectory()) {

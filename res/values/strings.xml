@@ -60,7 +60,7 @@
         <item>5</item>
     </string-array>
     <string name="clean_cache">是否清除缓存?</string>
-    <string name="clean_cache_success">清楚缓存成功</string>
+    <string name="clean_cache_success">清除缓存成功</string>
     <string name="settings_offline">离线模式</string>
     <string name="pref_setting_offline_title">离线模式</string>
     <string name="pref_setting_offline_summary">开启离线模式之后即可全程离线操作</string>
