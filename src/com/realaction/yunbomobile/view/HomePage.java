@@ -22,6 +22,7 @@ import com.realaction.yunbomobile.db.DBService;
 import com.realaction.yunbomobile.moddel.CaseItem;
 import com.realaction.yunbomobile.utils.ImageUtils;
 import com.realaction.yunbomobile.utils.UserUtils;
+import com.realaction.yunbomobile.view.caseviews.CaseDetailsActivity;
 
 /**
  * Ê×Ò³½çÃæ
@@ -158,7 +159,7 @@ public class HomePage extends Fragment {
 				long location) {
 			CaseItem caseitem = adapter.getItem(position);
 			long caseid = caseitem.caseId;
-			Intent intent = new Intent(context, CaseViewActivity.class);
+			Intent intent = new Intent(context, CaseDetailsActivity.class);
 			intent.putExtra("caseId", caseid);
 			startActivity(intent);
 		}

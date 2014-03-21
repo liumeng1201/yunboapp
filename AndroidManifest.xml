@@ -39,7 +39,7 @@
             android:name="com.realaction.yunbomobile.view.caseviews.VideoViewActivity"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity android:name="com.realaction.yunbomobile.view.caseviews.AnswerViewActivity" />
+        <activity android:name="com.realaction.yunbomobile.view.caseviews.CaseSourceViewActivity" />
         <activity android:name="com.lm.filebrowser.FileBrowserActivity" />
         <activity android:name="com.realaction.yunbomobile.view.caseviews.CaseDetailsActivity" />
     </application>

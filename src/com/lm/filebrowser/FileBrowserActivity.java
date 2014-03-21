@@ -22,7 +22,7 @@ import com.realaction.yunbomobile.moddel.CaseDocItem;
 import com.realaction.yunbomobile.moddel.CaseGuideDocItem;
 import com.realaction.yunbomobile.moddel.CaseItem;
 import com.realaction.yunbomobile.utils.AppInfo;
-import com.realaction.yunbomobile.view.caseviews.AnswerViewActivity;
+import com.realaction.yunbomobile.view.caseviews.CaseSourceViewActivity;
 
 /**
  * 文件浏览器类,用来实现答案资源的查看
@@ -222,7 +222,7 @@ public class FileBrowserActivity extends ListActivity {
 	}
 
 	private void showDoc(String filepath) {
-		Intent intent = new Intent(context, AnswerViewActivity.class);
+		Intent intent = new Intent(context, CaseSourceViewActivity.class);
 		String[] tmp = filepath.split(AppInfo.base_dir + "/");
 		if (tmp.length > 1) {
 			String path = tmp[1];

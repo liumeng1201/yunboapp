@@ -43,7 +43,7 @@ import com.realaction.yunbomobile.utils.MyDialog;
  * 
  * @author liumeng
  */
-public class AnswerViewActivity extends Activity {
+public class CaseSourceViewActivity extends Activity {
 	private static final String TAG = "AnswerViewActivity";
 	private Context context;
 	private MyDialog dialog;
@@ -66,7 +66,7 @@ public class AnswerViewActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		context = AnswerViewActivity.this;
+		context = CaseSourceViewActivity.this;
 		dialog = new MyDialog(context);
 		dialog.create();
 		dbService = new DBService(context);
