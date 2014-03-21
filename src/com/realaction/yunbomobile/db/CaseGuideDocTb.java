@@ -29,6 +29,11 @@ public class CaseGuideDocTb {
 			+ GUIDEID + "," + GUIDEDOCNAME + "," + GUIDEDOCDESC + ","
 			+ GUIDEDOCPATH + "," + CASEID + "," + ISDOWNLOAD + "," + LOCALPATH
 			+ " from " + CASEGUIDEDOCTB + " where " + CASEID + "=?";
+	// 根据guideDocPath查找案例实验指导书
+	public static final String FIND_CASEGUIDEDOC_BY_GUIDEDOCPATH = "select "
+			+ GUIDEID + "," + GUIDEDOCNAME + "," + GUIDEDOCDESC + ","
+			+ GUIDEDOCPATH + "," + CASEID + "," + ISDOWNLOAD + "," + LOCALPATH
+			+ " from " + CASEGUIDEDOCTB + " where " + GUIDEDOCPATH + "=?";
 	// 根据caseId和guideId查找实验指导书
 	public static final String FIND_CASEGUIDEDOC_BY_CASEIDANDGUIDEID = "select "
 			+ GUIDEID + "," + GUIDEDOCNAME + "," + GUIDEDOCDESC + ","

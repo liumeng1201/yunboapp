@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/casedetail_casename"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/black" />
+
+    <TextView
+        android:id="@+id/casedetail_casedes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/casedetail_caseguide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="viewCaseGuide"
+        android:text="查看实验指导书" />
+
+    <Button
+        android:id="@+id/casedetail_casedoc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="viewCaseDoc"
+        android:text="查看实验答案" />
+
+</LinearLayout>

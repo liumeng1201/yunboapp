@@ -423,7 +423,8 @@ public class DBService {
 	 * @param guideId
 	 * @return caseguidedoc
 	 */
-	public CaseGuideDocItem findCaseGuideDocBycaseIdAndguideId(String caseId, String guideId) {
+	public CaseGuideDocItem findCaseGuideDocBycaseIdAndguideId(String caseId,
+			String guideId) {
 		CaseGuideDocItem guideItem = new CaseGuideDocItem();
 		Cursor cursor = db.rawQuery(
 				CaseGuideDocTb.FIND_CASEGUIDEDOC_BY_CASEIDANDGUIDEID,
@@ -441,6 +442,37 @@ public class DBService {
 			} while (cursor.moveToNext());
 			cursor.close();
 			return guideItem;
+		} else {
+			cursor.close();
+			return null;
+		}
+	}
+	
+	/**
+	 * 根据实验指导书的路径查找对应的指导书
+	 * 
+	 * @param guideDocPath
+	 *            指导书路径
+	 * @return caseguidedoc
+	 */
+	public CaseGuideDocItem findCaseGuideDocByguideDocPath(String guideDocPath) {
+		CaseGuideDocItem item = new CaseGuideDocItem();
+		Cursor cursor = db.rawQuery(
+				CaseGuideDocTb.FIND_CASEGUIDEDOC_BY_GUIDEDOCPATH,
+				new String[] { guideDocPath });
+		if (cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			do {
+				item.guideId = cursor.getLong(0);
+				item.guideDocName = cursor.getString(1);
+				item.guideDocDesc = cursor.getString(2);
+				item.guideDocPath = cursor.getString(3);
+				item.caseId = cursor.getLong(4);
+				item.isDownload = cursor.getInt(5);
+				item.localPath = cursor.getString(6);
+			} while (cursor.moveToNext());
+			cursor.close();
+			return item;
 		} else {
 			cursor.close();
 			return null;

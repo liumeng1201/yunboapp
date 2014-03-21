@@ -27,6 +27,7 @@ import com.realaction.yunbomobile.utils.AppInfo;
 import com.realaction.yunbomobile.utils.AsyncTaskGetCaseList;
 import com.realaction.yunbomobile.utils.MyDialog;
 import com.realaction.yunbomobile.utils.UserUtils;
+import com.realaction.yunbomobile.view.caseviews.CaseDetailsActivity;
 
 /**
  * 课程案例列表界面
@@ -117,13 +118,13 @@ public class CaseListActivity extends Activity {
 				if (AppInfo.network_avabile) {
 					dbService.updateCaseCount(caseid, scoreid);
 					dbService.updateCaseTime(caseid, scoreid, currenttime);
-					Intent intent = new Intent(context, CaseViewActivity.class);
+					Intent intent = new Intent(context, CaseDetailsActivity.class);//CaseViewActivity.class);
 					intent.putExtra("caseId", caseid);
 					startActivity(intent);
 				} else if (dbService.findCaseGuideDocsBycaseId(String.valueOf(caseid)) != null) {
 					dbService.updateCaseCount(caseid, scoreid);
 					dbService.updateCaseTime(caseid, scoreid, currenttime);
-					Intent intent = new Intent(context, CaseViewActivity.class);
+					Intent intent = new Intent(context, CaseDetailsActivity.class);//CaseViewActivity.class);
 					intent.putExtra("caseId", caseid);
 					startActivity(intent);
 				} else {

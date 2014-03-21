@@ -37,7 +37,6 @@ import com.realaction.yunbomobile.moddel.CaseViewGroupItem;
 import com.realaction.yunbomobile.utils.AppInfo;
 import com.realaction.yunbomobile.utils.AsyncTaskGetCaseSourceList;
 import com.realaction.yunbomobile.utils.MyDialog;
-import com.realaction.yunbomobile.view.caseviews.AnswerViewFragment;
 import com.realaction.yunbomobile.view.caseviews.CaseViewFragment;
 import com.realaction.yunbomobile.view.caseviews.VideoViewActivity;
 

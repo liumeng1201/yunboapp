@@ -39,4 +39,19 @@ public class CaseSourcesUtils {
 		}
 	}
 	
+	public void getCaseSources(String url, List<NameValuePair> datas) {
+		InputStream xmlStream = HttpTool.sendDataByPost(url, datas);
+		try {
+			SAXParserFactory factory = SAXParserFactory.newInstance();
+			SAXParser parser = factory.newSAXParser();
+			XMLReader xmlreader = parser.getXMLReader();
+			CaseSourcesHandler handler = new CaseSourcesHandler(context);
+			xmlreader.setContentHandler(handler);
+			InputSource source = new InputSource(xmlStream);
+			xmlreader.parse(source);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

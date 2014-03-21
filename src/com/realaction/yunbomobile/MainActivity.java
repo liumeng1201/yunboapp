@@ -107,6 +107,7 @@ public class MainActivity extends Activity {
 		case 1:
 			fragment = new MyCoursePage();
 			break;
+		/*	
 		case 2:
 			fragment = new OpenCoursePage();
 			break;
@@ -116,7 +117,8 @@ public class MainActivity extends Activity {
 		case 4:
 			fragment = new NoticePage();
 			break;
-		case 5:
+		*/	
+		case 2:
 			fragment = new SettingsPage();
 			break;
 		default:
