@@ -36,7 +36,7 @@ public class SettingsPage extends PreferenceFragment {
 		} else if (preference.getKey().equals("pref_setting_cache_memory")) {
 			// 设置缓存大小
 		} else if (preference.getKey().equals("pref_setting_clean_cache")) {
-			// 清楚缓存
+			// 清除缓存
 			AlertDialog.Builder dialog = new Builder(context);
 			dialog.setTitle(R.string.notice);
 			dialog.setMessage(R.string.clean_cache);
@@ -56,11 +56,12 @@ public class SettingsPage extends PreferenceFragment {
 			});
 			dialog.create();
 			dialog.show();
-		} else if (preference.getKey().equals("pref_setting_notice_on")) {
-			// 上课提醒
-		} else if (preference.getKey().equals("pref_setting_notice_time")) {
-			// 提醒时间
-		}
+		} 
+//		else if (preference.getKey().equals("pref_setting_notice_on")) {
+//			// 上课提醒
+//		} else if (preference.getKey().equals("pref_setting_notice_time")) {
+//			// 提醒时间
+//		}
 		return super.onPreferenceTreeClick(preferenceScreen, preference);
 	}
 

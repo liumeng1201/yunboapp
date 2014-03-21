@@ -46,7 +46,7 @@
     
     <string name="settings_cache">缓存设置</string>
     <string name="pref_setting_cache_memory">设置缓存大小</string>
-    <string name="pref_cache_memory_default">缓存大小200MB</string>
+    <string name="pref_cache_memory_default">2</string>
     <string-array name="pref_cache_memory_entries">
         <item>100MB</item>
         <item>200MB</item>

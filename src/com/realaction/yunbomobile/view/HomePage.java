@@ -30,7 +30,6 @@ import com.realaction.yunbomobile.view.caseviews.CaseDetailsActivity;
  * @author liumeng
  */
 public class HomePage extends Fragment {
-	private String TAG = "lm";
 	private Context context;
 	// 用户头像
 	private ImageView user_avatar;
@@ -43,7 +42,6 @@ public class HomePage extends Fragment {
 	private String user_num_str;
 	// 用户班级
 	private TextView user_class;
-	private String user_class_str;
 	// 用户最常浏览的5条记录
 	private ListView user_favorite;
 	private HomePageAdapter user_fav_adapter;
@@ -93,9 +91,7 @@ public class HomePage extends Fragment {
 		} else {
 			user_num_str = userinfo.getEmpNo();
 		}
-		user_class_str = userinfo.getUserTypeId() + "";
 		user_avater_url = userinfo.getUserAvatar();
-		Log.d(TAG, "user_avater_url = " + user_avater_url);
 
 		String[] scoreids = dbService.getUserScoreIds(dbService.findUserByuserName(userinfo.getUserName()).userId);
 		if (scoreids != null) {
@@ -117,9 +113,8 @@ public class HomePage extends Fragment {
 		// 使用第三方库为ImageView加载图片
 		//Picasso.with(context).load(user_avater_url).into(user_avatar);
 		user_avatar.setImageBitmap(ImageUtils.getBitmapFromRes(context, user_avater_url));
-		user_name.setText(user_name_str);
-		user_num.setText(user_num_str);
-		user_class.setText(user_class_str);
+		user_name.setText("用户名:" + user_name_str);
+		user_num.setText("学号:" + user_num_str);
 
 		if (user_fav_adapter != null) {
 			user_favorite.setVisibility(View.VISIBLE);
