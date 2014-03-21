@@ -36,7 +36,6 @@ import com.realaction.yunbomobile.utils.UserUtils;
  * @author liumeng
  */
 public class LoginActivity extends Activity {
-	private String TAG = "lm";
 	private Context context;
 	private Handler handler;
 	private EditText et_name;
@@ -147,7 +146,6 @@ public class LoginActivity extends Activity {
 			AppInfo.network_avabile = true;
 			String result = HttpTool.convertStreamToString(is);
 			String resultarray[] = result.split("\\$");
-			Log.d(TAG, result);
 			if (resultarray.length < 1) {
 				// ÑéÖ¤Ê§°Ü
 				hideLoginDialog(handler);
@@ -179,8 +177,7 @@ public class LoginActivity extends Activity {
 					uu.saveUserInfoToPref(user.userName, user.password,
 							user.realName, user.userTypeId, user.stuNo,
 							user.empNo, user.profileUrl, cb_rmbuser.isChecked());
-					Log.d(TAG, "db operate = " + dbService.insertUserTb(user));
-					// dbService.insertUserTb(user);
+					dbService.insertUserTb(user);
 					return true;
 				}
 			}
@@ -190,7 +187,6 @@ public class LoginActivity extends Activity {
 			AppInfo.network_avabile = false;
 			SharedPreferences apppre = context.getSharedPreferences(getPackageName() + "_preferences", 1);
 			boolean offline_mode = apppre.getBoolean("pref_setting_offline", true);
-			Log.d("lm", "offline mode = " + offline_mode);
 			User user = dbService.findUserByuserName(et_name.getText().toString());
 			if (offline_mode && user != null && user.password != null && (user.password).equals(et_passwd.getText().toString())) {
 				uu.saveUserInfoToPref(user.userName, user.password,
