@@ -14,6 +14,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -53,7 +54,7 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.activity_login);
 		
 		init();
-
+		
 		btn_login.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -187,8 +188,11 @@ public class LoginActivity extends Activity {
 			// 网络访问错误
 			// 判断输入的用户数据是否为之前已登陆过的用户
 			AppInfo.network_avabile = false;
+			SharedPreferences apppre = context.getSharedPreferences(getPackageName() + "_preferences", 1);
+			boolean offline_mode = apppre.getBoolean("pref_setting_offline", true);
+			Log.d("lm", "offline mode = " + offline_mode);
 			User user = dbService.findUserByuserName(et_name.getText().toString());
-			if (user != null && user.password != null && (user.password).equals(et_passwd.getText().toString())) {
+			if (offline_mode && user != null && user.password != null && (user.password).equals(et_passwd.getText().toString())) {
 				uu.saveUserInfoToPref(user.userName, user.password,
 						user.realName, user.userTypeId, user.stuNo, user.empNo,
 						user.profileUrl, cb_rmbuser.isChecked());
