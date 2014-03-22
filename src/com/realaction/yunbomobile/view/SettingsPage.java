@@ -1,5 +1,7 @@
 package com.realaction.yunbomobile.view;
 
+import java.io.File;
+
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -51,7 +53,10 @@ public class SettingsPage extends PreferenceFragment {
 			// Çå³ý»º´æ
 			AlertDialog.Builder dialog = new Builder(context);
 			dialog.setTitle(R.string.notice);
-			dialog.setMessage(R.string.clean_cache);
+			long size = FileUtils.getFolderSize(new File(AppInfo.base_dir));
+			String msg = getString(R.string.cache_size) + size + "KB" + "\n"
+					+ getString(R.string.clean_cache);
+			dialog.setMessage(msg);
 			dialog.setNegativeButton(R.string.ok, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {

@@ -59,6 +59,7 @@
         <item>3</item>
         <item>5</item>
     </string-array>
+    <string name="cache_size">已缓存:</string>
     <string name="clean_cache">是否清除缓存?</string>
     <string name="clean_cache_success">清除缓存成功</string>
     <string name="settings_offline">离线模式</string>

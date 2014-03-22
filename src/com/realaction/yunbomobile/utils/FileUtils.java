@@ -15,7 +15,7 @@ public class FileUtils {
 	 * 
 	 * @param filePath
 	 *            文件路径
-	 * @return 文件夹大小
+	 * @return 文件夹大小,单位KB
 	 */
 	public static long getFolderSize(File filePath) {
 		long size = 0;
@@ -27,7 +27,7 @@ public class FileUtils {
 				size = size + fileList[i].length();
 			}
 		}
-		return size / 1048576;
+		return size / 1024;
 	}
 
 	/**
