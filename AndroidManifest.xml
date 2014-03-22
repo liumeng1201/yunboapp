@@ -42,6 +42,8 @@
         <activity android:name="com.realaction.yunbomobile.view.caseviews.CaseSourceViewActivity" />
         <activity android:name="com.lm.filebrowser.FileBrowserActivity" />
         <activity android:name="com.realaction.yunbomobile.view.caseviews.CaseDetailsActivity" />
+        
+        <service android:name="com.realaction.yunbomobile.service.CleanCacheService" />
     </application>
 
 </manifest>

@@ -7,11 +7,13 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,11 +21,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.realaction.yunbomobile.adapter.DrawerListAdapter;
+import com.realaction.yunbomobile.service.CleanCacheService;
 import com.realaction.yunbomobile.view.HomePage;
 import com.realaction.yunbomobile.view.MyCoursePage;
-import com.realaction.yunbomobile.view.NoticePage;
-import com.realaction.yunbomobile.view.OpenCoursePage;
-import com.realaction.yunbomobile.view.SchedulePage;
 import com.realaction.yunbomobile.view.SettingsPage;
 
 public class MainActivity extends Activity {
@@ -163,6 +163,9 @@ public class MainActivity extends Activity {
 			dialog.setPositiveButton(R.string.ok, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
+					Intent intent = new Intent(context, CleanCacheService.class);
+					Log.d("lm", "start service");
+					startService(intent);
 					MainActivity.this.finish();
 				}
 			});

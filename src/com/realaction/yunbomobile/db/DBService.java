@@ -642,7 +642,7 @@ public class DBService {
 				sb.append(',');
 			}
 		}
-		Cursor cursor = db.rawQuery(CaseTb.FIND_CASE_ORDERBY_COUNT
+		Cursor cursor = db.rawQuery(CaseTb.FIND_CASE_ORDERBY_COUNTORTIME
 				+ " where scoreId in(" + sb.toString() + ")" + " and "
 				+ CaseTb.COUNT + " > 0" + " order by " + CaseTb.COUNT
 				+ " desc limit 5", scoreids);
@@ -681,7 +681,7 @@ public class DBService {
 				sb.append(',');
 			}
 		}
-		Cursor cursor = db.rawQuery(CaseTb.FIND_CASE_ORDERBY_COUNT
+		Cursor cursor = db.rawQuery(CaseTb.FIND_CASE_ORDERBY_COUNTORTIME
 				+ " where scoreId in(" + sb.toString() + ")" + " and "
 				+ CaseTb.TIME + " > 0" + " order by " + CaseTb.TIME
 				+ " desc limit 5", scoreids);
@@ -725,6 +725,26 @@ public class DBService {
 			item.caseGroupName = cursor.getString(6);
 			item.scoreId = cursor.getString(7);
 			item.casedir = cursor.getString(8);
+			cursor.close();
+			return item;
+		} else {
+			cursor.close();
+			return null;
+		}
+	}
+	
+	/**
+	 * 查找最老的case
+	 * 
+	 * @return 插入时间最早的一个caseitem
+	 */
+	public CaseItem findOldestCase() {
+		Cursor cursor = db.rawQuery(CaseTb.FIND_OLDEST_CASE, null);
+		if (cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			CaseItem item = new CaseItem();
+			item.caseId = cursor.getLong(0);
+			item.casedir = cursor.getString(1);
 			cursor.close();
 			return item;
 		} else {

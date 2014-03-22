@@ -46,14 +46,13 @@ public class CaseTb {
 			+ "," + TEACHERNAME + "," + CASEGROUPID + "," + CASEGROUPNAME + ","
 			+ SCOREID + "," + CASEDIR + "," + COUNT + " from " + CASETB
 			+ " where " + SCOREID + "=? and " + CASEID + "=?";
-	// 根据count倒序列出5个结果
-	public static final String FIND_CASE_ORDERBY_COUNT = "select " + CASEID
+	public static final String FIND_CASE_ORDERBY_COUNTORTIME = "select " + CASEID
 			+ "," + CASENAME + "," + CASEGROUPID + "," + SCOREID + ","
 			+ CASEDIR + " from " + CASETB;
-	// 根据time倒序列出5个结果
-	public static final String FIND_CASE_ORDERBY_TIME = "select " + CASEID
-			+ "," + CASENAME + "," + CASEGROUPID + "," + SCOREID + ","
-			+ CASEDIR + " from " + CASETB;
+	// 查找最老的case
+	public static final String FIND_OLDEST_CASE = "select " + CASEID
+			+ "," + CASEDIR + " from" + CASETB + " where " + CaseTb.TIME
+			+ " > 0" + " order by " + CaseTb.TIME + " limit 1";
 	// 删除课程表
 	public static final String DROP_CASE_TB = "DROP TABLE IF EXISTS " + CASETB;
 }
