@@ -195,9 +195,13 @@ public class CaseSourceViewActivity extends Activity {
 								dbService.updateCaseGuideDoc(guidedoc);
 								layout_dl_fail_retry.setVisibility(View.GONE);
 								layout_no_resource.setVisibility(View.GONE);
-								documentView.setVisibility(View.VISIBLE);
-								decodeService.open(Uri.fromFile(new File(targetname)));
-								documentView.showDocument();
+								if (targetname.contains(".mp4") || targetname.contains(".3gp")) {
+									showVideoActivity(targetname);
+								} else {
+									documentView.setVisibility(View.VISIBLE);
+									decodeService.open(Uri.fromFile(new File(targetname)));
+									documentView.showDocument();
+								}
 								Log.d(TAG, "下载完成: "
 										+ (t == null ? "null" : t.getAbsoluteFile().toString()));
 							}
@@ -207,9 +211,13 @@ public class CaseSourceViewActivity extends Activity {
 				dialog.dismiss();
 				layout_dl_fail_retry.setVisibility(View.GONE);
 				layout_no_resource.setVisibility(View.GONE);
-				documentView.setVisibility(View.VISIBLE);
-				decodeService.open(Uri.fromFile(new File(targetname)));
-				documentView.showDocument();
+				if (targetname.contains(".mp4") || targetname.contains(".3gp")) {
+					showVideoActivity(targetname);
+				} else {
+					documentView.setVisibility(View.VISIBLE);
+					decodeService.open(Uri.fromFile(new File(targetname)));
+					documentView.showDocument();
+				}
 			} else {
 				// 无网络且未缓存，则不可用
 				dialog.dismiss();
@@ -257,9 +265,13 @@ public class CaseSourceViewActivity extends Activity {
 								dbService.updateCaseDoc(casedoc);
 								layout_dl_fail_retry.setVisibility(View.GONE);
 								layout_no_resource.setVisibility(View.GONE);
-								documentView.setVisibility(View.VISIBLE);
-								decodeService.open(Uri.fromFile(new File(targetname)));
-								documentView.showDocument();
+								if (targetname.contains(".mp4") || targetname.contains(".3gp")) {
+									showVideoActivity(targetname);
+								} else {
+									documentView.setVisibility(View.VISIBLE);
+									decodeService.open(Uri.fromFile(new File(targetname)));
+									documentView.showDocument();
+								}
 								Log.d(TAG, "下载完成: "
 										+ (t == null ? "null" : t.getAbsoluteFile().toString()));
 							}
@@ -269,9 +281,13 @@ public class CaseSourceViewActivity extends Activity {
 				dialog.dismiss();
 				layout_dl_fail_retry.setVisibility(View.GONE);
 				layout_no_resource.setVisibility(View.GONE);
-				documentView.setVisibility(View.VISIBLE);
-				decodeService.open(Uri.fromFile(new File(targetname)));
-				documentView.showDocument();
+				if (targetname.contains(".mp4") || targetname.contains(".3gp")) {
+					showVideoActivity(targetname);
+				} else {
+					documentView.setVisibility(View.VISIBLE);
+					decodeService.open(Uri.fromFile(new File(targetname)));
+					documentView.showDocument();
+				}
 			} else {
 				// 无网络且未缓存，则不可用
 				dialog.dismiss();
@@ -294,6 +310,13 @@ public class CaseSourceViewActivity extends Activity {
 	
 	private DecodeService createDecodeService() {
 		return new DecodeServiceBase(new PdfContext());
+	}
+	
+	private void showVideoActivity(String filepath) {
+		Intent intent = new Intent(context, VideoViewActivity.class);
+		intent.putExtra("target_name", filepath);
+		startActivity(intent);
+		CaseSourceViewActivity.this.finish();
 	}
 
 	@Override

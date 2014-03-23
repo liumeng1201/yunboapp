@@ -30,6 +30,7 @@ public class VideoViewActivity extends Activity {
 	private static final String TAG = "VideoViewActivity";
 	private Context context;
 	private VideoView videoView;
+	/*
 	private TextView vv_no_resource;
 	private RelativeLayout vv_dl_fail_retry;
 	private Button btn_dl_fail_retry;
@@ -37,37 +38,39 @@ public class VideoViewActivity extends Activity {
 	private long guideId;
 	private long caseId;
 	private CaseGuideDocItem guidedoc;
-	private MyDialog dialog;
+	private MyDialog dialog;*/
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_videoview);
 		context = VideoViewActivity.this;
-		dbService = new DBService(context);
+//		dbService = new DBService(context);
 		videoView = (VideoView) findViewById(R.id.videoView);
-		vv_no_resource = (TextView) findViewById(R.id.vv_no_resouce);
-		vv_dl_fail_retry = (RelativeLayout) findViewById(R.id.vv_dl_fail_retry);
-		btn_dl_fail_retry = (Button) findViewById(R.id.vv_dl_retry);
+//		vv_no_resource = (TextView) findViewById(R.id.vv_no_resouce);
+//		vv_dl_fail_retry = (RelativeLayout) findViewById(R.id.vv_dl_fail_retry);
+//		btn_dl_fail_retry = (Button) findViewById(R.id.vv_dl_retry);
 
 		Intent intent = getIntent();
-		Bundle bundle = intent.getExtras();
-		final String download_url = bundle.getString("download_url");
-		final String filepath = bundle.getString("target_name");
-		guideId = bundle.getLong("guideId");
-		caseId = bundle.getLong("caseId");
+//		Bundle bundle = intent.getExtras();
+//		final String download_url = bundle.getString("download_url");
+//		final String filepath = bundle.getString("target_name");
+//		guideId = bundle.getLong("guideId");
+//		caseId = bundle.getLong("caseId");
+		String filepath = intent.getStringExtra("target_name");
+		displayvideo(filepath);
 		
 //		downAndShow(download_url, filepath);
-		displayvideo("/mnt/sdcard/bbb.mp4");
+//		displayvideo("/mnt/sdcard/bbb.mp4");
 		
-		btn_dl_fail_retry.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				downAndShow(download_url, filepath);
-			}
-		});
+//		btn_dl_fail_retry.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				downAndShow(download_url, filepath);
+//			}
+//		});
 	}
-	
+	/*
 	private void downAndShow(final String url, final String filepath) {
 		guidedoc = dbService.findCaseGuideDocBycaseIdAndguideId(String.valueOf(caseId), String.valueOf(guideId));
 		if (AppInfo.network_avabile
@@ -140,7 +143,7 @@ public class VideoViewActivity extends Activity {
 			vv_no_resource.setVisibility(View.VISIBLE);
 			videoView.setVisibility(View.GONE);
 		}
-	}
+	} */
 	
 	private void displayvideo(String filepath) {
 		videoView.setVideoPath(filepath);
@@ -178,7 +181,7 @@ public class VideoViewActivity extends Activity {
 		super.onDestroy();
 		videoView.pause();
 		videoView.stopPlayback();
-		dbService.close();
+//		dbService.close();
 	}
 
 }
