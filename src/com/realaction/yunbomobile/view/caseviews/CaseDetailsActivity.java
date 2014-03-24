@@ -35,8 +35,8 @@ public class CaseDetailsActivity extends Activity {
 		CaseItem caseitem = dbService.findCaseByCaseId(caseId);
 
 		caseName.setText("案例名:" + caseitem.caseName);
-		caseDes.setText("知识点:" + caseitem.keyWords + "\n开发者角色:"
-				+ caseitem.devRoleName + "\n老师名:" + caseitem.teacherName);
+		caseDes.setText("包含知识点:" + caseitem.keyWords.replaceAll("#", "、") + "\n开发者角色:"
+				+ caseitem.devRoleName + "\n授课老师:" + caseitem.teacherName);
 
 		AsyncTaskGetCaseSources async = new AsyncTaskGetCaseSources(context);
 		async.execute(new String[] { String.valueOf(caseId) });
