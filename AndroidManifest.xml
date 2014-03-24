@@ -42,7 +42,10 @@
         <activity android:name="com.realaction.yunbomobile.view.caseviews.CaseSourceViewActivity" />
         <activity android:name="com.lm.filebrowser.FileBrowserActivity" />
         <activity android:name="com.realaction.yunbomobile.view.caseviews.CaseDetailsActivity" />
-        
+        <activity
+            android:name="com.realaction.yunbomobile.UserGuideActivity"
+            android:theme="@android:style/Theme.Translucent" />
+
         <service android:name="com.realaction.yunbomobile.service.CleanCacheService" />
     </application>
 

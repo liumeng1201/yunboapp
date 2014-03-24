@@ -31,6 +31,8 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     
+    <string name="userguide_notice">点击左上角或从屏幕左边沿向右滑动以打开菜单</string>
+    
     <string name="notice">提示</string>
     <string name="quit_confirm">确认退出？</string>
     <string name="ok">确定</string>

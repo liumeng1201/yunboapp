@@ -85,6 +85,8 @@ public class MainActivity extends Activity {
 			selectItem(0);
 		}
 		
+		startActivity(new Intent(context, UserGuideActivity.class));
+		
 		Intent intent = getIntent();
 		boolean isUpdate = intent.getBooleanExtra("isupdate", false);
 		String updatemsg = intent.getStringExtra("updatemsg");
