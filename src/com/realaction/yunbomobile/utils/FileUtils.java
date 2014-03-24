@@ -20,14 +20,18 @@ public class FileUtils {
 	public static long getFolderSize(File filePath) {
 		long size = 0;
 		File[] fileList = filePath.listFiles();
-		for (int i = 0; i < fileList.length; i++) {
-			if (fileList[i].isDirectory()) {
-				size = size + getFolderSize(fileList[i]);
-			} else {
-				size = size + fileList[i].length();
+		if (fileList != null) {
+			for (int i = 0; i < fileList.length; i++) {
+				if (fileList[i].isDirectory()) {
+					size = size + getFolderSize(fileList[i]);
+				} else {
+					size = size + fileList[i].length();
+				}
 			}
+			return size / 1024;
+		} else {
+			return 0;
 		}
-		return size / 1024;
 	}
 
 	/**

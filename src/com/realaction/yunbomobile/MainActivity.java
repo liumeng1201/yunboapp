@@ -1,14 +1,22 @@
 package com.realaction.yunbomobile;
 
+import java.io.File;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.HttpHandler;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -19,9 +27,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.realaction.yunbomobile.adapter.DrawerListAdapter;
 import com.realaction.yunbomobile.service.CleanCacheService;
+import com.realaction.yunbomobile.utils.AppInfo;
+import com.realaction.yunbomobile.utils.MyDialog;
 import com.realaction.yunbomobile.view.HomePage;
 import com.realaction.yunbomobile.view.MyCoursePage;
 import com.realaction.yunbomobile.view.SettingsPage;
@@ -73,6 +84,95 @@ public class MainActivity extends Activity {
 		if (savedInstanceState == null) {
 			selectItem(0);
 		}
+		
+		Intent intent = getIntent();
+		boolean isUpdate = intent.getBooleanExtra("isupdate", false);
+		String updatemsg = intent.getStringExtra("updatemsg");
+		final String updatefile = intent.getStringExtra("updatefile");
+		if (isUpdate) {
+			StringBuffer sb = new StringBuffer();
+			sb.append("当前版本:");
+			try {
+				String currentversion = context.getPackageManager()
+						.getPackageInfo("com.realaction.yunbomobile", 0).versionName;
+				sb.append(currentversion).append("\n");
+			} catch (NameNotFoundException e) {
+				e.printStackTrace();
+			}
+			sb.append(updatemsg).append("\n");
+			sb.append("是否更新?");
+			Dialog dialog = new AlertDialog.Builder(context).setTitle("软件更新")
+					.setMessage(sb.toString())
+					.setPositiveButton("更新", new OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dlAndInstall(updatefile);
+						}
+					}).setNegativeButton("暂不更新", new OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+						}
+					}).create();
+			dialog.show();
+		}
+	}
+	
+	private void dlAndInstall(String updatefile) {
+		final MyDialog dlDialog = new MyDialog(context);
+		dlDialog.create();
+		dlDialog.show();
+		FinalHttp fh = new FinalHttp();
+		final String url = AppInfo.base_url + "/update/" + updatefile;
+		final String target = AppInfo.base_dir + "/" + updatefile;
+		HttpHandler handler = fh.download(url, target,
+				new AjaxCallBack<File>() {
+					@Override
+					public void onStart() {
+						super.onStart();
+						File file = new File(target);
+						if (!file.getParentFile().exists()) {
+							file.getParentFile().mkdirs();
+						}
+					}
+
+					@Override
+					public void onFailure(Throwable t, int errorNo,
+							String strMsg) {
+						super.onFailure(t, errorNo, strMsg);
+						dlDialog.dismiss();
+						Toast.makeText(context, "下载失败", Toast.LENGTH_SHORT).show();
+					}
+
+					@Override
+					public void onSuccess(File t) {
+						super.onSuccess(t);
+						Log.d("update", "start success");
+						dlDialog.dismiss();
+						Dialog installDialog = new AlertDialog.Builder(context)
+								.setTitle("安装")
+								.setMessage("是否安装新的应用")
+								.setPositiveButton("确定", new OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										Intent intent = new Intent(
+												Intent.ACTION_VIEW);
+										intent.setDataAndType(
+												Uri.fromFile(new File(target)),
+												"application/vnd.android.package-archive");
+										startActivity(intent);
+										MainActivity.this.finish();
+									}
+								})
+								.setNegativeButton("取消", new OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+									}
+								}).create();
+						installDialog.show();
+					}
+				});
 	}
 
 	@Override

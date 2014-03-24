@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -46,6 +47,9 @@ public class LoginActivity extends Activity {
 	private ProgressDialog loginDialog;
 	private UserUtils uu;
 	private DBService dbService;
+	private boolean isUpdate = false;
+	private String updatemsg;
+	private String updatefile;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +91,11 @@ public class LoginActivity extends Activity {
 								// 登陆成功
 								hideLoginDialog(handler);
 								Intent intent = new Intent(context, MainActivity.class);
+								if (isUpdate) {
+									intent.putExtra("isupdate", isUpdate);
+									intent.putExtra("updatefile", updatefile);
+									intent.putExtra("updatemsg", updatemsg);
+								}
 								startActivity(intent);
 								LoginActivity.this.finish();
 							}
@@ -146,7 +155,7 @@ public class LoginActivity extends Activity {
 			AppInfo.network_avabile = true;
 			String result = HttpTool.convertStreamToString(is);
 			String resultarray[] = result.split("\\$");
-			if (resultarray.length < 1) {
+			if (resultarray.length <= 5) {
 				// 验证失败
 				hideLoginDialog(handler);
 				HttpTool.showToast(context, handler, getString(R.string.user_error));
@@ -162,6 +171,11 @@ public class LoginActivity extends Activity {
 					return false;
 				} else {
 					// 验证成功
+					if (needUpdate(resultarray[6])) {
+						isUpdate = true;
+						updatefile = resultarray[5];
+						updatemsg = "发现新版本:" + resultarray[7];
+					}
 					User user = new User();
 					user.userId = Long.parseLong(userId);
 					user.userName = et_name.getText().toString();
@@ -231,6 +245,25 @@ public class LoginActivity extends Activity {
 	// 从服务器返回的数据中获取用户学号/工号
 	private String getUserNoFromResult(String result[]) {
 		return result[4];
+	}
+	
+	/**
+	 * 是否需要升级
+	 * 
+	 * @param versioncode
+	 *            从服务器获取的客户端版本号
+	 * @return
+	 */
+	private boolean needUpdate(String versioncode) {
+		try {
+			int verCode = context.getPackageManager().getPackageInfo("com.realaction.yunbomobile", 0).versionCode;
+			if (verCode < Integer.parseInt(versioncode)) {
+				return true;
+			}
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	@Override
