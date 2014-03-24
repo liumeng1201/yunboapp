@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -85,8 +86,17 @@ public class MainActivity extends Activity {
 			selectItem(0);
 		}
 		
-		startActivity(new Intent(context, UserGuideActivity.class));
+		// 新手指导功能
+		SharedPreferences ug = context.getSharedPreferences("user_guide", 0);
+		boolean firstlogin = ug.getBoolean("user_first_login", false);
+		if (!firstlogin) {
+			SharedPreferences.Editor uge = ug.edit();
+			uge.putBoolean("user_first_login", true);
+			uge.commit();
+			startActivity(new Intent(context, UserGuideActivity.class));
+		}
 		
+		// 自动更新功能
 		Intent intent = getIntent();
 		boolean isUpdate = intent.getBooleanExtra("isupdate", false);
 		String updatemsg = intent.getStringExtra("updatemsg");

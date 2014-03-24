@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="@string/userguide_notice"
-        android:textSize="30sp" />
+        android:textSize="28sp" />
 
     <Button
         android:id="@+id/userguide_ok"
@@ -19,8 +19,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
-        android:background="@android:color/transparent"
-        android:text="@string/ok"
-        android:onClick="okclick" />
+        android:background="@drawable/login_btn_selector"
+        android:onClick="okclick"
+        android:text="知道了"
+        android:textSize="25sp" />
 
 </RelativeLayout>
