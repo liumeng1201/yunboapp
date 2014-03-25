@@ -25,6 +25,8 @@
         android:id="@+id/casedetail_caseguide"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/item_margin"
+        android:background="@drawable/view_guide_btn_selector"
         android:onClick="viewCaseGuide"
         android:text="查看实验指导书" />
 
@@ -32,6 +34,8 @@
         android:id="@+id/casedetail_casedoc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/item_margin"
+        android:background="@drawable/view_answer_btn_selector"
         android:onClick="viewCaseDoc"
         android:text="查看实验答案" />
 
