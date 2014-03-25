@@ -9,6 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:background="@drawable/ug_notice_bg"
+        android:gravity="center"
         android:text="@string/userguide_notice"
         android:textSize="28sp" />
 

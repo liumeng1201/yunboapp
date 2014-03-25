@@ -8,12 +8,16 @@
     <ImageView
         android:id="@+id/imageview_rowicon"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/item_bottom_margin"
+        android:layout_marginTop="@dimen/item_top_margin" />
 
     <TextView
         android:id="@+id/textview_rowtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical" />
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="@dimen/item_bottom_margin"
+        android:layout_marginTop="@dimen/item_top_margin" />
 
 </LinearLayout>
