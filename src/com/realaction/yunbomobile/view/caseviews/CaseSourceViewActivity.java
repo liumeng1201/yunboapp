@@ -36,6 +36,7 @@ import com.realaction.yunbomobile.db.DBService;
 import com.realaction.yunbomobile.moddel.CaseDocItem;
 import com.realaction.yunbomobile.moddel.CaseGuideDocItem;
 import com.realaction.yunbomobile.utils.AppInfo;
+import com.realaction.yunbomobile.utils.FileUtils;
 import com.realaction.yunbomobile.utils.MyDialog;
 
 /**
@@ -161,6 +162,9 @@ public class CaseSourceViewActivity extends Activity {
 			guidedoc = dbService.findCaseGuideDocBycaseIdAndguideId(String.valueOf(caseId), String.valueOf(guideId));
 			if (AppInfo.network_avabile && (guidedoc != null && (guidedoc.isDownload == 0))) {
 				dialog.show();
+				if ((new File(targetname)).exists()) {
+					(new File(targetname)).delete();
+				}
 				// 实验指导书未缓存在本地且网络可用，则下载该指导书并显示
 				FinalHttp fh = new FinalHttp();
 				HttpHandler handler = fh.download(downloadurl, targetname, true, new AjaxCallBack<File>() {
@@ -231,6 +235,9 @@ public class CaseSourceViewActivity extends Activity {
 			casedoc = dbService.findCaseDocBycaseIdAnddocId(String.valueOf(caseId), String.valueOf(docId));
 			if (AppInfo.network_avabile && (casedoc != null && (casedoc.isDownload == 0))) {
 				dialog.show();
+				if ((new File(targetname)).exists()) {
+					(new File(targetname)).delete();
+				}
 				// 实验指导书未缓存在本地且网络可用，则下载该指导书并显示
 				FinalHttp fh = new FinalHttp();
 				HttpHandler handler = fh.download(downloadurl, targetname, true, new AjaxCallBack<File>() {

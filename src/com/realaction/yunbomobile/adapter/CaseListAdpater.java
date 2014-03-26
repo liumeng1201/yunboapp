@@ -67,14 +67,17 @@ public class CaseListAdpater extends BaseAdapter {
 		switch (list.get(position).download) {
 		case 0:
 			// 未下载
+			holder.btn.setText("缓存");
 			holder.btn.setBackgroundResource(R.drawable.btn_dl_do_selector);
 			break;
 		case 1:
 			// 已下载
+			holder.btn.setText("已缓存");
 			holder.btn.setBackgroundResource(R.drawable.btn_dl_done_selector);
 			break;
 		case 2:
 			// 正在下载
+			holder.btn.setText("缓存中");
 			holder.btn.setBackgroundResource(R.drawable.btn_dl_doing_selector);
 			break;
 		default:
@@ -85,8 +88,9 @@ public class CaseListAdpater extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				holder.btn.setBackgroundResource(R.drawable.btn_dl_doing_selector);
+				holder.btn.setText("缓存中");
 				list.get(num).download = 1;
-				Toast.makeText(context, "Button click " + num, Toast.LENGTH_SHORT).show();				
+				Toast.makeText(context, "Button click " + num, Toast.LENGTH_SHORT).show();
 			}
 		});
 		return convertView;

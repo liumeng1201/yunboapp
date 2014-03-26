@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.realaction.yunbomobile.adapter.DrawerListAdapter;
 import com.realaction.yunbomobile.service.CleanCacheService;
 import com.realaction.yunbomobile.utils.AppInfo;
+import com.realaction.yunbomobile.utils.FileUtils;
 import com.realaction.yunbomobile.utils.MyDialog;
 import com.realaction.yunbomobile.view.HomePage;
 import com.realaction.yunbomobile.view.MyCoursePage;
@@ -136,6 +137,9 @@ public class MainActivity extends Activity {
 		FinalHttp fh = new FinalHttp();
 		final String url = AppInfo.base_url + "/update/" + updatefile;
 		final String target = AppInfo.base_dir + "/" + updatefile;
+		if ((new File(target)).exists()) {
+			(new File(target)).delete();
+		}
 		HttpHandler handler = fh.download(url, target,
 				new AjaxCallBack<File>() {
 					@Override
