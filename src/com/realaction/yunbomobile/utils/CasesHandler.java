@@ -65,6 +65,8 @@ public class CasesHandler extends DefaultHandler {
 			// TODO CaseGroup需要处理
 			item.caseGroupName = attributes.getValue("caseGroupName");
 			item.scoreId = scoreId;
+			item.download = 0;
+			item.caseDesc = attributes.getValue("caseDesc");
 			casesList.add(item);
 		}
 	}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- 按下时的图片 -->
+    <item android:drawable="@drawable/dl_doing_press" android:state_pressed="true"/>
+    <!-- 选中时的图片 -->
+    <item android:drawable="@drawable/dl_doing_press" android:state_selected="true"/>
+    <!-- 获取焦点时的图片 -->
+    <item android:drawable="@drawable/dl_doing_press" android:state_focused="true"/>
+    <!-- 普通情况下的图片 -->
+    <item android:drawable="@drawable/dl_doing_normall"/>
+
+</selector>

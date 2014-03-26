@@ -20,6 +20,8 @@ public class CaseTb {
 	public static final String CASEDIR = "casedir";
 	public static final String COUNT = "count";
 	public static final String TIME = "time";
+	public static final String DOWNLOAD = "download";
+	public static final String CASEDESC = "caseDesc";
 
 	// 创建案例表
 	public static final String CREATE_CASE_TB = "CREATE TABLE IF NOT EXISTS "
@@ -28,7 +30,8 @@ public class CaseTb {
 			+ " varchar(200), " + DEVROLENAME + " varchar(50), " + TEACHERNAME
 			+ " varchar(50), " + CASEGROUPID + " integer, " + CASEGROUPNAME
 			+ " varchar(32), " + SCOREID + " varchar(32), " + CASEDIR
-			+ " varchar(1024), " + COUNT + " integer, " + TIME + " integer"
+			+ " varchar(1024), " + COUNT + " integer, " + TIME + " integer, "
+			+ DOWNLOAD + " integer DEFAULT 0, " + CASEDESC + " varchar(1024)"
 			+ ")";
 	// 根据caseId查找案例
 	public static final String FIND_CASE_BY_CASEID = "select " + CASEID + ","
@@ -39,7 +42,8 @@ public class CaseTb {
 	public static final String FIND_CASE_BY_SCOREID = "select " + CASEID + ","
 			+ CASENAME + "," + KEYWORDS + "," + DEVROLENAME + "," + TEACHERNAME
 			+ "," + CASEGROUPID + "," + CASEGROUPNAME + "," + SCOREID + ","
-			+ CASEDIR + " from " + CASETB + " where " + SCOREID + "=?";
+			+ CASEDIR + "," + DOWNLOAD + " from " + CASETB + " where "
+			+ SCOREID + "=?";
 	// 根据scoreId和caseId查找案例
 	public static final String FIND_CASE_BY_SCOREIDANDCASEID = "select "
 			+ CASEID + "," + CASENAME + "," + KEYWORDS + "," + DEVROLENAME

@@ -15,4 +15,6 @@ public class CaseItem {
 	public String caseGroupName;
 	public String scoreId;
 	public String casedir;
+	public int download;
+	public String caseDesc;
 }

@@ -128,6 +128,7 @@ public class DBService {
 		cv.put(CaseTb.CASEGROUPID, caseitem.caseGroupId);
 		cv.put(CaseTb.CASEGROUPNAME, caseitem.caseGroupName);
 		cv.put(CaseTb.SCOREID, caseitem.scoreId);
+		cv.put(CaseTb.CASEDESC, caseitem.caseDesc);
 		Cursor cursor = db.rawQuery(
 				CaseTb.FIND_CASE_BY_SCOREIDANDCASEID,
 				new String[] { caseitem.scoreId,
@@ -358,10 +359,10 @@ public class DBService {
 	 * @param scoreId
 	 * @return scoreId对应的案例列表
 	 */
-	public List<CaseItem> findCasesByscoreId(String scoredId) {
+	public List<CaseItem> findCasesByscoreId(String scoreId) {
 		List<CaseItem> cases = new ArrayList<CaseItem>();
 		Cursor cursor = db.rawQuery(CaseTb.FIND_CASE_BY_SCOREID,
-				new String[] { String.valueOf(scoredId) });
+				new String[] { String.valueOf(scoreId) });
 		if (cursor.getCount() > 0) {
 			cursor.moveToFirst();
 			do {
@@ -375,6 +376,7 @@ public class DBService {
 				caseitem.caseGroupName = cursor.getString(6);
 				caseitem.scoreId = cursor.getString(7);
 				caseitem.casedir = cursor.getString(8);
+				caseitem.download = cursor.getInt(9);
 				cases.add(caseitem);
 			} while (cursor.moveToNext());
 			cursor.close();
