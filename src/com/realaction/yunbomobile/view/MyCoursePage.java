@@ -57,9 +57,9 @@ public class MyCoursePage extends Fragment {
 	};
 
 	private MyCourseListAdapter adapter_bixiu;
-	private MyCourseListAdapter adapter_xuanxiu;
+//	private MyCourseListAdapter adapter_xuanxiu;
 	private List<CourseItem> list_bixiu;
-	private List<CourseItem> list_xuanxiu;
+//	private List<CourseItem> list_xuanxiu;
 	private OnItemClickListener listener_bixiu = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long location) {
@@ -70,13 +70,13 @@ public class MyCoursePage extends Fragment {
 			startActivity(intent);
 		}
 	};
-	private OnItemClickListener listener_xuanxiu = new OnItemClickListener() {
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position, long location) {
+//	private OnItemClickListener listener_xuanxiu = new OnItemClickListener() {
+//		@Override
+//		public void onItemClick(AdapterView<?> parent, View view, int position, long location) {
 //			Intent intent = new Intent(context, CaseListActivity.class);
 //			startActivity(intent);
-		}
-	};
+//		}
+//	};
 
 	public MyCoursePage() {
 	}
@@ -91,18 +91,18 @@ public class MyCoursePage extends Fragment {
 		dbService = new DBService(context);
 		currentUser = dbService.findUserByuserName(userUtils.getUserName());
 		list_bixiu = new ArrayList<CourseItem>();
-		list_xuanxiu = new ArrayList<CourseItem>();
+//		list_xuanxiu = new ArrayList<CourseItem>();
 
-		/*--------------选修课测试数据------------*/
+		/*--------------选修课测试数据------------
 		for (int i = 1; i < 51; i++) {
 			CourseItem ci2 = new CourseItem();
 			ci2.courseName = "选修课程  " + i;
 			list_xuanxiu.add(ci2);
 		}
-		/*-----------------------------------*/
+		-----------------------------------*/
 
 		adapter_bixiu = new MyCourseListAdapter(context, list_bixiu);
-		adapter_xuanxiu = new MyCourseListAdapter(context, list_xuanxiu);
+//		adapter_xuanxiu = new MyCourseListAdapter(context, list_xuanxiu);
 	}
 
 	@Override
@@ -110,22 +110,22 @@ public class MyCoursePage extends Fragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_mycourse, null);
 		final ListView course_bixiu = (ListView) view.findViewById(R.id.mycourse_list1);
-		ListView course_xuanxiu = (ListView) view.findViewById(R.id.mycourse_list2);
+//		ListView course_xuanxiu = (ListView) view.findViewById(R.id.mycourse_list2);
 
-		TabHost tabhost = (TabHost) view.findViewById(R.id.tabhost);
-		tabhost.setup();
-		tabhost.addTab(tabhost.newTabSpec("tab1")
-				.setIndicator(getResources().getString(R.string.course_bixiu))
-				.setContent(R.id.mycourse_list1));
-		tabhost.addTab(tabhost.newTabSpec("tab2")
-				.setIndicator(getResources().getString(R.string.course_xuanxiu))
-				.setContent(R.id.mycourse_list2));
+//		TabHost tabhost = (TabHost) view.findViewById(R.id.tabhost);
+//		tabhost.setup();
+//		tabhost.addTab(tabhost.newTabSpec("tab1")
+//				.setIndicator(getResources().getString(R.string.course_bixiu))
+//				.setContent(R.id.mycourse_list1));
+//		tabhost.addTab(tabhost.newTabSpec("tab2")
+//				.setIndicator(getResources().getString(R.string.course_xuanxiu))
+//				.setContent(R.id.mycourse_list2));
 
 		course_bixiu.setAdapter(adapter_bixiu);
-		course_xuanxiu.setAdapter(adapter_xuanxiu);
+//		course_xuanxiu.setAdapter(adapter_xuanxiu);
 
 		course_bixiu.setOnItemClickListener(listener_bixiu);
-		course_xuanxiu.setOnItemClickListener(listener_xuanxiu);
+//		course_xuanxiu.setOnItemClickListener(listener_xuanxiu);
 
 		refreshCoursesList();
 
