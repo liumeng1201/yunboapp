@@ -63,6 +63,7 @@ public class CaseListAdpater extends BaseAdapter {
 		}
 		final ViewHolder holder = (ViewHolder) convertView.getTag();
 		holder.item.setText(list.get(position).caseName);
+		/*
 		final int num = position;
 		switch (list.get(position).download) {
 		case 0:
@@ -93,6 +94,7 @@ public class CaseListAdpater extends BaseAdapter {
 				Toast.makeText(context, "Button click " + num, Toast.LENGTH_SHORT).show();
 			}
 		});
+		*/
 		return convertView;
 	}
 
