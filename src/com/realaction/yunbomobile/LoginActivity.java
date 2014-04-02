@@ -10,6 +10,7 @@ import org.apache.http.message.BasicNameValuePair;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,7 +19,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -55,6 +55,8 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		context = LoginActivity.this;
+		canRun();
 		
 		init();
 		
@@ -106,9 +108,26 @@ public class LoginActivity extends Activity {
 		});
 	}
 	
+	// 判断系统API版本是否满足运行需求
+	private void canRun() {
+		int currentAPIVersion = android.os.Build.VERSION.SDK_INT;
+		if (currentAPIVersion < 14) {
+			Dialog dialog = new AlertDialog.Builder(context).setTitle("提示")
+					.setMessage("当前系统版本过低,不支持该程序运行,请升级系统至Android 4.0及以上!")
+					.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							LoginActivity.this.finish();
+						}
+					}).create();
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.setCancelable(false);
+			dialog.show();
+		}
+	}
+	
 	// 初始化工作
 	private void init() {
-		context = LoginActivity.this;
 		uu = new UserUtils(context);
 		dbService = new DBService(context);
 		handler = new Handler();
