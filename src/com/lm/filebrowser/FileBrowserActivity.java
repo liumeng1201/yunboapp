@@ -6,11 +6,14 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -88,6 +91,8 @@ public class FileBrowserActivity extends ListActivity {
 			break;
 		}
 		
+		ActionBar actionbar = getActionBar();
+		actionbar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	/**
@@ -168,19 +173,19 @@ public class FileBrowserActivity extends ListActivity {
 			case 1:
 				// 指导书
 				if (dirPath.indexOf("指导书") > 0) {
-					mTextViewLocation.setText("Location: "
+					mTextViewLocation.setText("当前位置: "
 							+ dirPath.substring(dirPath.indexOf("指导书")));
 				} else {
-					mTextViewLocation.setText("Location: " + dirPath);
+					mTextViewLocation.setText("当前位置: " + dirPath);
 				}
 				break;
 			case 2:
 				// 答案
 				if (dirPath.indexOf("答案") > 0) {
-					mTextViewLocation.setText("Location: "
+					mTextViewLocation.setText("当前位置: "
 							+ dirPath.substring(dirPath.indexOf("答案")));
 				} else {
-					mTextViewLocation.setText("Location: " + dirPath);
+					mTextViewLocation.setText("当前位置: " + dirPath);
 				}
 				break;
 			default:
@@ -226,7 +231,6 @@ public class FileBrowserActivity extends ListActivity {
 		String[] tmp = filepath.split(AppInfo.base_dir + "/");
 		if (tmp.length > 1) {
 			String path = tmp[1];
-			Log.d("lm", "docpath = " + path);
 			switch (opt) {
 			case 1:
 				// 指导书
@@ -250,6 +254,16 @@ public class FileBrowserActivity extends ListActivity {
 			intent.putExtra("opt", opt);
 			startActivity(intent);
 		}
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			this.finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

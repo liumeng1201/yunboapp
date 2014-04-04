@@ -10,13 +10,16 @@ import net.tsz.afinal.http.HttpHandler;
 
 import org.vudroid.pdfdroid.codec.PdfContext;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -36,7 +39,6 @@ import com.realaction.yunbomobile.db.DBService;
 import com.realaction.yunbomobile.moddel.CaseDocItem;
 import com.realaction.yunbomobile.moddel.CaseGuideDocItem;
 import com.realaction.yunbomobile.utils.AppInfo;
-import com.realaction.yunbomobile.utils.FileUtils;
 import com.realaction.yunbomobile.utils.MyDialog;
 
 /**
@@ -139,6 +141,9 @@ public class CaseSourceViewActivity extends Activity {
 		layout_no_resource.setVisibility(View.GONE);
 		documentView.setVisibility(View.VISIBLE);
 		setContentView(frameLayout);
+		
+		ActionBar actionbar = getActionBar();
+		actionbar.setDisplayHomeAsUpEnabled(true);
 	}
 	
 	@Override
@@ -326,6 +331,16 @@ public class CaseSourceViewActivity extends Activity {
 		CaseSourceViewActivity.this.finish();
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			this.finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
 	@Override
 	public void onDestroy() {
 		super.onDestroy();

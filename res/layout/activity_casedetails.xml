@@ -8,19 +8,15 @@
         android:id="@+id/casedetail_casename"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/item_margin"
+        android:background="@drawable/list_title_bg"
         android:textSize="@dimen/caselist_title_text_size" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@android:color/black" />
 
     <TextView
         android:id="@+id/casedetail_casedes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/item_margin"
+        android:background="@drawable/listview_bg2"
         android:lineSpacingMultiplier="1.2"
         android:textSize="@dimen/casedetail_text_size" />
 

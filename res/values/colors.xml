@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="transparent">#9000</color>
+    
+    <color name="file_explorer_up_color">#B9D3EE</color>
 </resources>

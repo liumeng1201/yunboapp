@@ -8,17 +8,13 @@
         android:id="@+id/caselist_coursename"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/item_margin"
+        android:background="@drawable/list_title_bg"
         android:textSize="@dimen/caselist_title_text_size" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@android:color/black" />
 
     <ListView
         android:id="@+id/caselist_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@drawable/listview_bg" />
 
 </LinearLayout>

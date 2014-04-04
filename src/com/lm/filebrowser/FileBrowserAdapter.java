@@ -43,12 +43,14 @@ public class FileBrowserAdapter extends BaseAdapter {
 		return position;
 	}
 
-	private void setRow(ViewHolder holder, int position) {
+	private void setRow(ViewHolder holder, int position, View convertView) {
 		File file = mFiles[position];
 		holder.text.setText((file.getName()).replaceAll(".pdf", ""));
 		if (position == 0 && !isTop) {
 			holder.icon.setImageDrawable(mContext.getResources().getDrawable(
 					R.drawable.ic_menu_back));
+			convertView.setBackgroundColor(mContext.getResources().getColor(
+					R.color.file_explorer_up_color));
 		} else if (file.isDirectory()) {
 			holder.icon.setImageDrawable(mContext.getResources().getDrawable(
 					R.drawable.ic_menu_archive));
@@ -72,7 +74,7 @@ public class FileBrowserAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		setRow(holder, position);
+		setRow(holder, position, convertView);
 		return convertView;
 	}
 

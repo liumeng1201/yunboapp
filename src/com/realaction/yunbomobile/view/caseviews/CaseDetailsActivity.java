@@ -1,9 +1,12 @@
 package com.realaction.yunbomobile.view.caseviews;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -40,6 +43,9 @@ public class CaseDetailsActivity extends Activity {
 
 		AsyncTaskGetCaseSources async = new AsyncTaskGetCaseSources(context);
 		async.execute(new String[] { String.valueOf(caseId) });
+		
+		ActionBar actionbar = getActionBar();
+		actionbar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	public void viewCaseGuide(View v) {
@@ -57,7 +63,17 @@ public class CaseDetailsActivity extends Activity {
 		intent.putExtra("caseId", caseId);
 		startActivity(intent);
 	}
-
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			this.finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
