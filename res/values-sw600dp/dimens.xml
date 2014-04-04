@@ -2,10 +2,15 @@
 
     <!--
          Customize dimensions originally defined in res/values/dimens.xml (such as
-         screen margins) for sw600dp devices (e.g. 7" tablets) here.
+         screen margins) for sw600dp devices (e.g. 7" tablets) here.
     -->
     <dimen name="item_top_margin">10dp</dimen>
     <dimen name="item_bottom_margin">10dp</dimen>
     <dimen name="item_margin">10dp</dimen>
+    <dimen name="login_logo_margin_top">25dp</dimen>
+    
+    <dimen name="item_text_size">18sp</dimen>
+    <dimen name="caselist_title_text_size">23sp</dimen>
+    <dimen name="casedetail_text_size">18sp</dimen>
 
 </resources>

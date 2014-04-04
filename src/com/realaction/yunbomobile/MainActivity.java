@@ -280,7 +280,6 @@ public class MainActivity extends Activity {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					Intent intent = new Intent(context, CleanCacheService.class);
-					Log.d("lm", "start service");
 					startService(intent);
 					MainActivity.this.finish();
 				}

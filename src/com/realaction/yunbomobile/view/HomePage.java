@@ -40,8 +40,6 @@ public class HomePage extends Fragment {
 	// 用户学号/工号
 	private TextView user_num;
 	private String user_num_str;
-	// 用户班级
-	private TextView user_class;
 	// 用户最常浏览的5条记录
 	private ListView user_favorite;
 	private HomePageAdapter user_fav_adapter;
@@ -70,7 +68,6 @@ public class HomePage extends Fragment {
 		user_avatar = (ImageView) view.findViewById(R.id.home_avatar);
 		user_name = (TextView) view.findViewById(R.id.home_name);
 		user_num = (TextView) view.findViewById(R.id.home_num);
-		user_class = (TextView) view.findViewById(R.id.home_class);
 		user_favorite = (ListView) view.findViewById(R.id.home_fav_list);
 		user_history = (ListView) view.findViewById(R.id.home_his_list);
 		user_no_favorite = (TextView) view.findViewById(R.id.home_fav_none);

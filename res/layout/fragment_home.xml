@@ -12,7 +12,8 @@
         android:layout_marginRight="3dp"
         android:layout_marginTop="3dp"
         android:background="@drawable/yellow"
-        android:text="@string/home_userinfo" />
+        android:text="@string/home_userinfo"
+        android:textSize="@dimen/item_text_size" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,7 +26,8 @@
             android:id="@+id/home_avatar"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/item_margin"
             android:contentDescription="@string/user_avatar"
             android:src="@drawable/ic_launcher" />
 
@@ -33,22 +35,18 @@
             android:id="@+id/home_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/home_avatar"
-            android:layout_toRightOf="@id/home_avatar" />
+            android:layout_marginTop="@dimen/item_margin"
+            android:layout_toRightOf="@id/home_avatar"
+            android:textSize="@dimen/item_text_size" />
 
         <TextView
             android:id="@+id/home_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/home_avatar" />
-
-        <TextView
-            android:id="@+id/home_class"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/home_avatar"
-            android:layout_toRightOf="@id/home_avatar" />
+            android:layout_below="@id/home_name"
+            android:layout_marginTop="@dimen/item_margin"
+            android:layout_toRightOf="@id/home_avatar"
+            android:textSize="@dimen/item_text_size" />
     </RelativeLayout>
 
     <LinearLayout
@@ -62,7 +60,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/blue"
-            android:text="@string/favorite" />
+            android:text="@string/favorite"
+            android:textSize="@dimen/item_text_size" />
 
         <ListView
             android:id="@+id/home_fav_list"
@@ -76,6 +75,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/blue1"
             android:text="暂无最常访问记录"
+            android:textSize="@dimen/item_text_size"
             android:visibility="gone" />
 
         <TextView
@@ -84,7 +84,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:background="@drawable/green"
-            android:text="@string/history" />
+            android:text="@string/history"
+            android:textSize="@dimen/item_text_size" />
 
         <ListView
             android:id="@+id/home_his_list"
@@ -98,6 +99,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/green1"
             android:text="暂无历史记录"
+            android:textSize="@dimen/item_text_size"
             android:visibility="gone" />
     </LinearLayout>
 

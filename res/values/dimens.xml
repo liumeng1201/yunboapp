@@ -4,8 +4,13 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     
-    <dimen name="item_top_margin">5dp</dimen>
-    <dimen name="item_bottom_margin">5dp</dimen>
-    <dimen name="item_margin">5dp</dimen>
+    <dimen name="item_top_margin">7dp</dimen>
+    <dimen name="item_bottom_margin">7dp</dimen>
+    <dimen name="item_margin">7dp</dimen>
+    <dimen name="login_logo_margin_top">25dp</dimen>
+    
+    <dimen name="item_text_size">16sp</dimen>
+    <dimen name="caselist_title_text_size">20sp</dimen>
+    <dimen name="casedetail_text_size">16sp</dimen>
 
 </resources>

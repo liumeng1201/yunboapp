@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:background="@android:color/white"
     android:focusable="true"
     android:focusableInTouchMode="true" >
 
@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="@dimen/login_logo_margin_top"
         android:src="@drawable/logo" />
 
     <TextView
@@ -20,14 +20,15 @@
         android:layout_below="@id/login_logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="@string/login_welcome" />
+        android:text="@string/login_welcome"
+        android:textSize="@dimen/item_text_size" />
 
     <EditText
         android:id="@+id/login_passwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_margin="3dp"
+        android:layout_margin="@dimen/item_margin"
         android:hint="@string/input_passwd"
         android:password="true" />
 
@@ -36,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/login_passwd"
-        android:layout_margin="3dp"
+        android:layout_margin="@dimen/item_margin"
         android:hint="@string/input_username" />
 
     <CheckBox
@@ -44,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/login_passwd"
-        android:layout_margin="5dp"
+        android:layout_margin="@dimen/item_margin"
         android:text="@string/login_remember_user" />
 
     <Button
@@ -52,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/login_rememberuser"
-        android:layout_margin="5dp"
+        android:layout_margin="@dimen/item_margin"
         android:background="@drawable/login_btn_selector"
         android:text="@string/login" />
 

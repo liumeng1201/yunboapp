@@ -52,16 +52,16 @@ public class DrawerListAdapter extends BaseAdapter {
 		case 1:
 			img.setImageResource(R.drawable.img2mycourse);
 			break;
+//		case 2:
+//			img.setImageResource(R.drawable.img3opencourse);
+//			break;
+//		case 3:
+//			img.setImageResource(R.drawable.img4schdule);
+//			break;
+//		case 4:
+//			img.setImageResource(R.drawable.img5notice);
+//			break;
 		case 2:
-			img.setImageResource(R.drawable.img3opencourse);
-			break;
-		case 3:
-			img.setImageResource(R.drawable.img4schdule);
-			break;
-		case 4:
-			img.setImageResource(R.drawable.img5notice);
-			break;
-		case 5:
 			img.setImageResource(R.drawable.img6settings);
 		default:
 			break;
