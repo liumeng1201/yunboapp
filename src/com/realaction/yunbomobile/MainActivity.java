@@ -22,18 +22,22 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.TextureView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.realaction.yunbomobile.adapter.DrawerListAdapter;
 import com.realaction.yunbomobile.service.CleanCacheService;
 import com.realaction.yunbomobile.utils.AppInfo;
-import com.realaction.yunbomobile.utils.FileUtils;
 import com.realaction.yunbomobile.utils.MyDialog;
 import com.realaction.yunbomobile.view.HomePage;
 import com.realaction.yunbomobile.view.MyCoursePage;
@@ -200,6 +204,26 @@ public class MainActivity extends Activity {
         }
         // Handle action buttons
         switch(item.getItemId()) {
+        case R.id.action_about:
+			Dialog dialog = new AlertDialog.Builder(context)
+					.setTitle(R.string.action_about).setMessage(R.string.about)
+					.setPositiveButton("È·¶¨", new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			}).create();
+			dialog.show();
+			
+//			Dialog dialog = new Dialog(context);
+//			dialog.setTitle(R.string.action_about);
+//			TextView view = new TextView(context);
+//			view.setText(R.string.about);
+//			view.setAutoLinkMask(Linkify.ALL);
+//			view.setMovementMethod(LinkMovementMethod.getInstance());
+//			dialog.setContentView(view);
+//			dialog.show();
+        	return true;
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -293,6 +317,12 @@ public class MainActivity extends Activity {
 			dialog.create().show();
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
 
 }
