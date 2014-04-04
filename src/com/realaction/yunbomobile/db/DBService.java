@@ -638,9 +638,9 @@ public class DBService {
 	public List<CaseItem> findCasesOrderByCount(String[] scoreids) {
 		List<CaseItem> caselist = new ArrayList<CaseItem>();
 		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < scoreids.length; i++) {
+		for (int i = scoreids.length; i >= 0; i--) {
 			sb.append('?');
-			if ((i - 1) > 0) {
+			if ((i - 1) >= 0) {
 				sb.append(',');
 			}
 		}
@@ -677,9 +677,9 @@ public class DBService {
 	public List<CaseItem> findCasesOrderByTime(String[] scoreids) {
 		List<CaseItem> caselist = new ArrayList<CaseItem>();
 		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < scoreids.length; i++) {
+		for (int i = scoreids.length; i >= 0; i--) {
 			sb.append('?');
-			if ((i - 1) > 0) {
+			if ((i - 1) >= 0) {
 				sb.append(',');
 			}
 		}
