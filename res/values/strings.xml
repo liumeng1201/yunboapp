@@ -6,7 +6,7 @@
     <string name="hello_world">Hello world!</string>
     
     <string name="action_about">关于</string>
-    <string name="about">云博移动客户端为睿亚训云博PC客户端的补充。\n更多内容请访问:<a href="http://www.realaction.cn/neiye.php?one_id=2&amp;one_id1=116&amp;name=%E4%BA%91%E5%8D%9A%E5%AE%9E%E8%B7%B5%E6%95%B0%E5%AD%97%E8%B5%84%E6%BA%90%E5%BA%93%E5%B9%B3%E5%8F%B0">云博实践数字资源库平台</a></string>
+    <string name="about">云博移动客户端为睿亚训云博PC客户端的补充。\n更多内容请访问:云博实践数字资源库平台。\n点击确定访问。</string>
     
     <string name="login_welcome">欢迎使用睿亚训云博移动客户端</string>
     <string name="login">登&#160;&#160;&#160;&#160;陆</string>

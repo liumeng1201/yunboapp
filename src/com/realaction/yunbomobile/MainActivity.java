@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.util.Log;
@@ -204,26 +205,26 @@ public class MainActivity extends Activity {
         }
         // Handle action buttons
         switch(item.getItemId()) {
-        case R.id.action_about:
+		case R.id.action_about:
 			Dialog dialog = new AlertDialog.Builder(context)
 					.setTitle(R.string.action_about).setMessage(R.string.about)
-					.setPositiveButton("È·¶¨", new OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.dismiss();
-				}
-			}).create();
+					.setPositiveButton(R.string.ok, new OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+//							Intent intent = new Intent(Intent.ACTION_VIEW, Uri
+//									.parse(getString(R.string.about_url)));
+							Intent intent = new Intent(Intent.ACTION_VIEW, Uri
+									.parse("http://www.realaction.cn/neiye.php?one_id=2&one_id1=116&name=%E4%BA%91%E5%8D%9A%E5%AE%9E%E8%B7%B5%E6%95%B0%E5%AD%97%E8%B5%84%E6%BA%90%E5%BA%93%E5%B9%B3%E5%8F%B0"));
+							startActivity(intent);
+						}
+					}).setNegativeButton(R.string.cancel, new OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+						}
+					}).create();
 			dialog.show();
-			
-//			Dialog dialog = new Dialog(context);
-//			dialog.setTitle(R.string.action_about);
-//			TextView view = new TextView(context);
-//			view.setText(R.string.about);
-//			view.setAutoLinkMask(Linkify.ALL);
-//			view.setMovementMethod(LinkMovementMethod.getInstance());
-//			dialog.setContentView(view);
-//			dialog.show();
-        	return true;
+			return true;
         default:
             return super.onOptionsItemSelected(item);
         }
