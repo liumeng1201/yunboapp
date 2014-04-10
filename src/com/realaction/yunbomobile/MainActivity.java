@@ -211,8 +211,6 @@ public class MainActivity extends Activity {
 					.setPositiveButton(R.string.ok, new OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-//							Intent intent = new Intent(Intent.ACTION_VIEW, Uri
-//									.parse(getString(R.string.about_url)));
 							Intent intent = new Intent(Intent.ACTION_VIEW, Uri
 									.parse("http://www.realaction.cn/neiye.php?one_id=2&one_id1=116&name=%E4%BA%91%E5%8D%9A%E5%AE%9E%E8%B7%B5%E6%95%B0%E5%AD%97%E8%B5%84%E6%BA%90%E5%BA%93%E5%B9%B3%E5%8F%B0"));
 							startActivity(intent);
