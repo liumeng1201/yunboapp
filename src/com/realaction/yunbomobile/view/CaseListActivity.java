@@ -78,7 +78,7 @@ public class CaseListActivity extends Activity {
 		caselist_list = (ListView) findViewById(R.id.caselist_list);
 		caselists = new ArrayList<CaseItem>();
 		adapter = new CaseListAdpater(context, caselists);
-		course_name.setText("¿Î³Ì:" + courseName);
+		course_name.setText(getString(R.string.course) + ":" + courseName);
 		caselist_list.setAdapter(adapter);
 		
 		init();

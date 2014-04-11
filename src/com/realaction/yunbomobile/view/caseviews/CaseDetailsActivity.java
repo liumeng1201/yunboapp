@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -37,7 +36,7 @@ public class CaseDetailsActivity extends Activity {
 
 		CaseItem caseitem = dbService.findCaseByCaseId(caseId);
 
-		caseName.setText("案例名:" + caseitem.caseName);
+		caseName.setText("案例:" + caseitem.caseName);
 		caseDes.setText("包含知识点:" + caseitem.keyWords.replaceAll("#", "、") + "\n开发者角色:"
 				+ caseitem.devRoleName + "\n授课老师:" + caseitem.teacherName);
 

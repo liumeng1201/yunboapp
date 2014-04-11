@@ -112,9 +112,9 @@ public class LoginActivity extends Activity {
 	private void canRun() {
 		int currentAPIVersion = android.os.Build.VERSION.SDK_INT;
 		if (currentAPIVersion < 14) {
-			Dialog dialog = new AlertDialog.Builder(context).setTitle("提示")
-					.setMessage("当前系统版本过低,不支持该程序运行,请升级系统至Android 4.0及以上!")
-					.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+			Dialog dialog = new AlertDialog.Builder(context).setTitle(R.string.notice)
+					.setMessage(R.string.api_low)
+					.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							LoginActivity.this.finish();
@@ -193,7 +193,8 @@ public class LoginActivity extends Activity {
 					if (needUpdate(resultarray[6])) {
 						isUpdate = true;
 						updatefile = resultarray[5];
-						updatemsg = "发现新版本:" + resultarray[7];
+						updatemsg = getString(R.string.find_new_version) + ":"
+								+ resultarray[7];
 					}
 					User user = new User();
 					user.userId = Long.parseLong(userId);

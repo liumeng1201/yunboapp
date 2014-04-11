@@ -22,18 +22,12 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.realaction.yunbomobile.adapter.DrawerListAdapter;
@@ -109,7 +103,7 @@ public class MainActivity extends Activity {
 		final String updatefile = intent.getStringExtra("updatefile");
 		if (isUpdate) {
 			StringBuffer sb = new StringBuffer();
-			sb.append("当前版本:");
+			sb.append(getString(R.string.current_version) + ":");
 			try {
 				String currentversion = context.getPackageManager()
 						.getPackageInfo("com.realaction.yunbomobile", 0).versionName;
@@ -118,15 +112,15 @@ public class MainActivity extends Activity {
 				e.printStackTrace();
 			}
 			sb.append(updatemsg).append("\n");
-			sb.append("是否更新?");
-			Dialog dialog = new AlertDialog.Builder(context).setTitle("软件更新")
+			sb.append(getString(R.string.update_or_not));
+			Dialog dialog = new AlertDialog.Builder(context).setTitle(R.string.update_software)
 					.setMessage(sb.toString())
-					.setPositiveButton("更新", new OnClickListener() {
+					.setPositiveButton(R.string.update, new OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							dlAndInstall(updatefile);
 						}
-					}).setNegativeButton("暂不更新", new OnClickListener() {
+					}).setNegativeButton(R.string.update_not_now, new OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 						}
@@ -161,18 +155,17 @@ public class MainActivity extends Activity {
 							String strMsg) {
 						super.onFailure(t, errorNo, strMsg);
 						dlDialog.dismiss();
-						Toast.makeText(context, "下载失败", Toast.LENGTH_SHORT).show();
+						Toast.makeText(context, R.string.download_failed, Toast.LENGTH_SHORT).show();
 					}
 
 					@Override
 					public void onSuccess(File t) {
 						super.onSuccess(t);
-						Log.d("update", "start success");
 						dlDialog.dismiss();
 						Dialog installDialog = new AlertDialog.Builder(context)
-								.setTitle("安装")
-								.setMessage("是否安装新的应用")
-								.setPositiveButton("确定", new OnClickListener() {
+								.setTitle(R.string.install)
+								.setMessage(R.string.install_or_not)
+								.setPositiveButton(R.string.ok, new OnClickListener() {
 									@Override
 									public void onClick(DialogInterface dialog,
 											int which) {
@@ -185,7 +178,7 @@ public class MainActivity extends Activity {
 										MainActivity.this.finish();
 									}
 								})
-								.setNegativeButton("取消", new OnClickListener() {
+								.setNegativeButton(R.string.cancel, new OnClickListener() {
 									@Override
 									public void onClick(DialogInterface dialog,
 											int which) {
@@ -211,8 +204,10 @@ public class MainActivity extends Activity {
 					.setPositiveButton(R.string.ok, new OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							Intent intent = new Intent(Intent.ACTION_VIEW, Uri
-									.parse("http://www.realaction.cn/neiye.php?one_id=2&one_id1=116&name=%E4%BA%91%E5%8D%9A%E5%AE%9E%E8%B7%B5%E6%95%B0%E5%AD%97%E8%B5%84%E6%BA%90%E5%BA%93%E5%B9%B3%E5%8F%B0"));
+							Intent intent = new Intent(
+									Intent.ACTION_VIEW,
+									Uri.parse("http://www.realaction.cn/neiye.php?one_id=2&one_id1=116&name="
+											+ "%E4%BA%91%E5%8D%9A%E5%AE%9E%E8%B7%B5%E6%95%B0%E5%AD%97%E8%B5%84%E6%BA%90%E5%BA%93%E5%B9%B3%E5%8F%B0"));
 							startActivity(intent);
 						}
 					}).setNegativeButton(R.string.cancel, new OnClickListener() {
