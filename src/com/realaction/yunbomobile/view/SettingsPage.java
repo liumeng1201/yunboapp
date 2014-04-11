@@ -54,8 +54,8 @@ public class SettingsPage extends PreferenceFragment {
 			AlertDialog.Builder dialog = new Builder(context);
 			dialog.setTitle(R.string.notice);
 			long size = FileUtils.getFolderSize(new File(AppInfo.base_dir));
-			String msg = getString(R.string.cache_size) + size + "KB" + "\n"
-					+ getString(R.string.clean_cache);
+			String msg = getString(R.string.cache_size) + size / 1024 + "KB"
+					+ "\n" + getString(R.string.clean_cache);
 			dialog.setMessage(msg);
 			dialog.setNegativeButton(R.string.ok, new OnClickListener() {
 				@Override

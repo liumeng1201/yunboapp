@@ -11,8 +11,6 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
@@ -59,7 +57,6 @@ public class FileBrowserActivity extends ListActivity {
 			// 指导书
 			guidelist = dbService.findCaseGuideDocsBycaseId(String.valueOf(caseid));
 			if (guidelist != null) {
-				Log.d("lm", "caseid = " + caseid + "\nguidelist.length = " + guidelist.size());
 				createpaths(opt);
 				if (item != null) {
 					mRoot = AppInfo.base_dir + "/" + item.casedir + "/指导书";
@@ -75,7 +72,6 @@ public class FileBrowserActivity extends ListActivity {
 			// 答案
 			doclist = dbService.findCaseDocsBycaseId(String.valueOf(caseid));
 			if (doclist != null) {
-				Log.d("lm", "caseid = " + caseid + "\ndoclist.length = " + doclist.size());
 				createpaths(opt);
 				if (item != null) {
 					mRoot = AppInfo.base_dir + "/" + item.casedir + "/答案";
@@ -95,28 +91,6 @@ public class FileBrowserActivity extends ListActivity {
 		actionbar.setDisplayHomeAsUpEnabled(true);
 	}
 
-	/**
-	 * 为每一个答案创建对应的路径便于用文件浏览器的形式来展示
-	 * 
-	 * @param list
-	 */
-	private void createpaths(List<CaseDocItem> list) {
-		for (CaseDocItem item : list) {
-			File file = new File(AppInfo.base_dir + "/" + item.docPath);
-			if (!(file.getParentFile().exists())) {
-				// 当文件目录不存在时则创建
-				file.getParentFile().mkdirs();
-			}
-			if (!file.exists()) {
-				try {
-					file.createNewFile();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-	
 	// 为每一个资源创建一个文件
 	private void createpaths(int opt) {
 		switch (opt) {
@@ -173,19 +147,21 @@ public class FileBrowserActivity extends ListActivity {
 			case 1:
 				// 指导书
 				if (dirPath.indexOf("指导书") > 0) {
-					mTextViewLocation.setText("当前位置: "
-							+ dirPath.substring(dirPath.indexOf("指导书")));
+					mTextViewLocation.setText(getString(R.string.current_location)
+									+ ": " + dirPath.substring(dirPath.indexOf("指导书")));
 				} else {
-					mTextViewLocation.setText("当前位置: " + dirPath);
+					mTextViewLocation.setText(getString(R.string.current_location)
+									+ ": " + dirPath);
 				}
 				break;
 			case 2:
 				// 答案
 				if (dirPath.indexOf("答案") > 0) {
-					mTextViewLocation.setText("当前位置: "
-							+ dirPath.substring(dirPath.indexOf("答案")));
+					mTextViewLocation.setText(getString(R.string.current_location)
+									+ ": " + dirPath.substring(dirPath.indexOf("答案")));
 				} else {
-					mTextViewLocation.setText("当前位置: " + dirPath);
+					mTextViewLocation.setText(getString(R.string.current_location)
+									+ ": " + dirPath);
 				}
 				break;
 			default:

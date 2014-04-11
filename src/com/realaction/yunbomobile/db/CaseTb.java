@@ -55,7 +55,7 @@ public class CaseTb {
 			+ CASEDIR + " from " + CASETB;
 	// 查找最老的case
 	public static final String FIND_OLDEST_CASE = "select " + CASEID
-			+ "," + CASEDIR + " from" + CASETB + " where " + CaseTb.TIME
+			+ "," + CASEDIR + " from " + CASETB + " where " + CaseTb.TIME
 			+ " > 0" + " order by " + CaseTb.TIME + " limit 1";
 	// 删除课程表
 	public static final String DROP_CASE_TB = "DROP TABLE IF EXISTS " + CASETB;

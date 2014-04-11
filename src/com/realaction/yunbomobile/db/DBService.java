@@ -204,6 +204,21 @@ public class DBService {
 	}
 	
 	/**
+	 * 更新caseTb表中download的值
+	 * 
+	 * @param caseId
+	 *            要更新的case的caseId
+	 * @param downloadState
+	 *            download状态值 0:未下载 1:已下载 2:下载中
+	 * @return 受影响的行数
+	 */
+	public int updateCaseDownloadState(long caseId, int downloadState) {
+		ContentValues cv = new ContentValues();
+		cv.put(CaseTb.DOWNLOAD, downloadState);
+		return db.update(CaseTb.CASETB, cv, CaseTb.CASEID + "=?", new String[] {String.valueOf(caseId)});
+	}
+	
+	/**
 	 * 向课程案例资源实验指导书表插入数据不存在插入存在则返回ID
 	 * 
 	 * @param item

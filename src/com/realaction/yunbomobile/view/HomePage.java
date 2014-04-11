@@ -34,6 +34,7 @@ public class HomePage extends Fragment {
 	// 用户头像
 	private ImageView user_avatar;
 	private String user_avater_url;
+	private int user_type;
 	// 用户名
 	private TextView user_name;
 	private String user_name_str;
@@ -83,7 +84,8 @@ public class HomePage extends Fragment {
 	private void initData() {
 		UserUtils userinfo = new UserUtils(context);
 		user_name_str = userinfo.getUserRealName();
-		if (userinfo.getUserTypeId() == UserUtils.USER_STUDENT) {
+		user_type = userinfo.getUserTypeId();
+		if (user_type == UserUtils.USER_STUDENT) {
 			user_num_str = userinfo.getStuNo();
 		} else {
 			user_num_str = userinfo.getEmpNo();
@@ -111,7 +113,11 @@ public class HomePage extends Fragment {
 		//Picasso.with(context).load(user_avater_url).into(user_avatar);
 		user_avatar.setImageBitmap(ImageUtils.getBitmapFromRes(context, user_avater_url));
 		user_name.setText("用户名:" + user_name_str);
-		user_num.setText("学号:" + user_num_str);
+		if (user_type == UserUtils.USER_STUDENT) {
+			user_num.setText("学号:" + user_num_str);
+		} else {
+			user_num.setText("工号:" + user_num_str);
+		}
 
 		if (user_fav_adapter != null) {
 			user_favorite.setVisibility(View.VISIBLE);
