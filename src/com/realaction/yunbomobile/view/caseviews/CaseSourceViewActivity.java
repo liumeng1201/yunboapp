@@ -71,6 +71,7 @@ public class CaseSourceViewActivity extends Activity {
 		context = CaseSourceViewActivity.this;
 		dialog = new MyDialog(context);
 		dialog.create();
+		dialog.setMessage(getString(R.string.dialog_load));
 		dbService = new DBService(context);
 		Intent intent = getIntent();
 		opt = intent.getIntExtra("opt", 0);

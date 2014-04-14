@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBOpenHelper extends SQLiteOpenHelper {
 
 	private static final String name = "yunbo.db";
-	private static final int version = 1;
+	private static final int version = 2;
 
 	public DBOpenHelper(Context context) {
 		super(context, name, null, version);

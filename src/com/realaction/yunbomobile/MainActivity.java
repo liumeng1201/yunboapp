@@ -198,6 +198,10 @@ public class MainActivity extends Activity {
         }
         // Handle action buttons
         switch(item.getItemId()) {
+        case R.id.action_help:
+        	Intent intent = new Intent(context, HelpActivity.class);
+        	startActivity(intent);
+        	return true;
 		case R.id.action_about:
 			Dialog dialog = new AlertDialog.Builder(context)
 					.setTitle(R.string.action_about).setMessage(R.string.about)

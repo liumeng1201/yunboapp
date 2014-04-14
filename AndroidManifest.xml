@@ -45,6 +45,7 @@
         <activity
             android:name="com.realaction.yunbomobile.UserGuideActivity"
             android:theme="@style/Transparent" />
+        <activity android:name="com.realaction.yunbomobile.HelpActivity" />
 
         <service android:name="com.realaction.yunbomobile.service.CleanCacheService" />
     </application>

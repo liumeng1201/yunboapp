@@ -24,8 +24,15 @@ public class MyDialog {
 	public void create() {
 		dialog = new ProgressDialog(context);
 		dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-		dialog.setMessage(context.getResources().getString(R.string.dialog_load));
 		dialog.setCanceledOnTouchOutside(false);
+	}
+	
+	/**
+	 * 设置提示信息
+	 * @param msg 提示信息
+	 */
+	public void setMessage(String msg) {
+		dialog.setMessage(msg);
 	}
 
 	/**

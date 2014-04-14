@@ -8,6 +8,7 @@
         android:id="@+id/casedetail_casename"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/item_margin"
         android:background="@drawable/list_title_bg"
         android:textSize="@dimen/caselist_title_text_size" />
 

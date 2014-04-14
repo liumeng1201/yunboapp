@@ -12,7 +12,8 @@
         android:background="@drawable/ug_notice_bg"
         android:gravity="center"
         android:text="@string/userguide_notice"
-        android:textSize="28sp" />
+        android:textColor="@android:color/black"
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/userguide_ok"
@@ -23,7 +24,7 @@
         android:layout_marginBottom="30dp"
         android:background="@drawable/login_btn_selector"
         android:onClick="okclick"
-        android:text="知道了"
+        android:text="@string/iknow"
         android:textSize="25sp" />
 
 </RelativeLayout>

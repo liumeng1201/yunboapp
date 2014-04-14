@@ -67,6 +67,7 @@ public class CaseListActivity extends Activity {
 		context = CaseListActivity.this;
 		dialog = new MyDialog(context);
 		dialog.create();
+		dialog.setMessage(getString(R.string.loading_caselist));
 		dbService = new DBService(context);
 		userTypeId = (new UserUtils(context)).getUserTypeId();
 		// 获取从课程列表界面跳转过来的Intent
@@ -87,6 +88,12 @@ public class CaseListActivity extends Activity {
 		actionbar.setDisplayHomeAsUpEnabled(true);
 	}
 	
+	@Override
+	protected void onStart() {
+		super.onStart();
+//		init();
+	}
+
 	/**
 	 * 设置案例资源列表界面所需要的各种数据
 	 */
@@ -96,13 +103,7 @@ public class CaseListActivity extends Activity {
 			// 网络可用的时候通过网络获取课程案例数据并通知adapter更新
 			AsyncTaskGetCaseList async = new AsyncTaskGetCaseList(context, handler, adapter);
 			String[] params = new String[] { scoreId, String.valueOf(userTypeId)};
-			try {
-				caselists = async.execute(params).get();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				e.printStackTrace();
-			}
+			async.execute(params);
 		} else {
 			// 网络不可用时通过数据库获取缓存的案例数据
 			caselists = dbService.findCasesByscoreId(scoreId);
@@ -115,8 +116,9 @@ public class CaseListActivity extends Activity {
 		caselist_list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long location) {
-				long caseid = caselists.get(position).caseId;
-				long scoreid = Long.parseLong(caselists.get(position).scoreId);
+				CaseItem item = (CaseItem) adapter.getItem(position);
+				long caseid = item.caseId;
+				long scoreid = Long.parseLong(item.scoreId);
 				Time time = new Time("GMT+8");
 				time.setToNow();
 				long currenttime = time.toMillis(false);
