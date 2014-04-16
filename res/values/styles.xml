@@ -24,5 +24,9 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowAnimationStyle">@+android:style/Animation.Translucent</item>
     </style>
+    
+    <style name="PDFViewerTheme" parent="@android:style/Theme.NoTitleBar.Fullscreen">
+        <item name="android:windowBackground">@drawable/tiled_background</item>
+   </style>
 
 </resources>

@@ -27,6 +27,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.artifex.mupdfdemo.MuPDFActivity;
 import com.lm.pdfviewer.DecodeService;
 import com.lm.pdfviewer.DecodeServiceBase;
 import com.lm.pdfviewer.DocumentView;
@@ -57,7 +58,7 @@ public class CaseSourceViewActivity extends Activity {
 	private int opt = 0;
 	private DBService dbService;
 	private DecodeService decodeService;
-	private DocumentView documentView;
+//	private DocumentView documentView;
 	private LinearLayout layout_no_resource;
 	private RelativeLayout layout_dl_fail_retry;
 	private Button btn_retry_dl;
@@ -110,18 +111,18 @@ public class CaseSourceViewActivity extends Activity {
 			e.printStackTrace();
 		}
 		
-		initDecodeService();
-		final ZoomModel zoomModel = new ZoomModel();
-		final DecodingProgressModel progressModel = new DecodingProgressModel();
-		currentPageModel = new CurrentPageModel();
-		documentView = new DocumentView(context, zoomModel, progressModel, currentPageModel);
-		zoomModel.addEventListener(documentView);
-		documentView.setLayoutParams(new ViewGroup.LayoutParams(
-				ViewGroup.LayoutParams.MATCH_PARENT,
-				ViewGroup.LayoutParams.MATCH_PARENT));
-		decodeService.setContentResolver(context.getContentResolver());
-		decodeService.setContainerView(documentView);
-		documentView.setDecodeService(decodeService);
+//		initDecodeService();
+//		final ZoomModel zoomModel = new ZoomModel();
+//		final DecodingProgressModel progressModel = new DecodingProgressModel();
+//		currentPageModel = new CurrentPageModel();
+//		documentView = new DocumentView(context, zoomModel, progressModel, currentPageModel);
+//		zoomModel.addEventListener(documentView);
+//		documentView.setLayoutParams(new ViewGroup.LayoutParams(
+//				ViewGroup.LayoutParams.MATCH_PARENT,
+//				ViewGroup.LayoutParams.MATCH_PARENT));
+//		decodeService.setContentResolver(context.getContentResolver());
+//		decodeService.setContainerView(documentView);
+//		documentView.setDecodeService(decodeService);
 		
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
 		layout_no_resource = (LinearLayout) inflater.inflate(R.layout.caseview_noresource, null);
@@ -134,12 +135,12 @@ public class CaseSourceViewActivity extends Activity {
 			}
 		});
 		FrameLayout frameLayout = new FrameLayout(context);
-		frameLayout.addView(documentView);
+//		frameLayout.addView(documentView);
 		frameLayout.addView(layout_dl_fail_retry);
 		frameLayout.addView(layout_no_resource);
 		layout_dl_fail_retry.setVisibility(View.GONE);
 		layout_no_resource.setVisibility(View.GONE);
-		documentView.setVisibility(View.VISIBLE);
+//		documentView.setVisibility(View.VISIBLE);
 		setContentView(frameLayout);
 		
 		ActionBar actionbar = getActionBar();
@@ -186,7 +187,7 @@ public class CaseSourceViewActivity extends Activity {
 								dialog.dismiss();
 								layout_dl_fail_retry.setVisibility(View.VISIBLE);
 								layout_no_resource.setVisibility(View.GONE);
-								documentView.setVisibility(View.GONE);
+//								documentView.setVisibility(View.GONE);
 							}
 
 							@Override
@@ -207,9 +208,11 @@ public class CaseSourceViewActivity extends Activity {
 								if (targetname.contains(".mp4") || targetname.contains(".3gp")) {
 									showVideoActivity(targetname);
 								} else {
-									documentView.setVisibility(View.VISIBLE);
-									decodeService.open(Uri.fromFile(new File(targetname)));
-									documentView.showDocument();
+//									documentView.setVisibility(View.VISIBLE);
+//									decodeService.open(Uri.fromFile(new File(targetname)));
+//									documentView.showDocument();
+									// TODO
+									showPDF(targetname);
 								}
 								Log.d(TAG, "下载完成: "
 										+ (t == null ? "null" : t.getAbsoluteFile().toString()));
@@ -223,16 +226,18 @@ public class CaseSourceViewActivity extends Activity {
 				if (targetname.contains(".mp4") || targetname.contains(".3gp")) {
 					showVideoActivity(targetname);
 				} else {
-					documentView.setVisibility(View.VISIBLE);
-					decodeService.open(Uri.fromFile(new File(targetname)));
-					documentView.showDocument();
+//					documentView.setVisibility(View.VISIBLE);
+//					decodeService.open(Uri.fromFile(new File(targetname)));
+//					documentView.showDocument();
+					// TODO
+					showPDF(targetname);
 				}
 			} else {
 				// 无网络且未缓存，则不可用
 				dialog.dismiss();
 				layout_dl_fail_retry.setVisibility(View.GONE);
 				layout_no_resource.setVisibility(View.VISIBLE);
-				documentView.setVisibility(View.GONE);
+//				documentView.setVisibility(View.GONE);
 			}
 			break;
 		case 2:
@@ -259,7 +264,7 @@ public class CaseSourceViewActivity extends Activity {
 								dialog.dismiss();
 								layout_dl_fail_retry.setVisibility(View.VISIBLE);
 								layout_no_resource.setVisibility(View.GONE);
-								documentView.setVisibility(View.GONE);
+//								documentView.setVisibility(View.GONE);
 							}
 
 							@Override
@@ -280,9 +285,11 @@ public class CaseSourceViewActivity extends Activity {
 								if (targetname.contains(".mp4") || targetname.contains(".3gp")) {
 									showVideoActivity(targetname);
 								} else {
-									documentView.setVisibility(View.VISIBLE);
-									decodeService.open(Uri.fromFile(new File(targetname)));
-									documentView.showDocument();
+//									documentView.setVisibility(View.VISIBLE);
+//									decodeService.open(Uri.fromFile(new File(targetname)));
+//									documentView.showDocument();
+									// TODO
+									showPDF(targetname);
 								}
 								Log.d(TAG, "下载完成: "
 										+ (t == null ? "null" : t.getAbsoluteFile().toString()));
@@ -296,22 +303,33 @@ public class CaseSourceViewActivity extends Activity {
 				if (targetname.contains(".mp4") || targetname.contains(".3gp")) {
 					showVideoActivity(targetname);
 				} else {
-					documentView.setVisibility(View.VISIBLE);
-					decodeService.open(Uri.fromFile(new File(targetname)));
-					documentView.showDocument();
+//					documentView.setVisibility(View.VISIBLE);
+//					decodeService.open(Uri.fromFile(new File(targetname)));
+//					documentView.showDocument();
+					// TODO
+					showPDF(targetname);
 				}
 			} else {
 				// 无网络且未缓存，则不可用
 				dialog.dismiss();
 				layout_dl_fail_retry.setVisibility(View.GONE);
 				layout_no_resource.setVisibility(View.VISIBLE);
-				documentView.setVisibility(View.GONE);
+//				documentView.setVisibility(View.GONE);
 			}
 			break;
 		default:
 			break;
 		}
-		
+	}
+	
+	private void showPDF(String filepath) {
+		Uri uri = Uri.parse(filepath);
+		Intent intent = new Intent(context, MuPDFActivity.class);
+		intent.setAction(Intent.ACTION_VIEW);
+		intent.setData(uri);
+		intent.putExtra("firstView", true);
+		startActivity(intent);
+		CaseSourceViewActivity.this.finish();
 	}
 	
 	private void initDecodeService() {
@@ -344,8 +362,8 @@ public class CaseSourceViewActivity extends Activity {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		decodeService.recycle();
-		decodeService = null;
+//		decodeService.recycle();
+//		decodeService = null;
 		dbService.close();
 	}
 }
