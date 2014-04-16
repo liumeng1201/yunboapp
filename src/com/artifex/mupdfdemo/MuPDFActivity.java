@@ -14,7 +14,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -128,29 +127,23 @@ public class MuPDFActivity extends Activity implements
 				}
 				switch (result.buttonGroupType) {
 				case OkCancel:
-					mAlertDialog.setButton(AlertDialog.BUTTON2,
-							getString(R.string.cancel), listener);
+					mAlertDialog.setButton(AlertDialog.BUTTON2, getString(R.string.cancel), listener);
 					pressed[1] = MuPDFAlert.ButtonPressed.Cancel;
 				case Ok:
-					mAlertDialog.setButton(AlertDialog.BUTTON1,
-							getString(R.string.okay), listener);
+					mAlertDialog.setButton(AlertDialog.BUTTON1, getString(R.string.okay), listener);
 					pressed[0] = MuPDFAlert.ButtonPressed.Ok;
 					break;
 				case YesNoCancel:
-					mAlertDialog.setButton(AlertDialog.BUTTON3,
-							getString(R.string.cancel), listener);
+					mAlertDialog.setButton(AlertDialog.BUTTON3, getString(R.string.cancel), listener);
 					pressed[2] = MuPDFAlert.ButtonPressed.Cancel;
 				case YesNo:
-					mAlertDialog.setButton(AlertDialog.BUTTON1,
-							getString(R.string.yes), listener);
+					mAlertDialog.setButton(AlertDialog.BUTTON1, getString(R.string.yes), listener);
 					pressed[0] = MuPDFAlert.ButtonPressed.Yes;
-					mAlertDialog.setButton(AlertDialog.BUTTON2,
-							getString(R.string.no), listener);
+					mAlertDialog.setButton(AlertDialog.BUTTON2, getString(R.string.no), listener);
 					pressed[1] = MuPDFAlert.ButtonPressed.No;
 					break;
 				}
-				mAlertDialog
-						.setOnCancelListener(new DialogInterface.OnCancelListener() {
+				mAlertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 							public void onCancel(DialogInterface dialog) {
 								mAlertDialog = null;
 								if (mAlertsActive) {
@@ -180,9 +173,8 @@ public class MuPDFActivity extends Activity implements
 
 	private MuPDFCore openFile(String path) {
 		int lastSlashPos = path.lastIndexOf('/');
-		mFileName = new String(lastSlashPos == -1 ? path
-				: path.substring(lastSlashPos + 1));
-		System.out.println("Trying to open " + path);
+		mFileName = new String(lastSlashPos == -1 ? path : path.substring(lastSlashPos + 1));
+//		System.out.println("Trying to open " + path);
 		try {
 			core = new MuPDFCore(this, path);
 			OutlineActivityData.set(null);
@@ -194,7 +186,7 @@ public class MuPDFActivity extends Activity implements
 	}
 
 	private MuPDFCore openBuffer(byte buffer[]) {
-		System.out.println("Trying to open byte buffer");
+//		System.out.println("Trying to open byte buffer");
 		try {
 			core = new MuPDFCore(this, buffer);
 			OutlineActivityData.set(null);
@@ -208,7 +200,6 @@ public class MuPDFActivity extends Activity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		mAlertBuilder = new AlertDialog.Builder(this);
 		if (core == null) {
 			core = (MuPDFCore) getLastNonConfigurationInstance();
@@ -231,15 +222,13 @@ public class MuPDFActivity extends Activity implements
 						String reason = null;
 						if (str == null) {
 							try {
-								InputStream is = getContentResolver()
-										.openInputStream(uri);
+								InputStream is = getContentResolver().openInputStream(uri);
 								int len = is.available();
 								buffer = new byte[len];
 								is.read(buffer, 0, len);
 								is.close();
 							} catch (java.lang.OutOfMemoryError e) {
-								System.out
-										.println("Out of memory during buffer reading");
+//								System.out.println("Out of memory during buffer reading");
 								reason = e.toString();
 							} catch (Exception e) {
 								reason = e.toString();
@@ -248,16 +237,11 @@ public class MuPDFActivity extends Activity implements
 								buffer = null;
 								Resources res = getResources();
 								AlertDialog alert = mAlertBuilder.create();
-								setTitle(String
-										.format(res
-												.getString(R.string.cannot_open_document_Reason),
-												reason));
-								alert.setButton(AlertDialog.BUTTON_POSITIVE,
-										getString(R.string.dismiss),
+								setTitle(String.format(res
+												.getString(R.string.cannot_open_document_Reason), reason));
+								alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dismiss),
 										new DialogInterface.OnClickListener() {
-											public void onClick(
-													DialogInterface dialog,
-													int which) {
+											public void onClick(DialogInterface dialog, int which) {
 												finish();
 											}
 										});
@@ -287,8 +271,7 @@ public class MuPDFActivity extends Activity implements
 		if (core == null) {
 			AlertDialog alert = mAlertBuilder.create();
 			alert.setTitle(R.string.cannot_open_document);
-			alert.setButton(AlertDialog.BUTTON_POSITIVE,
-					getString(R.string.dismiss),
+			alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dismiss),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							finish();
@@ -303,24 +286,21 @@ public class MuPDFActivity extends Activity implements
 	public void requestPassword(final Bundle savedInstanceState) {
 		mPasswordView = new EditText(this);
 		mPasswordView.setInputType(EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
-		mPasswordView
-				.setTransformationMethod(new PasswordTransformationMethod());
+		mPasswordView.setTransformationMethod(new PasswordTransformationMethod());
 		AlertDialog alert = mAlertBuilder.create();
 		alert.setTitle(R.string.enter_password);
 		alert.setView(mPasswordView);
 		alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.okay),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						if (core.authenticatePassword(mPasswordView.getText()
-								.toString())) {
+						if (core.authenticatePassword(mPasswordView.getText().toString())) {
 							createUI(savedInstanceState);
 						} else {
 							requestPassword(savedInstanceState);
 						}
 					}
 				});
-		alert.setButton(AlertDialog.BUTTON_NEGATIVE,
-				getString(R.string.cancel),
+		alert.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						finish();
@@ -330,16 +310,15 @@ public class MuPDFActivity extends Activity implements
 	}
 
 	public void createUI(Bundle savedInstanceState) {
-		if (core == null)
+		if (core == null) {
 			return;
-
+		}
 		mDocView = new MuPDFReaderView(this) {
 			@Override
 			protected void onMoveToChild(int i) {
 				if (core == null)
 					return;
-				mPageNumberView.setText(String.format("%d / %d", i + 1,
-						core.countPages()));
+				mPageNumberView.setText(String.format("%d / %d", i + 1, core.countPages()));
 				mPageSlider.setMax((core.countPages() - 1) * mPageSliderRes);
 				mPageSlider.setProgress(i * mPageSliderRes);
 				super.onMoveToChild(i);
@@ -367,16 +346,14 @@ public class MuPDFActivity extends Activity implements
 					if (item == Hit.Annotation) {
 						showButtons();
 						mTopBarMode = TopBarMode.Delete;
-						mTopBarSwitcher
-								.setDisplayedChild(mTopBarMode.ordinal());
+						mTopBarSwitcher.setDisplayedChild(mTopBarMode.ordinal());
 					}
 					break;
 				case Delete:
 					mTopBarMode = TopBarMode.Annot;
 					mTopBarSwitcher.setDisplayedChild(mTopBarMode.ordinal());
 				default:
-					MuPDFView pageView = (MuPDFView) mDocView
-							.getDisplayedView();
+					MuPDFView pageView = (MuPDFView) mDocView.getDisplayedView();
 					if (pageView != null)
 						pageView.deselectAnnotation();
 					break;
@@ -401,12 +378,11 @@ public class MuPDFActivity extends Activity implements
 			}
 		}
 //		mFilenameView.setText(mFileName);
-		Log.d("aa", "file name = " + sb.toString());
+//		Log.d("aa", "file name = " + sb.toString());
 		mFilenameView.setText(sb.toString());
 
 		// Activate the seekbar
-		mPageSlider
-				.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+		mPageSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 					public void onStopTrackingTouch(SeekBar seekBar) {
 						mDocView.setDisplayedViewIndex((seekBar.getProgress() + mPageSliderRes / 2)
 								/ mPageSliderRes);
@@ -432,13 +408,13 @@ public class MuPDFActivity extends Activity implements
 			mDocView.setDisplayedViewIndex(prefs.getInt("page" + mFileName, 0));
 		}
 
-		if (savedInstanceState == null
-				|| !savedInstanceState.getBoolean("ButtonsHidden", false))
+		if (savedInstanceState == null || !savedInstanceState.getBoolean("ButtonsHidden", false)) {
 			showButtons();
+		}
 
-		if (savedInstanceState != null
-				&& savedInstanceState.getBoolean("ReflowMode", false))
+		if (savedInstanceState != null && savedInstanceState.getBoolean("ReflowMode", false)) {
 			reflowModeSet(true);
+		}
 
 		// Stick the document view and the buttons overlay into a parent view
 		RelativeLayout layout = new RelativeLayout(this);
@@ -467,8 +443,9 @@ public class MuPDFActivity extends Activity implements
 		mReflow = reflow;
 		mDocView.setAdapter(mReflow ? new MuPDFReflowAdapter(this, core)
 				: new MuPDFPageAdapter(this, this, core));
-		if (reflow)
+		if (reflow) {
 			setLinkHighlight(false);
+		}
 		mDocView.refresh(mReflow);
 	}
 
@@ -483,14 +460,16 @@ public class MuPDFActivity extends Activity implements
 			edit.commit();
 		}
 
-		if (!mButtonsVisible)
+		if (!mButtonsVisible) {
 			outState.putBoolean("ButtonsHidden", true);
+		}
 
 //		if (mTopBarMode == TopBarMode.Search)
 //			outState.putBoolean("SearchMode", true);
 
-		if (mReflow)
+		if (mReflow) {
 			outState.putBoolean("ReflowMode", true);
+		}
 	}
 
 	@Override
@@ -513,8 +492,9 @@ public class MuPDFActivity extends Activity implements
 				}
 			});
 		}
-		if (core != null)
+		if (core != null) {
 			core.onDestroy();
+		}
 		if (mAlertTask != null) {
 			mAlertTask.cancel(true);
 			mAlertTask = null;
@@ -531,8 +511,9 @@ public class MuPDFActivity extends Activity implements
 	}
 
 	private void showButtons() {
-		if (core == null)
+		if (core == null) {
 			return;
+		}
 		if (!mButtonsVisible) {
 			mButtonsVisible = true;
 			// Update page number text and slider
@@ -541,8 +522,7 @@ public class MuPDFActivity extends Activity implements
 			mPageSlider.setMax((core.countPages() - 1) * mPageSliderRes);
 			mPageSlider.setProgress(index * mPageSliderRes);
 
-			Animation anim = new TranslateAnimation(0, 0,
-					-mTopBarSwitcher.getHeight(), 0);
+			Animation anim = new TranslateAnimation(0, 0, -mTopBarSwitcher.getHeight(), 0);
 			anim.setDuration(200);
 			anim.setAnimationListener(new Animation.AnimationListener() {
 				public void onAnimationStart(Animation animation) {
@@ -579,8 +559,7 @@ public class MuPDFActivity extends Activity implements
 		if (mButtonsVisible) {
 			mButtonsVisible = false;
 
-			Animation anim = new TranslateAnimation(0, 0, 0,
-					-mTopBarSwitcher.getHeight());
+			Animation anim = new TranslateAnimation(0, 0, 0, -mTopBarSwitcher.getHeight());
 			anim.setDuration(200);
 			anim.setAnimationListener(new Animation.AnimationListener() {
 				public void onAnimationStart(Animation animation) {
@@ -614,10 +593,10 @@ public class MuPDFActivity extends Activity implements
 	}
 
 	private void updatePageNumView(int index) {
-		if (core == null)
+		if (core == null) {
 			return;
-		mPageNumberView.setText(String.format("%d / %d", index + 1,
-				core.countPages()));
+		}
+		mPageNumberView.setText(String.format("%d / %d", index + 1, core.countPages()));
 	}
 
 	private void makeButtonsView() {
@@ -626,8 +605,7 @@ public class MuPDFActivity extends Activity implements
 		mPageSlider = (SeekBar) mButtonsView.findViewById(R.id.pageSlider);
 		mPageNumberView = (TextView) mButtonsView.findViewById(R.id.pageNumber);
 		mInfoView = (TextView) mButtonsView.findViewById(R.id.info);
-		mTopBarSwitcher = (ViewAnimator) mButtonsView
-				.findViewById(R.id.switcher);
+		mTopBarSwitcher = (ViewAnimator) mButtonsView.findViewById(R.id.switcher);
 		mTopBarSwitcher.setVisibility(View.INVISIBLE);
 		mPageNumberView.setVisibility(View.INVISIBLE);
 		mInfoView.setVisibility(View.INVISIBLE);
