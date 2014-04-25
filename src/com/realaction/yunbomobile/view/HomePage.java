@@ -22,6 +22,7 @@ import com.realaction.yunbomobile.db.DBService;
 import com.realaction.yunbomobile.moddel.CaseItem;
 import com.realaction.yunbomobile.utils.ImageUtils;
 import com.realaction.yunbomobile.utils.UserUtils;
+import com.realaction.yunbomobile.utils.Utility;
 import com.realaction.yunbomobile.view.caseviews.CaseDetailsActivity;
 
 /**
@@ -123,6 +124,7 @@ public class HomePage extends Fragment {
 			user_favorite.setVisibility(View.VISIBLE);
 			user_no_favorite.setVisibility(View.GONE);
 			user_favorite.setAdapter(user_fav_adapter);
+			Utility.setListViewHeightBasedOnChildren(user_favorite);
 			user_favorite.setOnItemClickListener(new ListClickListener(user_fav_adapter));
 		} else {
 			user_favorite.setVisibility(View.GONE);
@@ -132,6 +134,7 @@ public class HomePage extends Fragment {
 			user_history.setVisibility(View.VISIBLE);
 			user_no_history.setVisibility(View.GONE);
 			user_history.setAdapter(user_his_adapter);
+			Utility.setListViewHeightBasedOnChildren(user_history);
 			user_history.setOnItemClickListener(new ListClickListener(user_his_adapter));
 		} else {
 			user_history.setVisibility(View.GONE);
