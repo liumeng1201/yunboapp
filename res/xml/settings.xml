@@ -24,6 +24,10 @@
             android:title="@string/pref_setting_clean_cache" />
     </PreferenceCategory>
     
+    <Preference
+        android:key="pref_setting_gotogdt"
+        android:title="@string/pref_setting_gotogdt" />
+    
 <!--     <PreferenceCategory android:title="@string/settings_schedule" > -->
 <!--         <CheckBoxPreference -->
 <!--             android:key="pref_setting_notice_on" -->

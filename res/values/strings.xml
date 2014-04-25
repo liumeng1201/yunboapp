@@ -108,6 +108,7 @@
         <item>20</item>
         <item>30</item>
     </string-array>
+    <string name="pref_setting_gotogdt">推荐应用</string>
 
     <string name="dl_fail_retry">下载失败，请重试</string>
     <string name="dl_btn_retry">重试</string>
@@ -130,7 +131,7 @@
 	<string name="copy_text">复制文本</string>
 	<string name="copy_text_to_the_clipboard">将文本复制到剪贴板</string>
 	<string name="delete">删除</string>
-	<string name="dismiss">解除</string>
+	<string name="dismiss">关闭</string>
 	<string name="document_has_changes_save_them_">文档已变更，保存变更吗？</string>
 	<string name="draw_annotation">作批注</string>
 	<string name="edit_annotations">编辑批注</string>

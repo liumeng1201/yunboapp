@@ -14,6 +14,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.widget.Toast;
 
+import com.qq.e.appwall.GdtAppwall;
 import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.db.CaseDocTb;
 import com.realaction.yunbomobile.db.CaseGuideDocTb;
@@ -80,7 +81,11 @@ public class SettingsPage extends PreferenceFragment {
 			});
 			dialog.create();
 			dialog.show();
-		} 
+		} else if (preference.getKey().equals("pref_setting_gotogdt")) {
+			final GdtAppwall appwall = new GdtAppwall(context, "1101334155",
+					"9079537216251699249", false);
+			appwall.doShowAppWall();
+		}
 //		else if (preference.getKey().equals("pref_setting_notice_on")) {
 //			// …œøŒÃ·–—
 //		} else if (preference.getKey().equals("pref_setting_notice_time")) {
