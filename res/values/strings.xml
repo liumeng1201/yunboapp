@@ -119,6 +119,8 @@
     
     <string name="current_location">当前位置</string>
     
+    <string name="ad_unit_id">a1516a34ce8df1e</string>
+    
     <!-- for MuPDF -->
     <string name="version">1.4 (git build)</string>
 	<string name="cannot_open_buffer">无法打开缓冲器</string>

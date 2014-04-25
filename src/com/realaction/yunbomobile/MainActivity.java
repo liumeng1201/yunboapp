@@ -30,6 +30,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.realaction.yunbomobile.adapter.DrawerListAdapter;
 import com.realaction.yunbomobile.service.CleanCacheService;
 import com.realaction.yunbomobile.utils.AppInfo;
@@ -47,6 +49,8 @@ public class MainActivity extends Activity {
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
 	private String[] mMenuTitles;
+	
+	private AdView mAdView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -127,8 +131,30 @@ public class MainActivity extends Activity {
 					}).create();
 			dialog.show();
 		}
+		
+		mAdView = (AdView) findViewById(R.id.adView);
+//        mAdView.setAdListener(new ToastAdListener(this));
+        mAdView.loadAd(new AdRequest.Builder().build());
 	}
 	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		mAdView.resume();
+	}
+
+	@Override
+	protected void onPause() {
+		mAdView.pause();
+		super.onPause();
+	}
+	
+	@Override
+	protected void onDestroy() {
+		mAdView.destroy();
+		super.onDestroy();
+	}
+
 	private void dlAndInstall(String updatefile) {
 		final MyDialog dlDialog = new MyDialog(context);
 		dlDialog.create();
