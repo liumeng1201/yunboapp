@@ -14,7 +14,7 @@ import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.moddel.CourseItem;
 
 /**
- * 我的课程课程列表Adapter
+ * 鎴戠殑璇剧▼璇剧▼鍒楄〃Adapter
  * 
  * @author liumeng
  */

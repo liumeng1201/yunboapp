@@ -1,7 +1,7 @@
 package com.realaction.yunbomobile.db;
 
 /**
- * °¸Àý±í¼°ÆäÖÐµÄ×Ö¶Î¼°SQLÓï¾ä
+ * æ¡ˆä¾‹è¡¨åŠå…¶ä¸­çš„å­—æ®µåŠSQLè¯­å¥
  * 
  * @author liumeng
  */
@@ -23,7 +23,7 @@ public class CaseTb {
 	public static final String DOWNLOAD = "download";
 	public static final String CASEDESC = "caseDesc";
 
-	// ´´½¨°¸Àý±í
+	// åˆ›å»ºæ¡ˆä¾‹è¡¨
 	public static final String CREATE_CASE_TB = "CREATE TABLE IF NOT EXISTS "
 			+ CASETB + " (" + ID + " integer primary key autoincrement, "
 			+ CASEID + " integer, " + CASENAME + " varchar(128), " + KEYWORDS
@@ -33,18 +33,18 @@ public class CaseTb {
 			+ " varchar(1024), " + COUNT + " integer, " + TIME + " integer, "
 			+ DOWNLOAD + " integer DEFAULT 0, " + CASEDESC + " varchar(1024)"
 			+ ")";
-	// ¸ù¾ÝcaseId²éÕÒ°¸Àý
+	// æ ¹æ®caseIdæŸ¥æ‰¾æ¡ˆä¾‹
 	public static final String FIND_CASE_BY_CASEID = "select " + CASEID + ","
 			+ CASENAME + "," + KEYWORDS + "," + DEVROLENAME + "," + TEACHERNAME
 			+ "," + CASEGROUPID + "," + CASEGROUPNAME + "," + SCOREID + ","
 			+ CASEDIR + " from " + CASETB + " where " + CASEID + "=?";
-	// ¸ù¾ÝscoreId²éÕÒ°¸Àý
+	// æ ¹æ®scoreIdæŸ¥æ‰¾æ¡ˆä¾‹
 	public static final String FIND_CASE_BY_SCOREID = "select " + CASEID + ","
 			+ CASENAME + "," + KEYWORDS + "," + DEVROLENAME + "," + TEACHERNAME
 			+ "," + CASEGROUPID + "," + CASEGROUPNAME + "," + SCOREID + ","
 			+ CASEDIR + "," + DOWNLOAD + " from " + CASETB + " where "
 			+ SCOREID + "=?";
-	// ¸ù¾ÝscoreIdºÍcaseId²éÕÒ°¸Àý
+	// æ ¹æ®scoreIdå’ŒcaseIdæŸ¥æ‰¾æ¡ˆä¾‹
 	public static final String FIND_CASE_BY_SCOREIDANDCASEID = "select "
 			+ CASEID + "," + CASENAME + "," + KEYWORDS + "," + DEVROLENAME
 			+ "," + TEACHERNAME + "," + CASEGROUPID + "," + CASEGROUPNAME + ","
@@ -53,10 +53,10 @@ public class CaseTb {
 	public static final String FIND_CASE_ORDERBY_COUNTORTIME = "select " + CASEID
 			+ "," + CASENAME + "," + CASEGROUPID + "," + SCOREID + ","
 			+ CASEDIR + " from " + CASETB;
-	// ²éÕÒ×îÀÏµÄcase
+	// æŸ¥æ‰¾æœ€è€çš„case
 	public static final String FIND_OLDEST_CASE = "select " + CASEID
 			+ "," + CASEDIR + " from " + CASETB + " where " + CaseTb.TIME
 			+ " > 0" + " order by " + CaseTb.TIME + " limit 1";
-	// É¾³ý¿Î³Ì±í
+	// åˆ é™¤è¯¾ç¨‹è¡¨
 	public static final String DROP_CASE_TB = "DROP TABLE IF EXISTS " + CASETB;
 }

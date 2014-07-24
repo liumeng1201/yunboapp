@@ -17,7 +17,7 @@ import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.moddel.CaseItem;
 
 /**
- * ¿Î³Ì°¸Àı×ÊÔ´ÁĞ±íAdapter
+ * è¯¾ç¨‹æ¡ˆä¾‹èµ„æºåˆ—è¡¨Adapter
  * 
  * @author liumeng
  */
@@ -67,18 +67,18 @@ public class CaseListAdpater extends BaseAdapter {
 		final int num = position;
 		switch (list.get(position).download) {
 		case 0:
-			// Î´ÏÂÔØ
-			holder.btn.setText("»º´æ");
+			// æœªä¸‹è½½
+			holder.btn.setText("ç¼“å­˜");
 			holder.btn.setBackgroundResource(R.drawable.btn_dl_do_selector);
 			break;
 		case 1:
-			// ÒÑÏÂÔØ
-			holder.btn.setText("ÒÑ»º´æ");
+			// å·²ä¸‹è½½
+			holder.btn.setText("å·²ç¼“å­˜");
 			holder.btn.setBackgroundResource(R.drawable.btn_dl_done_selector);
 			break;
 		case 2:
-			// ÕıÔÚÏÂÔØ
-			holder.btn.setText("»º´æÖĞ");
+			// æ­£åœ¨ä¸‹è½½
+			holder.btn.setText("ç¼“å­˜ä¸­");
 			holder.btn.setBackgroundResource(R.drawable.btn_dl_doing_selector);
 			break;
 		default:
@@ -89,7 +89,7 @@ public class CaseListAdpater extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				holder.btn.setBackgroundResource(R.drawable.btn_dl_doing_selector);
-				holder.btn.setText("»º´æÖĞ");
+				holder.btn.setText("ç¼“å­˜ä¸­");
 				list.get(num).download = 1;
 				Toast.makeText(context, "Button click " + num, Toast.LENGTH_SHORT).show();
 			}

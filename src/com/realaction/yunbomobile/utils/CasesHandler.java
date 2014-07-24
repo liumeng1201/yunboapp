@@ -14,7 +14,7 @@ import com.realaction.yunbomobile.db.DBService;
 import com.realaction.yunbomobile.moddel.CaseItem;
 
 /**
- * ¿Î³Ì°¸Àı×ÊÔ´½âÎöÀà
+ * è¯¾ç¨‹æ¡ˆä¾‹èµ„æºè§£æç±»
  * 
  * @author liumeng
  */
@@ -31,7 +31,7 @@ public class CasesHandler extends DefaultHandler {
 	}
 
 	/**
-	 * @return °¸ÀıÁĞ±í
+	 * @return æ¡ˆä¾‹åˆ—è¡¨
 	 */
 	public List<CaseItem> getCasesList() {
 		return casesList;
@@ -62,7 +62,7 @@ public class CasesHandler extends DefaultHandler {
 			item.devRoleName = attributes.getValue("devRoleName");
 			item.teacherName = attributes.getValue("teacherName");
 			item.caseGroupId = Long.parseLong(attributes.getValue("caseGroupId"));
-			// TODO CaseGroupĞèÒª´¦Àí
+			// TODO CaseGroupéœ€è¦å¤„ç†
 			item.caseGroupName = attributes.getValue("caseGroupName");
 			item.scoreId = scoreId;
 			item.download = 0;

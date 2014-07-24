@@ -1,7 +1,7 @@
 package com.realaction.yunbomobile.db;
 
 /**
- * ¿Î³Ì±í¼°ÆäÖĞµÄ×Ö¶Î¼°SQLÓï¾ä
+ * è¯¾ç¨‹è¡¨åŠå…¶ä¸­çš„å­—æ®µåŠSQLè¯­å¥
  * 
  * @author liumeng
  */
@@ -17,23 +17,23 @@ public class CourseTb {
 	public static final String SCOREID = "scoreId";
 	public static final String USERID = "userId";
 
-	// ´´½¨¿Î³Ì±í
+	// åˆ›å»ºè¯¾ç¨‹è¡¨
 	public static final String CREATE_COURSE_TB = "CREATE TABLE IF NOT EXISTS "
 			+ COURSETB + " (" + ID + " integer primary key autoincrement, "
 			+ COURSEID + " integer, " + COURSENAME + " varchar(50), " + TYPE
 			+ " varchar(50), " + ICON + " varchar(50), " + COURSECODE
 			+ " varchar(50), " + SCOREID + " varchar(32), " + USERID + " integer)";
-	// ¸ù¾İuserId²éÕÒ¿Î³Ì
+	// æ ¹æ®userIdæŸ¥æ‰¾è¯¾ç¨‹
 	public static final String FIND_COURSE_BY_USERID = "select " + COURSEID
 			+ "," + COURSENAME + "," + TYPE + "," + ICON + "," + COURSECODE
 			+ "," + SCOREID + "," + USERID + " from " + COURSETB + " where "
 			+ USERID + "=?";
-	// ¸ù¾İcourseIdºÍuserId²éÕÒ¿Î³Ì
+	// æ ¹æ®courseIdå’ŒuserIdæŸ¥æ‰¾è¯¾ç¨‹
 	public static final String FIND_COURSE_BY_COURSEIDANDUSERID = "select "
 			+ COURSEID + "," + COURSENAME + "," + TYPE + "," + ICON + ","
 			+ COURSECODE + "," + SCOREID + "," + USERID + " from " + COURSETB
 			+ " where " + COURSEID + "=? and " + USERID + "=?";
-	// É¾³ı¿Î³Ì±í
+	// åˆ é™¤è¯¾ç¨‹è¡¨
 	public static final String DROP_COURSE_TB = "DROP TABLE IF EXISTS "
 			+ COURSETB;
 }

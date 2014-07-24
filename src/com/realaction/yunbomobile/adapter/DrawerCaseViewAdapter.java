@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * ÒÑ·ÏÆú
+ * å·²åºŸå¼ƒ
  * 
  * @author liumeng
  */
@@ -53,7 +53,7 @@ public class DrawerCaseViewAdapter extends BaseAdapter {
 		TextView text = (TextView) convertView
 				.findViewById(R.id.drawer_item_name);
 		text.setText(arrays[position]);
-		// TODO Îª²»Í¬µÄ²Ëµ¥ÏîÉèÖÃ²»Í¬µÄÍ¼±ê
+		// TODO ä¸ºä¸åŒçš„èœå•é¡¹è®¾ç½®ä¸åŒçš„å›¾æ ‡
 		return convertView;
 	}
 

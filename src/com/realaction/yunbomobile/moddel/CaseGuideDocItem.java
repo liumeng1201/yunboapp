@@ -1,7 +1,7 @@
 package com.realaction.yunbomobile.moddel;
 
 /**
- * CaseView½çÃæExpandableListViewÊµÑéÖ¸µ¼childĞÅÏ¢
+ * CaseViewç•Œé¢ExpandableListViewå®éªŒæŒ‡å¯¼childä¿¡æ¯
  * 
  * @author liumeng
  */
@@ -12,9 +12,9 @@ public class CaseGuideDocItem {
 	public String guideDocPath;
 	public String casedir;
 	public long caseId;
-	// ÊÇ·ñÒÑ¾­»º´æÖÁ±¾µØ
+	// æ˜¯å¦å·²ç»ç¼“å­˜è‡³æœ¬åœ°
 	public int isDownload;
-	// ±¾µØÂ·¾¶
+	// æœ¬åœ°è·¯å¾„
 	public String localPath;
 
 	public CaseGuideDocItem() {

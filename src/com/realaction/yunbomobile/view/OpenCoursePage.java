@@ -19,7 +19,7 @@ import com.realaction.yunbomobile.adapter.OpenCourseListAdapter;
 import com.realaction.yunbomobile.moddel.OpenCourseInfo;
 
 /**
- * ¹«¿ª¿Î½çÃæ
+ * å…¬å¼€è¯¾ç•Œé¢
  * 
  * @author liumeng
  */
@@ -40,7 +40,7 @@ public class OpenCoursePage extends Fragment {
 		courselist = new ArrayList<OpenCourseInfo>();
 		for (int i = 1; i < 51; i++) {
 			OpenCourseInfo ci = new OpenCourseInfo();
-			ci.courseinfo.courseName = "¹«¿ª¿Î  " + i;
+			ci.courseinfo.courseName = "å…¬å¼€è¯¾  " + i;
 			ci.selected = false;
 			courselist.add(ci);
 		}

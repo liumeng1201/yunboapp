@@ -15,7 +15,7 @@ import com.realaction.yunbomobile.moddel.CourseItem;
 import com.realaction.yunbomobile.moddel.User;
 
 /**
- * Êı¾İ¿â·şÎñÀàÌá¹©ÔöÉ¾²é¸Ä¹¦ÄÜ
+ * æ•°æ®åº“æœåŠ¡ç±»æä¾›å¢åˆ æŸ¥æ”¹åŠŸèƒ½
  * 
  * @author liumeng
  */
@@ -41,17 +41,17 @@ public class DBService {
 	}
 
 	/**
-	 * É¾³ıÖ¸¶¨Ãû×ÖµÄ±í
+	 * åˆ é™¤æŒ‡å®šåå­—çš„è¡¨
 	 * 
 	 * @param tablename
-	 *            ±íÃû
+	 *            è¡¨å
 	 */
 	public void dropTable(String tablename) {
 		db.execSQL("DROP TABLE IF EXISTS " + tablename);
 	}
 
 	/**
-	 * ¹Ø±ÕÊı¾İ¿âºÍDatabaseOpenHelper
+	 * å…³é—­æ•°æ®åº“å’ŒDatabaseOpenHelper
 	 */
 	public void close() {
 		db.close();
@@ -59,11 +59,11 @@ public class DBService {
 	}
 
 	/**
-	 * ÏòÓÃ»§±íÖĞ²åÈëÊı¾İ²»´æÔÚ²åÈë´æÔÚÔò¸üĞÂ
+	 * å‘ç”¨æˆ·è¡¨ä¸­æ’å…¥æ•°æ®ä¸å­˜åœ¨æ’å…¥å­˜åœ¨åˆ™æ›´æ–°
 	 * 
 	 * @param user
-	 *            ÓÃ»§
-	 * @return ³É¹¦·µ»ØrowIdÊ§°Ü·µ»Ø-1
+	 *            ç”¨æˆ·
+	 * @return æˆåŠŸè¿”å›rowIdå¤±è´¥è¿”å›-1
 	 */
 	public long insertUserTb(User user) {
 		ContentValues cv = new ContentValues();
@@ -79,11 +79,11 @@ public class DBService {
 	}
 
 	/**
-	 * Ïò¿Î³Ì±íÖĞ²åÈëÊı¾İ²»´æÔÚ²åÈë´æÔÚÔò·µ»ØID
+	 * å‘è¯¾ç¨‹è¡¨ä¸­æ’å…¥æ•°æ®ä¸å­˜åœ¨æ’å…¥å­˜åœ¨åˆ™è¿”å›ID
 	 * 
 	 * @param course
-	 *            ¿Î³Ì
-	 * @return ³É¹¦·µ»ØrowIdÊ§°Ü·µ»Ø-1
+	 *            è¯¾ç¨‹
+	 * @return æˆåŠŸè¿”å›rowIdå¤±è´¥è¿”å›-1
 	 */
 	public long insertCourseTb(CourseItem course) {
 		ContentValues cv = new ContentValues();
@@ -99,24 +99,24 @@ public class DBService {
 				new String[] { String.valueOf(course.courseId),
 						String.valueOf(course.userId) });
 		if (cursor.getCount() > 0) {
-			// ÒÑ´æÔÚ¼ÇÂ¼Ôò·µ»Ø¸Ã¼ÇÂ¼µÄId
+			// å·²å­˜åœ¨è®°å½•åˆ™è¿”å›è¯¥è®°å½•çš„Id
 			cursor.moveToFirst();
 			long result = cursor.getLong(0);
 			cursor.close();
 			return result;
 		} else {
 			cursor.close();
-			// ²»´æÔÚ¼ÇÂ¼Ôò²åÈë
+			// ä¸å­˜åœ¨è®°å½•åˆ™æ’å…¥
 			return db.insert(CourseTb.COURSETB, null, cv);
 		}
 	}
 	
 	/**
-	 * Ïò°¸Àı±íÖĞ²åÈëÊı¾İ²»´æÔÚ²åÈë´æÔÚÔò·µ»ØID
+	 * å‘æ¡ˆä¾‹è¡¨ä¸­æ’å…¥æ•°æ®ä¸å­˜åœ¨æ’å…¥å­˜åœ¨åˆ™è¿”å›ID
 	 * 
 	 * @param caseitem
-	 *            °¸Àı
-	 * @return ³É¹¦·µ»ØrowIdÊ§°Ü·µ»Ø-1
+	 *            æ¡ˆä¾‹
+	 * @return æˆåŠŸè¿”å›rowIdå¤±è´¥è¿”å›-1
 	 */
 	public long insertCaseTb(CaseItem caseitem) {
 		ContentValues cv = new ContentValues();
@@ -134,24 +134,24 @@ public class DBService {
 				new String[] { caseitem.scoreId,
 						String.valueOf(caseitem.caseId) });
 		if (cursor.getCount() > 0) {
-			// ´æÔÚ¼ÇÂ¼Ôò·µ»Ø¸Ã¼ÇÂ¼µÄID
+			// å­˜åœ¨è®°å½•åˆ™è¿”å›è¯¥è®°å½•çš„ID
 			cursor.moveToFirst();
 			long result = cursor.getLong(0);
 			cursor.close();
 			return result;
 		} else {
-			// ²»´æÔÚ¼ÇÂ¼Ôò²åÈë
+			// ä¸å­˜åœ¨è®°å½•åˆ™æ’å…¥
 			cursor.close();
 			return db.insert(CaseTb.CASETB, null, cv);
 		}
 	}
 	
 	/**
-	 * ¸ù¾İcaseidºÍscoreidÀ´¸üĞÂcase±íÖĞcountµÄÖµ,¼Ó1
+	 * æ ¹æ®caseidå’Œscoreidæ¥æ›´æ–°caseè¡¨ä¸­countçš„å€¼,åŠ 1
 	 * 
 	 * @param caseId
 	 * @param scoreId
-	 * @return ÊÜÓ°ÏìµÄĞĞÊı
+	 * @return å—å½±å“çš„è¡Œæ•°
 	 */
 	public int updateCaseCount(long caseId, long scoreId) {
 		int count = 0;
@@ -173,12 +173,12 @@ public class DBService {
 	}
 	
 	/**
-	 * ¸ù¾İcaseidºÍscoreidÀ´¸üĞÂcase±íÖĞtimeµÄÖµ
+	 * æ ¹æ®caseidå’Œscoreidæ¥æ›´æ–°caseè¡¨ä¸­timeçš„å€¼
 	 * 
 	 * @param caseId
 	 * @param scoreId
 	 * @param time
-	 * @return ÊÜÓ°ÏìµÄĞĞÊı
+	 * @return å—å½±å“çš„è¡Œæ•°
 	 */
 	public int updateCaseTime(long caseId, long scoreId, long time) {
 		ContentValues cv = new ContentValues();
@@ -189,13 +189,13 @@ public class DBService {
 	}
 	
 	/**
-	 * ¸üĞÂcaseTb±íÖĞcasedirµÄÖµ
+	 * æ›´æ–°caseTbè¡¨ä¸­casedirçš„å€¼
 	 * 
 	 * @param caseId
-	 *            Òª¸üĞÂµÄcaseµÄcaseId
+	 *            è¦æ›´æ–°çš„caseçš„caseId
 	 * @param casedir
-	 *            Òª¸üĞÂµÄcasedirµÄÖµ
-	 * @return ÊÜÓ°ÏìµÄĞĞÊı
+	 *            è¦æ›´æ–°çš„casedirçš„å€¼
+	 * @return å—å½±å“çš„è¡Œæ•°
 	 */
 	public int updateCaseDir(long caseId, String casedir) {
 		ContentValues cv = new ContentValues();
@@ -204,13 +204,13 @@ public class DBService {
 	}
 	
 	/**
-	 * ¸üĞÂcaseTb±íÖĞdownloadµÄÖµ
+	 * æ›´æ–°caseTbè¡¨ä¸­downloadçš„å€¼
 	 * 
 	 * @param caseId
-	 *            Òª¸üĞÂµÄcaseµÄcaseId
+	 *            è¦æ›´æ–°çš„caseçš„caseId
 	 * @param downloadState
-	 *            download×´Ì¬Öµ 0:Î´ÏÂÔØ 1:ÒÑÏÂÔØ 2:ÏÂÔØÖĞ
-	 * @return ÊÜÓ°ÏìµÄĞĞÊı
+	 *            downloadçŠ¶æ€å€¼ 0:æœªä¸‹è½½ 1:å·²ä¸‹è½½ 2:ä¸‹è½½ä¸­
+	 * @return å—å½±å“çš„è¡Œæ•°
 	 */
 	public int updateCaseDownloadState(long caseId, int downloadState) {
 		ContentValues cv = new ContentValues();
@@ -219,11 +219,11 @@ public class DBService {
 	}
 	
 	/**
-	 * Ïò¿Î³Ì°¸Àı×ÊÔ´ÊµÑéÖ¸µ¼Êé±í²åÈëÊı¾İ²»´æÔÚ²åÈë´æÔÚÔò·µ»ØID
+	 * å‘è¯¾ç¨‹æ¡ˆä¾‹èµ„æºå®éªŒæŒ‡å¯¼ä¹¦è¡¨æ’å…¥æ•°æ®ä¸å­˜åœ¨æ’å…¥å­˜åœ¨åˆ™è¿”å›ID
 	 * 
 	 * @param item
-	 *            ÊµÑéÖ¸µ¼Êé
-	 * @return ³É¹¦·µ»ØrowIdÊ§°Ü·µ»Ø-1
+	 *            å®éªŒæŒ‡å¯¼ä¹¦
+	 * @return æˆåŠŸè¿”å›rowIdå¤±è´¥è¿”å›-1
 	 */
 	public long insertCaseGuideDocTb(CaseGuideDocItem item) {
 		ContentValues cv = new ContentValues();
@@ -239,24 +239,24 @@ public class DBService {
 				new String[] { String.valueOf(item.caseId),
 						String.valueOf(item.guideId) });
 		if (cursor.getCount() > 0) {
-			// ´æÔÚ¼ÇÂ¼Ôò·µ»Ø¸Ã¼ÇÂ¼µÄID
+			// å­˜åœ¨è®°å½•åˆ™è¿”å›è¯¥è®°å½•çš„ID
 			cursor.moveToFirst();
 			long result = cursor.getLong(0);
 			cursor.close();
 			return result;
 		} else {
-			// ²»´æÔÚ¼ÇÂ¼Ôò²åÈë
+			// ä¸å­˜åœ¨è®°å½•åˆ™æ’å…¥
 			cursor.close();
 			return db.insert(CaseGuideDocTb.CASEGUIDEDOCTB, null, cv);
 		}
 	}
 	
 	/**
-	 * Ïò¿Î³Ì°¸Àı×ÊÔ´´ğ°¸±í²åÈëÊı¾İ²»´æÔÚ²åÈë´æÔÚÔò·µ»ØID
+	 * å‘è¯¾ç¨‹æ¡ˆä¾‹èµ„æºç­”æ¡ˆè¡¨æ’å…¥æ•°æ®ä¸å­˜åœ¨æ’å…¥å­˜åœ¨åˆ™è¿”å›ID
 	 * 
 	 * @param item
-	 *            ´ğ°¸
-	 * @return ³É¹¦·µ»ØrowIdÊ§°Ü·µ»Ø-1
+	 *            ç­”æ¡ˆ
+	 * @return æˆåŠŸè¿”å›rowIdå¤±è´¥è¿”å›-1
 	 */
 	public long insertCaseDocTb(CaseDocItem item) {
 		ContentValues cv = new ContentValues();
@@ -272,23 +272,23 @@ public class DBService {
 				new String[] { String.valueOf(item.caseId),
 						String.valueOf(item.docId) });
 		if (cursor.getCount() > 0) {
-			// ´æÔÚ¼ÇÂ¼Ôò·µ»Ø¸Ã¼ÇÂ¼µÄID
+			// å­˜åœ¨è®°å½•åˆ™è¿”å›è¯¥è®°å½•çš„ID
 			cursor.moveToFirst();
 			long result = cursor.getLong(0);
 			cursor.close();
 			return result;
 		} else {
-			// ²»´æÔÚ¼ÇÂ¼Ôò²åÈë
+			// ä¸å­˜åœ¨è®°å½•åˆ™æ’å…¥
 			cursor.close();
 			return db.insert(CaseDocTb.CASEDOCTB, null, cv);
 		}
 	}
 
 	/**
-	 * ¸ù¾İuserId²éÕÒuser
+	 * æ ¹æ®userIdæŸ¥æ‰¾user
 	 * 
 	 * @param userId
-	 * @return userId¶ÔÓ¦µÄuser¶ÔÏó
+	 * @return userIdå¯¹åº”çš„userå¯¹è±¡
 	 */
 	public User findUserByuserId(long userId) {
 		User user = new User();
@@ -309,10 +309,10 @@ public class DBService {
 	}
 
 	/**
-	 * ¸ù¾İusername²éÕÒuser
+	 * æ ¹æ®usernameæŸ¥æ‰¾user
 	 * 
 	 * @param username
-	 * @return username¶ÔÓ¦µÄuser¶ÔÏó
+	 * @return usernameå¯¹åº”çš„userå¯¹è±¡
 	 */
 	public User findUserByuserName(String username) {
 		User user = new User();
@@ -338,10 +338,10 @@ public class DBService {
 	}
 
 	/**
-	 * ¸ù¾İuserId²éÕÒ¸ÃÓÃ»§µÄËùÓĞ¿Î³Ì
+	 * æ ¹æ®userIdæŸ¥æ‰¾è¯¥ç”¨æˆ·çš„æ‰€æœ‰è¯¾ç¨‹
 	 * 
 	 * @param userId
-	 * @return userId¶ÔÓ¦µÄ¿Î³ÌÁĞ±í
+	 * @return userIdå¯¹åº”çš„è¯¾ç¨‹åˆ—è¡¨
 	 */
 	public List<CourseItem> findCoursesByuserId(long userId) {
 		List<CourseItem> courses = new ArrayList<CourseItem>();
@@ -369,10 +369,10 @@ public class DBService {
 	}
 
 	/**
-	 * ¸ù¾İscoreId²éÕÒÓÃ»§ËùÓĞµÄ¿Î³Ì°¸Àı
+	 * æ ¹æ®scoreIdæŸ¥æ‰¾ç”¨æˆ·æ‰€æœ‰çš„è¯¾ç¨‹æ¡ˆä¾‹
 	 * 
 	 * @param scoreId
-	 * @return scoreId¶ÔÓ¦µÄ°¸ÀıÁĞ±í
+	 * @return scoreIdå¯¹åº”çš„æ¡ˆä¾‹åˆ—è¡¨
 	 */
 	public List<CaseItem> findCasesByscoreId(String scoreId) {
 		List<CaseItem> cases = new ArrayList<CaseItem>();
@@ -403,10 +403,10 @@ public class DBService {
 	}
 	
 	/**
-	 * ¸ù¾İcaseId²éÑ¯¸Ã°¸ÀıÏÂËùÓĞµÄÊµÑéÖ¸µ¼ÊéÁĞ±í
+	 * æ ¹æ®caseIdæŸ¥è¯¢è¯¥æ¡ˆä¾‹ä¸‹æ‰€æœ‰çš„å®éªŒæŒ‡å¯¼ä¹¦åˆ—è¡¨
 	 * 
 	 * @param caseId
-	 * @return caseId¶ÔÓ¦µÄ°¸ÀıÏÂËùÓĞÊµÑéÖ¸µ¼ÊéÁĞ±í
+	 * @return caseIdå¯¹åº”çš„æ¡ˆä¾‹ä¸‹æ‰€æœ‰å®éªŒæŒ‡å¯¼ä¹¦åˆ—è¡¨
 	 */
 	public List<CaseGuideDocItem> findCaseGuideDocsBycaseId(String caseId) {
 		List<CaseGuideDocItem> guideDocs = new ArrayList<CaseGuideDocItem>();
@@ -434,7 +434,7 @@ public class DBService {
 	}
 	
 	/**
-	 * Í¨¹ıcaseIdºÍguideId²éÕÒ¶ÔÓ¦µÄcaseguidedoc
+	 * é€šè¿‡caseIdå’ŒguideIdæŸ¥æ‰¾å¯¹åº”çš„caseguidedoc
 	 * 
 	 * @param caseId
 	 * @param guideId
@@ -466,10 +466,10 @@ public class DBService {
 	}
 	
 	/**
-	 * ¸ù¾İÊµÑéÖ¸µ¼ÊéµÄÂ·¾¶²éÕÒ¶ÔÓ¦µÄÖ¸µ¼Êé
+	 * æ ¹æ®å®éªŒæŒ‡å¯¼ä¹¦çš„è·¯å¾„æŸ¥æ‰¾å¯¹åº”çš„æŒ‡å¯¼ä¹¦
 	 * 
 	 * @param guideDocPath
-	 *            Ö¸µ¼ÊéÂ·¾¶
+	 *            æŒ‡å¯¼ä¹¦è·¯å¾„
 	 * @return caseguidedoc
 	 */
 	public CaseGuideDocItem findCaseGuideDocByguideDocPath(String guideDocPath) {
@@ -497,10 +497,10 @@ public class DBService {
 	}
 	
 	/**
-	 * ¸ù¾İcaseId²éÑ¯¸Ã°¸ÀıÏÂËùÓĞµÄ´ğ°¸ÁĞ±í
+	 * æ ¹æ®caseIdæŸ¥è¯¢è¯¥æ¡ˆä¾‹ä¸‹æ‰€æœ‰çš„ç­”æ¡ˆåˆ—è¡¨
 	 * 
 	 * @param caseId
-	 * @return caseId¶ÔÓ¦µÄ°¸ÀıÏÂËùÓĞ´ğ°¸ÁĞ±í
+	 * @return caseIdå¯¹åº”çš„æ¡ˆä¾‹ä¸‹æ‰€æœ‰ç­”æ¡ˆåˆ—è¡¨
 	 */
 	public List<CaseDocItem> findCaseDocsBycaseId(String caseId) {
 		List<CaseDocItem> caseDocs = new ArrayList<CaseDocItem>();
@@ -528,11 +528,11 @@ public class DBService {
 	}
 	
 	/**
-	 * ¸ù¾İcaseIdºÍdocId²éÕÒ¶ÔÓ¦µÄÊµÑé´ğ°¸
+	 * æ ¹æ®caseIdå’ŒdocIdæŸ¥æ‰¾å¯¹åº”çš„å®éªŒç­”æ¡ˆ
 	 * 
 	 * @param caseId
 	 * @param docId
-	 * @return caseIdºÍdocIdËµ¶ÔÓ¦µÄÊµÑé´ğ°¸
+	 * @return caseIdå’ŒdocIdè¯´å¯¹åº”çš„å®éªŒç­”æ¡ˆ
 	 */
 	public CaseDocItem findCaseDocBycaseIdAnddocId(String caseId, String docId) {
 		Cursor cursor = db.rawQuery(CaseDocTb.FIND_CASEDOC_BY_CASEIDANDDOCID,
@@ -556,10 +556,10 @@ public class DBService {
 	}
 	
 	/**
-	 * ¸ù¾İdocPath²éÕÒ¶ÔÓ¦µÄÊµÑé´ğ°¸×ÊÔ´
+	 * æ ¹æ®docPathæŸ¥æ‰¾å¯¹åº”çš„å®éªŒç­”æ¡ˆèµ„æº
 	 * 
 	 * @param docPath
-	 * @return ÓëdocPath¶ÔÓ¦µÄ´ğ°¸×ÊÔ´
+	 * @return ä¸docPathå¯¹åº”çš„ç­”æ¡ˆèµ„æº
 	 */
 	public CaseDocItem findCaseDocBydocPath(String docPath) {
 		Cursor cursor = db.rawQuery(CaseDocTb.FIND_CASEDOC_BY_DOCPATH,
@@ -583,10 +583,10 @@ public class DBService {
 	}
 	
 	/**
-	 * ¸üĞÂ¿Î³Ì°¸ÀıÊµÑéÖ¸µ¼Êé±í
+	 * æ›´æ–°è¯¾ç¨‹æ¡ˆä¾‹å®éªŒæŒ‡å¯¼ä¹¦è¡¨
 	 * 
 	 * @param item
-	 * @return ÊÜÓ°ÏìµÄĞĞÊı
+	 * @return å—å½±å“çš„è¡Œæ•°
 	 */
 	public int updateCaseGuideDoc(CaseGuideDocItem item) {
 		ContentValues cv = new ContentValues();
@@ -601,10 +601,10 @@ public class DBService {
 	}
 	
 	/**
-	 * ¸üĞÂ¿Î³Ì°¸ÀıÊµÑé´ğ°¸±í
+	 * æ›´æ–°è¯¾ç¨‹æ¡ˆä¾‹å®éªŒç­”æ¡ˆè¡¨
 	 * 
 	 * @param item
-	 * @return ÊÜÓ°ÏìµÄĞĞÊı
+	 * @return å—å½±å“çš„è¡Œæ•°
 	 */
 	public int updateCaseDoc(CaseDocItem item) {
 		ContentValues cv = new ContentValues();
@@ -617,10 +617,10 @@ public class DBService {
 	}
 	
 	/**
-	 * ¸ù¾İuserid»ñÈ¡¸ÃÓÃ»§ÏÂµÄËùÓĞscoreid
+	 * æ ¹æ®useridè·å–è¯¥ç”¨æˆ·ä¸‹çš„æ‰€æœ‰scoreid
 	 * 
 	 * @param userId
-	 * @return scoreIdÊı×é
+	 * @return scoreIdæ•°ç»„
 	 */
 	public String[] getUserScoreIds(long userId) {
 		StringBuffer sb = new StringBuffer();
@@ -644,10 +644,10 @@ public class DBService {
 	}
 	
 	/**
-	 * »ñÈ¡ÓÃ»§×î³£·ÃÎÊµÄ5¸öcaseµÄÁĞ±í
+	 * è·å–ç”¨æˆ·æœ€å¸¸è®¿é—®çš„5ä¸ªcaseçš„åˆ—è¡¨
 	 * 
 	 * @param scoreids
-	 *            ÓÃ»§ËùÓĞµÄscoreid
+	 *            ç”¨æˆ·æ‰€æœ‰çš„scoreid
 	 * @return
 	 */
 	public List<CaseItem> findCasesOrderByCount(String[] scoreids) {
@@ -683,10 +683,10 @@ public class DBService {
 	}
 	
 	/**
-	 * »ñÈ¡ÓÃ»§×îºó·ÃÎÊµÄ5¸öcaseµÄÁĞ±í
+	 * è·å–ç”¨æˆ·æœ€åè®¿é—®çš„5ä¸ªcaseçš„åˆ—è¡¨
 	 * 
 	 * @param scoreids
-	 *            ÓÃ»§ËùÓĞµÄscoreid
+	 *            ç”¨æˆ·æ‰€æœ‰çš„scoreid
 	 * @return
 	 */
 	public List<CaseItem> findCasesOrderByTime(String[] scoreids) {
@@ -722,9 +722,9 @@ public class DBService {
 	}
 	
 	/**
-	 * Í¨¹ıcaseid²éÕÒcaseitem
+	 * é€šè¿‡caseidæŸ¥æ‰¾caseitem
 	 * 
-	 * @param caseidÒª²éÕÒµÄcaseid
+	 * @param caseidè¦æŸ¥æ‰¾çš„caseid
 	 * @return caseitem
 	 */
 	public CaseItem findCaseByCaseId(long caseid) {
@@ -751,9 +751,9 @@ public class DBService {
 	}
 	
 	/**
-	 * ²éÕÒ×îÀÏµÄcase
+	 * æŸ¥æ‰¾æœ€è€çš„case
 	 * 
-	 * @return ²åÈëÊ±¼ä×îÔçµÄÒ»¸öcaseitem
+	 * @return æ’å…¥æ—¶é—´æœ€æ—©çš„ä¸€ä¸ªcaseitem
 	 */
 	public CaseItem findOldestCase() {
 		Cursor cursor = db.rawQuery(CaseTb.FIND_OLDEST_CASE, null);

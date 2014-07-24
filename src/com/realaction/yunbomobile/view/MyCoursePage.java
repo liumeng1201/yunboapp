@@ -27,7 +27,7 @@ import com.realaction.yunbomobile.utils.MyDialog;
 import com.realaction.yunbomobile.utils.UserUtils;
 
 /**
- * ÎÒµÄ¿Î³Ì½çÃæ
+ * æˆ‘çš„è¯¾ç¨‹ç•Œé¢
  * 
  * @author liumeng
  */
@@ -96,19 +96,19 @@ public class MyCoursePage extends Fragment {
 	}
 
 	/**
-	 * ¸üĞÂ¿Î³ÌÁĞ±íµÄÄÚÈİ
+	 * æ›´æ–°è¯¾ç¨‹åˆ—è¡¨çš„å†…å®¹
 	 */
 	private void refreshCoursesList() {
 		handler.sendEmptyMessage(SHOW_DIALOG);
 		if (AppInfo.network_avabile) {
-			// ÍøÂç¿ÉÓÃµÄÊ±ºòÍ¨¹ıÍøÂç»ñÈ¡ÒªÏÔÊ¾µÄÊı¾İ
-			// ÒÔÒì²½ÈÎÎñ·½Ê½»ñÈ¡¿Î³ÌÊı¾İ²¢¸üĞÂÁĞ±í
+			// ç½‘ç»œå¯ç”¨çš„æ—¶å€™é€šè¿‡ç½‘ç»œè·å–è¦æ˜¾ç¤ºçš„æ•°æ®
+			// ä»¥å¼‚æ­¥ä»»åŠ¡æ–¹å¼è·å–è¯¾ç¨‹æ•°æ®å¹¶æ›´æ–°åˆ—è¡¨
 			AsyncTaskGetCourseList async = new AsyncTaskGetCourseList(context, handler, adapter_bixiu);
 			String[] params = { String.valueOf(currentUser.userTypeId),
 					String.valueOf(currentUser.userId) };
 			async.execute(params);
 		} else {
-			// ÍøÂç²»¿ÉÓÃµÄÊ±ºòÍ¨¹ı·ÃÎÊÊı¾İ¿âÖĞ»º´æµÄÊı¾İÀ´»ñÈ¡ÒªÏÔÊ¾µÄÊı¾İ
+			// ç½‘ç»œä¸å¯ç”¨çš„æ—¶å€™é€šè¿‡è®¿é—®æ•°æ®åº“ä¸­ç¼“å­˜çš„æ•°æ®æ¥è·å–è¦æ˜¾ç¤ºçš„æ•°æ®
 			list_bixiu = dbService.findCoursesByuserId(currentUser.userId);
 			handler.sendEmptyMessage(CANCEL_DIALOG);
 			if (list_bixiu != null) {

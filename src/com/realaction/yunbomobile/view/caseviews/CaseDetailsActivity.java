@@ -36,9 +36,9 @@ public class CaseDetailsActivity extends Activity {
 
 		CaseItem caseitem = dbService.findCaseByCaseId(caseId);
 
-		caseName.setText("°¸Àı:" + caseitem.caseName);
-		caseDes.setText("°üº¬ÖªÊ¶µã:" + caseitem.keyWords.replaceAll("#", "¡¢") + "\n¿ª·¢Õß½ÇÉ«:"
-				+ caseitem.devRoleName + "\nÊÚ¿ÎÀÏÊ¦:" + caseitem.teacherName);
+		caseName.setText("æ¡ˆä¾‹:" + caseitem.caseName);
+		caseDes.setText("åŒ…å«çŸ¥è¯†ç‚¹:" + caseitem.keyWords.replaceAll("#", "ã€") + "\nå¼€å‘è€…è§’è‰²:"
+				+ caseitem.devRoleName + "\næˆè¯¾è€å¸ˆ:" + caseitem.teacherName);
 
 		AsyncTaskGetCaseSources async = new AsyncTaskGetCaseSources(context);
 		async.execute(new String[] { String.valueOf(caseId) });
@@ -49,7 +49,7 @@ public class CaseDetailsActivity extends Activity {
 
 	public void viewCaseGuide(View v) {
 		Intent intent = new Intent(context, FileBrowserActivity.class);
-		// ÊµÑéÖ¸µ¼Êé
+		// å®éªŒæŒ‡å¯¼ä¹¦
 		intent.putExtra("opt", 1);
 		intent.putExtra("caseId", caseId);
 		startActivity(intent);
@@ -57,7 +57,7 @@ public class CaseDetailsActivity extends Activity {
 
 	public void viewCaseDoc(View v) {
 		Intent intent = new Intent(context, FileBrowserActivity.class);
-		// ÊµÑé´ğ°¸
+		// å®éªŒç­”æ¡ˆ
 		intent.putExtra("opt", 2);
 		intent.putExtra("caseId", caseId);
 		startActivity(intent);

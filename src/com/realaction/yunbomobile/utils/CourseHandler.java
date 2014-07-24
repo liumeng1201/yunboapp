@@ -14,7 +14,7 @@ import com.realaction.yunbomobile.db.DBService;
 import com.realaction.yunbomobile.moddel.CourseItem;
 
 /**
- * ¿Î³ÌĞÅÏ¢½âÎöÀà
+ * è¯¾ç¨‹ä¿¡æ¯è§£æç±»
  * 
  * @author liumeng
  */
@@ -31,13 +31,13 @@ public class CourseHandler extends DefaultHandler {
 	}
 
 	/**
-	 * @return ¿Î³ÌÊ÷List
+	 * @return è¯¾ç¨‹æ ‘List
 	 */
 	public List<CourseItem> getCourseList() {
 		return courseList;
 	}
 
-	// ³õÊ¼»¯¹¤×÷
+	// åˆå§‹åŒ–å·¥ä½œ
 	@Override
 	public void startDocument() throws SAXException {
 		super.startDocument();
@@ -45,7 +45,7 @@ public class CourseHandler extends DefaultHandler {
 		dbService = new DBService(context);
 	}
 	
-	// ÊÕÎ²¹¤×÷
+	// æ”¶å°¾å·¥ä½œ
 	@Override
 	public void endDocument() throws SAXException {
 		super.endDocument();
@@ -71,7 +71,7 @@ public class CourseHandler extends DefaultHandler {
 			item.courseCode = attributes.getValue("courseCode");
 			switch ((new UserUtils(context)).getUserTypeId()) {
 			case 10:
-				// Ñ§Éú
+				// å­¦ç”Ÿ
 				if ((attributes.getValue("scoreId")).equals("")
 						|| (attributes.getValue("scoreId") == null)) {
 					Log.d(TAG, "scoreid not exist");
@@ -81,7 +81,7 @@ public class CourseHandler extends DefaultHandler {
 				break;
 			case 20:
 			case 40:
-				// ÀÏÊ¦
+				// è€å¸ˆ
 				if ((attributes.getValue("scoreId")).equals("")
 						|| (attributes.getValue("scoreId") == null)) {
 					Log.d(TAG, "scoreid not exist");

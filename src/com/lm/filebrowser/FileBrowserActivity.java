@@ -26,7 +26,7 @@ import com.realaction.yunbomobile.utils.AppInfo;
 import com.realaction.yunbomobile.view.caseviews.CaseSourceViewActivity;
 
 /**
- * ÎÄ¼þä¯ÀÀÆ÷Àà,ÓÃÀ´ÊµÏÖ´ð°¸×ÊÔ´µÄ²é¿´
+ * æ–‡ä»¶æµè§ˆå™¨ç±»,ç”¨æ¥å®žçŽ°ç­”æ¡ˆèµ„æºçš„æŸ¥çœ‹
  * 
  * @author liumeng
  */
@@ -54,12 +54,12 @@ public class FileBrowserActivity extends ListActivity {
 
 		switch (opt) {
 		case 1:
-			// Ö¸µ¼Êé
+			// æŒ‡å¯¼ä¹¦
 			guidelist = dbService.findCaseGuideDocsBycaseId(String.valueOf(caseid));
 			if (guidelist != null) {
 				createpaths(opt);
 				if (item != null) {
-					mRoot = AppInfo.base_dir + "/" + item.casedir + "/Ö¸µ¼Êé";
+					mRoot = AppInfo.base_dir + "/" + item.casedir + "/æŒ‡å¯¼ä¹¦";
 				}
 				setContentView(R.layout.file_explorer);
 				mTextViewLocation = (TextView) findViewById(R.id.textview_path);
@@ -69,12 +69,12 @@ public class FileBrowserActivity extends ListActivity {
 			}
 			break;
 		case 2:
-			// ´ð°¸
+			// ç­”æ¡ˆ
 			doclist = dbService.findCaseDocsBycaseId(String.valueOf(caseid));
 			if (doclist != null) {
 				createpaths(opt);
 				if (item != null) {
-					mRoot = AppInfo.base_dir + "/" + item.casedir + "/´ð°¸";
+					mRoot = AppInfo.base_dir + "/" + item.casedir + "/ç­”æ¡ˆ";
 				}
 				setContentView(R.layout.file_explorer);
 				mTextViewLocation = (TextView) findViewById(R.id.textview_path);
@@ -91,15 +91,15 @@ public class FileBrowserActivity extends ListActivity {
 		actionbar.setDisplayHomeAsUpEnabled(true);
 	}
 
-	// ÎªÃ¿Ò»¸ö×ÊÔ´´´½¨Ò»¸öÎÄ¼þ
+	// ä¸ºæ¯ä¸€ä¸ªèµ„æºåˆ›å»ºä¸€ä¸ªæ–‡ä»¶
 	private void createpaths(int opt) {
 		switch (opt) {
 		case 1:
-			// Ö¸µ¼Êé
+			// æŒ‡å¯¼ä¹¦
 			for (CaseGuideDocItem item : guidelist) {
 				File file = new File(AppInfo.base_dir + "/" + item.guideDocPath);
 				if (!(file.getParentFile().exists())) {
-					// µ±ÎÄ¼þÄ¿Â¼²»´æÔÚÊ±Ôò´´½¨
+					// å½“æ–‡ä»¶ç›®å½•ä¸å­˜åœ¨æ—¶åˆ™åˆ›å»º
 					file.getParentFile().mkdirs();
 				}
 				if (!file.exists()) {
@@ -112,11 +112,11 @@ public class FileBrowserActivity extends ListActivity {
 			}
 			break;
 		case 2:
-			// ´ð°¸
+			// ç­”æ¡ˆ
 			for (CaseDocItem item : doclist) {
 				File file = new File(AppInfo.base_dir + "/" + item.docPath);
 				if (!(file.getParentFile().exists())) {
-					// µ±ÎÄ¼þÄ¿Â¼²»´æÔÚÊ±Ôò´´½¨
+					// å½“æ–‡ä»¶ç›®å½•ä¸å­˜åœ¨æ—¶åˆ™åˆ›å»º
 					file.getParentFile().mkdirs();
 				}
 				if (!file.exists()) {
@@ -145,20 +145,20 @@ public class FileBrowserActivity extends ListActivity {
 		try {
 			switch (opt) {
 			case 1:
-				// Ö¸µ¼Êé
-				if (dirPath.indexOf("Ö¸µ¼Êé") > 0) {
+				// æŒ‡å¯¼ä¹¦
+				if (dirPath.indexOf("æŒ‡å¯¼ä¹¦") > 0) {
 					mTextViewLocation.setText(getString(R.string.current_location)
-									+ ": " + dirPath.substring(dirPath.indexOf("Ö¸µ¼Êé")));
+									+ ": " + dirPath.substring(dirPath.indexOf("æŒ‡å¯¼ä¹¦")));
 				} else {
 					mTextViewLocation.setText(getString(R.string.current_location)
 									+ ": " + dirPath);
 				}
 				break;
 			case 2:
-				// ´ð°¸
-				if (dirPath.indexOf("´ð°¸") > 0) {
+				// ç­”æ¡ˆ
+				if (dirPath.indexOf("ç­”æ¡ˆ") > 0) {
 					mTextViewLocation.setText(getString(R.string.current_location)
-									+ ": " + dirPath.substring(dirPath.indexOf("´ð°¸")));
+									+ ": " + dirPath.substring(dirPath.indexOf("ç­”æ¡ˆ")));
 				} else {
 					mTextViewLocation.setText(getString(R.string.current_location)
 									+ ": " + dirPath);
@@ -209,7 +209,7 @@ public class FileBrowserActivity extends ListActivity {
 			String path = tmp[1];
 			switch (opt) {
 			case 1:
-				// Ö¸µ¼Êé
+				// æŒ‡å¯¼ä¹¦
 				CaseGuideDocItem guideitem = dbService.findCaseGuideDocByguideDocPath(path);
 				intent.putExtra("guideId", guideitem.guideId);
 				intent.putExtra("guideName", guideitem.guideDocName);
@@ -217,7 +217,7 @@ public class FileBrowserActivity extends ListActivity {
 				intent.putExtra("guidePath", guideitem.guideDocPath);
 				break;
 			case 2:
-				// ´ð°¸
+				// ç­”æ¡ˆ
 				CaseDocItem docitem = dbService.findCaseDocBydocPath(path);
 				intent.putExtra("docId", docitem.docId);
 				intent.putExtra("docName", docitem.docName);

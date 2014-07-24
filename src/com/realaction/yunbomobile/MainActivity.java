@@ -86,7 +86,7 @@ public class MainActivity extends Activity {
 			selectItem(0);
 		}
 		
-		// 新手指导功能
+		// 鏂版墜鎸囧鍔熻兘
 		SharedPreferences ug = context.getSharedPreferences("user_guide", 0);
 		boolean firstlogin = ug.getBoolean("user_first_login", false);
 		if (!firstlogin) {
@@ -96,7 +96,7 @@ public class MainActivity extends Activity {
 			startActivity(new Intent(context, UserGuideActivity.class));
 		}
 		
-		// 自动更新功能
+		// 鑷姩鏇存柊鍔熻兘
 		Intent intent = getIntent();
 		boolean isUpdate = intent.getBooleanExtra("isupdate", false);
 		String updatemsg = intent.getStringExtra("updatemsg");

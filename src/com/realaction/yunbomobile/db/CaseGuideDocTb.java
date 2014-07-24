@@ -1,7 +1,7 @@
 package com.realaction.yunbomobile.db;
 
 /**
- * ¿Î³Ì°¸Àı×ÊÔ´ÊµÑéÖ¸µ¼Êé±í×Ö¶Î¼°SQLÓï¾ä
+ * è¯¾ç¨‹æ¡ˆä¾‹èµ„æºå®éªŒæŒ‡å¯¼ä¹¦è¡¨å­—æ®µåŠSQLè¯­å¥
  * 
  * @author liumeng
  */
@@ -17,30 +17,30 @@ public class CaseGuideDocTb {
 	public static final String ISDOWNLOAD = "isDownload";
 	public static final String LOCALPATH = "localPath";
 
-	// ´´½¨¿Î³Ì°¸Àı×ÊÔ´ÊµÑéÖ¸µ¼Êé±í
+	// åˆ›å»ºè¯¾ç¨‹æ¡ˆä¾‹èµ„æºå®éªŒæŒ‡å¯¼ä¹¦è¡¨
 	public static final String CREATE_CASEGUIDEDOC_TB = "CREATE TABLE IF NOT EXISTS "
 			+ CASEGUIDEDOCTB + " (" + ID + " integer primary key autoincrement, "
 			+ GUIDEID + " integer, " + GUIDEDOCNAME + " varchar(128), "
 			+ GUIDEDOCDESC + " varchar(256), " + GUIDEDOCPATH + " varchar(1024), "
 			+ CASEID + " integer, " + ISDOWNLOAD + " integer, " 
 			+ LOCALPATH + " varchar(1024))";
-	// ¸ù¾İcaseId²éÕÒ°¸ÀıÊµÑéÖ¸µ¼Êé
+	// æ ¹æ®caseIdæŸ¥æ‰¾æ¡ˆä¾‹å®éªŒæŒ‡å¯¼ä¹¦
 	public static final String FIND_CASEGUIDEDOC_BY_CASEID = "select "
 			+ GUIDEID + "," + GUIDEDOCNAME + "," + GUIDEDOCDESC + ","
 			+ GUIDEDOCPATH + "," + CASEID + "," + ISDOWNLOAD + "," + LOCALPATH
 			+ " from " + CASEGUIDEDOCTB + " where " + CASEID + "=?";
-	// ¸ù¾İguideDocPath²éÕÒ°¸ÀıÊµÑéÖ¸µ¼Êé
+	// æ ¹æ®guideDocPathæŸ¥æ‰¾æ¡ˆä¾‹å®éªŒæŒ‡å¯¼ä¹¦
 	public static final String FIND_CASEGUIDEDOC_BY_GUIDEDOCPATH = "select "
 			+ GUIDEID + "," + GUIDEDOCNAME + "," + GUIDEDOCDESC + ","
 			+ GUIDEDOCPATH + "," + CASEID + "," + ISDOWNLOAD + "," + LOCALPATH
 			+ " from " + CASEGUIDEDOCTB + " where " + GUIDEDOCPATH + "=?";
-	// ¸ù¾İcaseIdºÍguideId²éÕÒÊµÑéÖ¸µ¼Êé
+	// æ ¹æ®caseIdå’ŒguideIdæŸ¥æ‰¾å®éªŒæŒ‡å¯¼ä¹¦
 	public static final String FIND_CASEGUIDEDOC_BY_CASEIDANDGUIDEID = "select "
 			+ GUIDEID + "," + GUIDEDOCNAME + "," + GUIDEDOCDESC + ","
 			+ GUIDEDOCPATH + "," + CASEID + "," + ISDOWNLOAD + ","
 			+ LOCALPATH + " from " + CASEGUIDEDOCTB + " where "
 			+ CASEID + "=? and " + GUIDEID + "=?";
-	// É¾³ı¿Î³Ì°¸Àı×ÊÔ´ÊµÑéÖ¸µ¼Êé±í
+	// åˆ é™¤è¯¾ç¨‹æ¡ˆä¾‹èµ„æºå®éªŒæŒ‡å¯¼ä¹¦è¡¨
 	public static final String DROP_CASEGUIDEDOC_TB = "DROP TABLE IF EXISTS "
 			+ CASEGUIDEDOCTB;
 

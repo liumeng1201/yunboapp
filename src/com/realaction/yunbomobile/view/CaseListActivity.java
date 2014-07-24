@@ -32,7 +32,7 @@ import com.realaction.yunbomobile.utils.UserUtils;
 import com.realaction.yunbomobile.view.caseviews.CaseDetailsActivity;
 
 /**
- * �γ̰����б�����
+ * 课程案例列表界面
  * 
  * @author liumeng
  */
@@ -70,7 +70,7 @@ public class CaseListActivity extends Activity {
 		dialog.setMessage(getString(R.string.loading_caselist));
 		dbService = new DBService(context);
 		userTypeId = (new UserUtils(context)).getUserTypeId();
-		// ��ȡ�ӿγ��б�������ת������Intent
+		// 获取从课程列表界面跳转过来的Intent
 		Intent intent = getIntent();
 		scoreId = intent.getStringExtra("scoreId");
 		courseName = intent.getStringExtra("courseName");
@@ -95,17 +95,17 @@ public class CaseListActivity extends Activity {
 	}
 
 	/**
-	 * ���ð�����Դ�б���������Ҫ�ĸ�������
+	 * 设置案例资源列表界面所需要的各种数据
 	 */
 	private void init() {
 		dialog.show();
 		if (AppInfo.network_avabile) {
-			// ������õ�ʱ��ͨ�������ȡ�γ̰������ݲ�֪ͨadapter����
+			// 网络可用的时候通过网络获取课程案例数据并通知adapter更新
 			AsyncTaskGetCaseList async = new AsyncTaskGetCaseList(context, handler, adapter);
 			String[] params = new String[] { scoreId, String.valueOf(userTypeId)};
 			async.execute(params);
 		} else {
-			// ���粻����ʱͨ�����ݿ��ȡ����İ�������
+			// 网络不可用时通过数据库获取缓存的案例数据
 			caselists = dbService.findCasesByscoreId(scoreId);
 			dialog.dismiss();
 			if (caselists != null) {

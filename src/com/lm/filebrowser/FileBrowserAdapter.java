@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.realaction.yunbomobile.R;
 
 /**
- * ÎÄ¼şä¯ÀÀÆ÷adapter
+ * æ–‡ä»¶æµè§ˆå™¨adapter
  * 
  * @author liumeng
  */

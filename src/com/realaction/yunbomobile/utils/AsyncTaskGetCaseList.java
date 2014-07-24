@@ -36,12 +36,12 @@ public class AsyncTaskGetCaseList extends AsyncTask<String, Integer, List<CaseIt
 		int userTypeId = Integer.parseInt(params[1]);
 		switch (userTypeId) {
 		case 10:
-			// 学生
+			// 瀛︾敓
 			url = url_student;
 			break;
 		case 20:
 		case 40:
-			// 老师
+			// 鑰佸笀
 			url = url_teacher;
 			break;
 		}
@@ -54,7 +54,7 @@ public class AsyncTaskGetCaseList extends AsyncTask<String, Integer, List<CaseIt
 	@Override
 	protected void onPostExecute(List<CaseItem> result) {
 		super.onPostExecute(result);
-		// 通知案例列表更新数据
+		// 閫氱煡妗堜緥鍒楄〃鏇存柊鏁版嵁
 		handler.sendEmptyMessage(CaseListActivity.CANCEL_DIALOG);
 		adapter.refresh(result);
 	}

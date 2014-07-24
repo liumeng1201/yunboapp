@@ -26,26 +26,26 @@ import com.realaction.yunbomobile.utils.Utility;
 import com.realaction.yunbomobile.view.caseviews.CaseDetailsActivity;
 
 /**
- * Ê×Ò³½çÃæ
+ * é¦–é¡µç•Œé¢
  * 
  * @author liumeng
  */
 public class HomePage extends Fragment {
 	private Context context;
-	// ÓÃ»§Í·Ïñ
+	// ç”¨æˆ·å¤´åƒ
 	private ImageView user_avatar;
 	private String user_avater_url;
 	private int user_type;
-	// ÓÃ»§Ãû
+	// ç”¨æˆ·å
 	private TextView user_name;
 	private String user_name_str;
-	// ÓÃ»§Ñ§ºÅ/¹¤ºÅ
+	// ç”¨æˆ·å­¦å·/å·¥å·
 	private TextView user_num;
 	private String user_num_str;
-	// ÓÃ»§×î³£ä¯ÀÀµÄ5Ìõ¼ÇÂ¼
+	// ç”¨æˆ·æœ€å¸¸æµè§ˆçš„5æ¡è®°å½•
 	private ListView user_favorite;
 	private HomePageAdapter user_fav_adapter;
-	// ÓÃ»§×îºóä¯ÀÀµÄ5Ìõ¼ÇÂ¼
+	// ç”¨æˆ·æœ€åæµè§ˆçš„5æ¡è®°å½•
 	private ListView user_history;
 	private HomePageAdapter user_his_adapter;
 	private TextView user_no_favorite;
@@ -80,7 +80,7 @@ public class HomePage extends Fragment {
 	}
 
 	/**
-	 * ³õÊ¼»¯½çÃæ¸÷×é¼şËùĞèµÄÊı¾İ
+	 * åˆå§‹åŒ–ç•Œé¢å„ç»„ä»¶æ‰€éœ€çš„æ•°æ®
 	 */
 	private void initData() {
 		UserUtils userinfo = new UserUtils(context);
@@ -107,17 +107,17 @@ public class HomePage extends Fragment {
 	}
 
 	/**
-	 * Îª¸÷×é¼şÉèÖÃÊı¾İ
+	 * ä¸ºå„ç»„ä»¶è®¾ç½®æ•°æ®
 	 */
 	private void setData() {
-		// Ê¹ÓÃµÚÈı·½¿âÎªImageView¼ÓÔØÍ¼Æ¬
+		// ä½¿ç”¨ç¬¬ä¸‰æ–¹åº“ä¸ºImageViewåŠ è½½å›¾ç‰‡
 		//Picasso.with(context).load(user_avater_url).into(user_avatar);
 		user_avatar.setImageBitmap(ImageUtils.getBitmapFromRes(context, user_avater_url));
-		user_name.setText("ÓÃ»§Ãû:" + user_name_str);
+		user_name.setText("ç”¨æˆ·å:" + user_name_str);
 		if (user_type == UserUtils.USER_STUDENT) {
-			user_num.setText("Ñ§ºÅ:" + user_num_str);
+			user_num.setText("å­¦å·:" + user_num_str);
 		} else {
-			user_num.setText("¹¤ºÅ:" + user_num_str);
+			user_num.setText("å·¥å·:" + user_num_str);
 		}
 
 		if (user_fav_adapter != null) {

@@ -16,7 +16,7 @@ import com.realaction.yunbomobile.adapter.NoticeListAdapter;
 import com.realaction.yunbomobile.moddel.NoticeItem;
 
 /**
- * 通知界面
+ * 閫氱煡鐣岄潰
  * 
  * @author liumeng
  */
@@ -33,9 +33,9 @@ public class NoticePage extends Fragment {
 		noticelist_message = new ArrayList<NoticeItem>();
 		for (int i = 1; i < 31; i++) {
 			NoticeItem ni = new NoticeItem();
-			ni.noticefrom = "老师" + (i / 5 + 1);
-			ni.noticemessage = "通知内容  " + i;
-			ni.noticedate = "时间  " + i;
+			ni.noticefrom = "鑰佸笀" + (i / 5 + 1);
+			ni.noticemessage = "閫氱煡鍐呭  " + i;
+			ni.noticedate = "鏃堕棿  " + i;
 			noticelist_message.add(ni);
 		}
 		

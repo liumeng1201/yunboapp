@@ -1,7 +1,7 @@
 package com.realaction.yunbomobile.db;
 
 /**
- * ¿Î³Ì°¸Àı×ÊÔ´´ğ°¸×ÊÔ´±í×Ö¶Î¼°SQLÓï¾ä
+ * è¯¾ç¨‹æ¡ˆä¾‹èµ„æºç­”æ¡ˆèµ„æºè¡¨å­—æ®µåŠSQLè¯­å¥
  * 
  * @author liumeng
  */
@@ -17,29 +17,29 @@ public class CaseDocTb {
 	public static final String ISDOWNLOAD = "isDownload";
 	public static final String LOCALPATH = "localPath";
 
-	// ´´½¨¿Î³Ì°¸Àı×ÊÔ´´ğ°¸×ÊÔ´±í
+	// åˆ›å»ºè¯¾ç¨‹æ¡ˆä¾‹èµ„æºç­”æ¡ˆèµ„æºè¡¨
 	public static final String CREATE_CASEDOC_TB = "CREATE TABLE IF NOT EXISTS "
 			+ CASEDOCTB + " (" + ID + " integer primary key autoincrement, "
 			+ DOCID + " integer, " + DOCNAME + " varchar(128), "
 			+ DOCDESC + " varchar(256), " + DOCPATH + " varchar(1024), "
 			+ CASEID + " integer, " + ISDOWNLOAD + " integer, "
 			+ LOCALPATH + " varchar(1024))";
-	// ¸ù¾İcaseId²éÕÒ°¸Àı´ğ°¸×ÊÔ´
+	// æ ¹æ®caseIdæŸ¥æ‰¾æ¡ˆä¾‹ç­”æ¡ˆèµ„æº
 	public static final String FIND_CASEDOC_BY_CASEID = "select " + DOCID + ","
 			+ DOCNAME + "," + DOCDESC + "," + DOCPATH + "," + CASEID + ","
 			+ ISDOWNLOAD + "," + LOCALPATH + " from " + CASEDOCTB
 			+ " where " + CASEID + "=?";
-	// ¸ù¾İcaseIdºÍdocId²éÕÒ´ğ°¸×ÊÔ´
+	// æ ¹æ®caseIdå’ŒdocIdæŸ¥æ‰¾ç­”æ¡ˆèµ„æº
 	public static final String FIND_CASEDOC_BY_CASEIDANDDOCID = "select "
 			+ DOCID + "," + DOCNAME + "," + DOCDESC + "," + DOCPATH + ","
 			+ CASEID + "," + ISDOWNLOAD + "," + LOCALPATH + " from "
 			+ CASEDOCTB + " where " + CASEID + "=? and " + DOCID + "=?";
-	// ¸ù¾İdocPath²éÕÒ´ğ°¸×ÊÔ´
+	// æ ¹æ®docPathæŸ¥æ‰¾ç­”æ¡ˆèµ„æº
 	public static final String FIND_CASEDOC_BY_DOCPATH = "select " + DOCID + ","
 			+ DOCNAME + "," + DOCDESC + "," + DOCPATH + "," + CASEID + ","
 			+ ISDOWNLOAD + "," + LOCALPATH + " from " + CASEDOCTB
 			+ " where " + DOCPATH + "=?";
-	// É¾³ı¿Î³Ì°¸Àı´ğ°¸×ÊÔ´±í
+	// åˆ é™¤è¯¾ç¨‹æ¡ˆä¾‹ç­”æ¡ˆèµ„æºè¡¨
 	public static final String DROP_CASEDOC_TB = "DROP TABLE IF EXISTS "
 			+ CASEDOCTB;
 

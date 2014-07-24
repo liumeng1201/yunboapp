@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * ¿Î³Ì±í½çÃæ
+ * è¯¾ç¨‹è¡¨ç•Œé¢
  * 
  * @author liumeng
  */

@@ -25,7 +25,7 @@ import com.realaction.yunbomobile.utils.FileUtils;
 import com.realaction.yunbomobile.utils.MyDialog;
 
 /**
- * 设置界面
+ * 璁剧疆鐣岄潰
  * 
  * @author liumeng
  */
@@ -46,11 +46,11 @@ public class SettingsPage extends PreferenceFragment {
 	public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
 			Preference preference) {
 		if (preference.getKey().equals("pref_setting_offline")) {
-			// 离线模式
+			// 绂荤嚎妯″紡
 		} else if (preference.getKey().equals("pref_setting_cache_memory")) {
-			// 设置缓存大小
+			// 璁剧疆缂撳瓨澶у皬
 		} else if (preference.getKey().equals("pref_setting_clean_cache")) {
-			// 清除缓存
+			// 娓呴櫎缂撳瓨
 			AlertDialog.Builder dialog = new Builder(context);
 			dialog.setTitle(R.string.notice);
 			long size = FileUtils.getFolderSize(new File(AppInfo.base_dir));
@@ -82,9 +82,9 @@ public class SettingsPage extends PreferenceFragment {
 			dialog.show();
 		} 
 //		else if (preference.getKey().equals("pref_setting_notice_on")) {
-//			// 上课提醒
+//			// 涓婅鎻愰啋
 //		} else if (preference.getKey().equals("pref_setting_notice_time")) {
-//			// 提醒时间
+//			// 鎻愰啋鏃堕棿
 //		}
 		return super.onPreferenceTreeClick(preferenceScreen, preference);
 	}

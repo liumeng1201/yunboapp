@@ -16,7 +16,7 @@ import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.moddel.OpenCourseInfo;
 
 /**
- * 公开课ListAdapter
+ * 鍏紑璇綥istAdapter
  * 
  * @author liumeng
  */
@@ -76,7 +76,7 @@ public class OpenCourseListAdapter extends BaseAdapter {
 	}
 	
 	/**
-	 * 收藏按钮点击事件监听
+	 * 鏀惰棌鎸夐挳鐐瑰嚮浜嬩欢鐩戝惉
 	 * 
 	 * @author liumeng
 	 */

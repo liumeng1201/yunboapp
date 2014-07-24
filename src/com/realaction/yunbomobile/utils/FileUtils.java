@@ -5,17 +5,17 @@ import java.io.File;
 import android.text.TextUtils;
 
 /**
- * ÎÄ¼ş¹¤¾ßÀà
+ * æ–‡ä»¶å·¥å…·ç±»
  * 
  * @author liumeng
  */
 public class FileUtils {
 	/**
-	 * »ñÈ¡ÎÄ¼ş»òÎÄ¼ş¼Ğ´óĞ¡
+	 * è·å–æ–‡ä»¶æˆ–æ–‡ä»¶å¤¹å¤§å°
 	 * 
 	 * @param filePath
-	 *            ÎÄ¼şÂ·¾¶
-	 * @return ÎÄ¼ş¼Ğ´óĞ¡,µ¥Î»B
+	 *            æ–‡ä»¶è·¯å¾„
+	 * @return æ–‡ä»¶å¤¹å¤§å°,å•ä½B
 	 */
 	public static long getFolderSize(File filePath) {
 		long size = 0;
@@ -35,18 +35,18 @@ public class FileUtils {
 	}
 
 	/**
-	 * É¾³ıÎÄ¼ş»òÎÄ¼ş¼Ğ
+	 * åˆ é™¤æ–‡ä»¶æˆ–æ–‡ä»¶å¤¹
 	 * 
 	 * @param filePath
-	 *            ÎÄ¼şÂ·¾¶
+	 *            æ–‡ä»¶è·¯å¾„
 	 * @param delFolder
-	 *            ÊÇ·ñÉ¾³ıÎÄ¼ş¼Ğ±êÊ¶
+	 *            æ˜¯å¦åˆ é™¤æ–‡ä»¶å¤¹æ ‡è¯†
 	 */
 	public static void delFileAndFolder(String filePath, boolean delFolder) {
 		if (!TextUtils.isEmpty(filePath)) {
 			File file = new File(filePath);
 			if (file.isDirectory()) {
-				// ´¦ÀíÄ¿Â¼
+				// å¤„ç†ç›®å½•
 				File files[] = file.listFiles();
 				for (int i = 0; i < files.length; i++) {
 					delFileAndFolder(files[i].getAbsolutePath(), true);
@@ -54,12 +54,12 @@ public class FileUtils {
 			}
 			if (delFolder) {
 				if (!file.isDirectory()) {
-					// Èç¹ûÊÇÎÄ¼ş£¬É¾³ı
+					// å¦‚æœæ˜¯æ–‡ä»¶ï¼Œåˆ é™¤
 					file.delete();
 				} else {
-					// Ä¿Â¼
+					// ç›®å½•
 					if (file.listFiles().length == 0) {
-						// Ä¿Â¼ÏÂÃ»ÓĞÎÄ¼ş»òÕßÄ¿Â¼£¬É¾³ı
+						// ç›®å½•ä¸‹æ²¡æœ‰æ–‡ä»¶æˆ–è€…ç›®å½•ï¼Œåˆ é™¤
 						file.delete();
 					}
 				}

@@ -1,7 +1,7 @@
 package com.realaction.yunbomobile.moddel;
 
 /**
- * 案例资源答案信息
+ * 妗堜緥璧勬簮绛旀淇℃伅
  * 
  * @author liumeng
  */

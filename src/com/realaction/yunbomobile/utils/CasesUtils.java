@@ -15,7 +15,7 @@ import android.content.Context;
 import com.realaction.yunbomobile.moddel.CaseItem;
 
 /**
- * ¿Î³Ì°¸Àı×ÊÔ´¹¤¾ßÀà
+ * è¯¾ç¨‹æ¡ˆä¾‹èµ„æºå·¥å…·ç±»
  * 
  * @author liumeng
  */
@@ -29,13 +29,13 @@ public class CasesUtils {
 	}
 
 	/**
-	 * ½âÎö°¸ÀıÊ÷×ÊÔ´²¢·µ»Ø°¸ÀıList
+	 * è§£ææ¡ˆä¾‹æ ‘èµ„æºå¹¶è¿”å›æ¡ˆä¾‹List
 	 * 
 	 * @param url
-	 *            »ñÈ¡°¸Àı×ÊÔ´µÄurl
+	 *            è·å–æ¡ˆä¾‹èµ„æºçš„url
 	 * @param datas
-	 *            ĞèÒª´«µİµÄ²ÎÊı
-	 * @return °¸ÀıList
+	 *            éœ€è¦ä¼ é€’çš„å‚æ•°
+	 * @return æ¡ˆä¾‹List
 	 */
 	public List<CaseItem> getCasesList(String url, List<NameValuePair> datas) {
 		InputStream xmlStream = HttpTool.sendDataByPost(url, datas);

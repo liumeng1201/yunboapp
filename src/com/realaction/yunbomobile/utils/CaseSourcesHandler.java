@@ -28,13 +28,13 @@ public class CaseSourcesHandler extends DefaultHandler {
 	}
 
 	/**
-	 * @return ¿Î³Ì°¸ÀıÊµÑéÖ¸µ¼ÊéList
+	 * @return è¯¾ç¨‹æ¡ˆä¾‹å®éªŒæŒ‡å¯¼ä¹¦List
 	 */
 	public List<CaseGuideDocItem> getCaseSourcesList() {
 		return casesourcesList;
 	}
 	
-	// ³õÊ¼»¯¹¤×÷
+	// åˆå§‹åŒ–å·¥ä½œ
 	@Override
 	public void startDocument() throws SAXException {
 		super.startDocument();
@@ -84,7 +84,7 @@ public class CaseSourcesHandler extends DefaultHandler {
 		}
 	}
 	
-	// ÊÕÎ²¹¤×÷
+	// æ”¶å°¾å·¥ä½œ
 	@Override
 	public void endDocument() throws SAXException {
 		super.endDocument();

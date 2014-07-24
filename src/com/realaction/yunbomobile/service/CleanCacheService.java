@@ -40,7 +40,7 @@ public class CleanCacheService extends Service {
 	}
 	
 	/**
-	 * µ±»º´æµÄÎÄ¼ş´óÓÚÉèÖÃÖĞµÄÖµÊ±ÔòÉ¾³ı×îÔç»º´æµÄÎÄ¼ş
+	 * å½“ç¼“å­˜çš„æ–‡ä»¶å¤§äºè®¾ç½®ä¸­çš„å€¼æ—¶åˆ™åˆ é™¤æœ€æ—©ç¼“å­˜çš„æ–‡ä»¶
 	 */
 	private void cleancache() {
 		SharedPreferences apppre = getSharedPreferences(getPackageName() + "_preferences", 1);
@@ -65,7 +65,7 @@ public class CleanCacheService extends Service {
 	}
 	
 	/**
-	 * É¾³ı²åÈëÊ±¼ä×îÔçµÄÒ»¸öcase
+	 * åˆ é™¤æ’å…¥æ—¶é—´æœ€æ—©çš„ä¸€ä¸ªcase
 	 */
 	private void deleteOldCase() {
 		CaseItem item = dbService.findOldestCase();
@@ -77,10 +77,10 @@ public class CleanCacheService extends Service {
 	}
 	
 	/**
-	 * É¾³ı½Ï³¤Ê±¼äµÄ»º´æÊ±Í¬²½¸üĞÂÊı¾İ¿â
+	 * åˆ é™¤è¾ƒé•¿æ—¶é—´çš„ç¼“å­˜æ—¶åŒæ­¥æ›´æ–°æ•°æ®åº“
 	 * 
 	 * @param item
-	 *            ĞèÒª¸üĞÂµÄcase
+	 *            éœ€è¦æ›´æ–°çš„case
 	 */
 	private void updateDatabase(CaseItem item) {
 		dbService.beginTransaction();

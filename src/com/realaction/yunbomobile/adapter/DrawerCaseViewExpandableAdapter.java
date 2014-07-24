@@ -17,7 +17,7 @@ import com.realaction.yunbomobile.moddel.CaseViewGroupItem;
 import com.realaction.yunbomobile.moddel.CourseItem;
 
 /**
- * °¸Àı×ÊÔ´²é¿´½çÃæ,°¸Àı×ÊÔ´¶ş²ãListViewÊÊÅäÆ÷
+ * æ¡ˆä¾‹èµ„æºæŸ¥çœ‹ç•Œé¢,æ¡ˆä¾‹èµ„æºäºŒå±‚ListViewé€‚é…å™¨
  * 
  * @author liumeng
  */

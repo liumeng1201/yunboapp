@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Êı¾İ¿â²Ù×÷Àà
+ * æ•°æ®åº“æ“ä½œç±»
  * 
  * @author liumeng
  */
@@ -20,22 +20,22 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		// TODO ×î³£ä¯ÀÀºÍÀúÊ·¼ÇÂ¼Êı¾İ±í´´½¨
+		// TODO æœ€å¸¸æµè§ˆå’Œå†å²è®°å½•æ•°æ®è¡¨åˆ›å»º
 		// db.execSQL("CREATE TABLE IF NOT EXISTS favorite (id integer primary key autoincrement, )"caseid,path,count);
 		// db.execSQL("CREATE TABLE IF NOT EXISTS history (id integer primary key autoincrement, )"caseid,path,time);
-		// ´´½¨user±í
+		// åˆ›å»ºuserè¡¨
 		db.execSQL(UserTb.CREATE_USER_TB);
 		db.execSQL(UserTb.CREATE_USER_TB_UNIQUE_INDEX);
-		// ´´½¨¿Î³Ì±í
+		// åˆ›å»ºè¯¾ç¨‹è¡¨
 		db.execSQL(CourseTb.CREATE_COURSE_TB);
-		// ´´½¨°¸Àı±í
+		// åˆ›å»ºæ¡ˆä¾‹è¡¨
 		db.execSQL(CaseTb.CREATE_CASE_TB);
-		// ´´½¨¿Î³Ì°¸ÀıÊµÑéÖ¸µ¼Êé±í
+		// åˆ›å»ºè¯¾ç¨‹æ¡ˆä¾‹å®éªŒæŒ‡å¯¼ä¹¦è¡¨
 		db.execSQL(CaseGuideDocTb.CREATE_CASEGUIDEDOC_TB);
-		// ´´½¨¿Î³Ì°¸Àı´ğ°¸±í
+		// åˆ›å»ºè¯¾ç¨‹æ¡ˆä¾‹ç­”æ¡ˆè¡¨
 		db.execSQL(CaseDocTb.CREATE_CASEDOC_TB);
-		// ´´½¨×î³£ä¯ÀÀ¼ÇÂ¼±í
-		// ´´½¨ÀúÊ·ä¯ÀÀ¼ÇÂ¼±í
+		// åˆ›å»ºæœ€å¸¸æµè§ˆè®°å½•è¡¨
+		// åˆ›å»ºå†å²æµè§ˆè®°å½•è¡¨
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
- * ÓÃ»§ĞÅÏ¢¹¤¾ßÀà
+ * ç”¨æˆ·ä¿¡æ¯å·¥å…·ç±»
  * 
  * @author liumeng
  */
@@ -27,10 +27,10 @@ public class UserUtils {
 	private SharedPreferences.Editor editor;
 
 	/**
-	 * ¹¹Ôì·½·¨,»ñÈ¡SharedPreference¶ÔÏóºÍEditor¶ÔÏóÒÔ±ãºóĞø²Ù×÷
+	 * æ„é€ æ–¹æ³•,è·å–SharedPreferenceå¯¹è±¡å’ŒEditorå¯¹è±¡ä»¥ä¾¿åç»­æ“ä½œ
 	 * 
 	 * @param context
-	 *            ÉÏÏÂÎÄÖ¸Õë
+	 *            ä¸Šä¸‹æ–‡æŒ‡é’ˆ
 	 */
 	public UserUtils(Context context) {
 		userinfos = context.getSharedPreferences(SHARED_PREFERENCE, mode);
@@ -38,24 +38,24 @@ public class UserUtils {
 	}
 
 	/**
-	 * ½«ÓÃ»§ĞÅÏ¢±£´æµ½SharedPreferenceÎÄ¼şÖĞÒÔ±ãËæÊ±È¡ÓÃ
+	 * å°†ç”¨æˆ·ä¿¡æ¯ä¿å­˜åˆ°SharedPreferenceæ–‡ä»¶ä¸­ä»¥ä¾¿éšæ—¶å–ç”¨
 	 * 
 	 * @param username
-	 *            ÓÃ»§Ãû
+	 *            ç”¨æˆ·å
 	 * @param passwd
-	 *            ÃÜÂë
+	 *            å¯†ç 
 	 * @param userrealname
-	 *            ÓÃ»§ÕæÊµĞÕÃû
+	 *            ç”¨æˆ·çœŸå®å§“å
 	 * @param usertypeid
-	 *            ÓÃ»§ÀàĞÍID
+	 *            ç”¨æˆ·ç±»å‹ID
 	 * @param stuno
-	 *            Ñ§ºÅ
+	 *            å­¦å·
 	 * @param empno
-	 *            ¹¤ºÅ
+	 *            å·¥å·
 	 * @param useravatar
-	 *            ÓÃ»§Í·Ïñurl
+	 *            ç”¨æˆ·å¤´åƒurl
 	 * @param rmbuser
-	 *            ÊÇ·ñ¼Ç×¡ÓÃ»§
+	 *            æ˜¯å¦è®°ä½ç”¨æˆ·
 	 */
 	public void saveUserInfoToPref(String username, String passwd, String userrealname,
 			int usertypeid, String stuno, String empno, String useravatar, boolean rmbuser) {
@@ -71,9 +71,9 @@ public class UserUtils {
 	}
 
 	/**
-	 * »ñÈ¡±£´æÔÚSharedPreferenceÎÄ¼şÖĞµÄÓÃ»§Ãû
+	 * è·å–ä¿å­˜åœ¨SharedPreferenceæ–‡ä»¶ä¸­çš„ç”¨æˆ·å
 	 * 
-	 * @return ÓÃ»§Ãû
+	 * @return ç”¨æˆ·å
 	 */
 	public String getUserName() {
 		String username = userinfos.getString(USERNAME_REF, null);
@@ -81,9 +81,9 @@ public class UserUtils {
 	}
 	
 	/**
-	 * »ñÈ¡±£´æÔÚSharedPreferenceÎÄ¼şÖĞµÄÓÃ»§ÃÜÂë
+	 * è·å–ä¿å­˜åœ¨SharedPreferenceæ–‡ä»¶ä¸­çš„ç”¨æˆ·å¯†ç 
 	 * 
-	 * @return ÃÜÂë
+	 * @return å¯†ç 
 	 */
 	public String getPassword() {
 		String passwd = userinfos.getString(PASSWORD_REF, null);
@@ -91,7 +91,7 @@ public class UserUtils {
 	}
 
 	/**
-	 * »ñÈ¡±£´æÔÚSharedPreferenceÎÄ¼şÖĞµÄÓÃ»§ÕæÊµĞÕÃû
+	 * è·å–ä¿å­˜åœ¨SharedPreferenceæ–‡ä»¶ä¸­çš„ç”¨æˆ·çœŸå®å§“å
 	 * 
 	 * @return
 	 */
@@ -101,9 +101,9 @@ public class UserUtils {
 	}
 
 	/**
-	 * »ñÈ¡±£´æÔÚSharedPreferenceÎÄ¼şÖĞµÄÓÃ»§Ñ§ºÅ
+	 * è·å–ä¿å­˜åœ¨SharedPreferenceæ–‡ä»¶ä¸­çš„ç”¨æˆ·å­¦å·
 	 * 
-	 * @return ÓÃ»§Ñ§ºÅ
+	 * @return ç”¨æˆ·å­¦å·
 	 */
 	public String getStuNo() {
 		String stuno = userinfos.getString(STUNO_REF, null);
@@ -111,9 +111,9 @@ public class UserUtils {
 	}
 
 	/**
-	 * »ñÈ¡±£´æÔÚSharedPreferenceÎÄ¼şÖĞµÄÓÃ»§¹¤ºÅ
+	 * è·å–ä¿å­˜åœ¨SharedPreferenceæ–‡ä»¶ä¸­çš„ç”¨æˆ·å·¥å·
 	 * 
-	 * @return ÓÃ»§¹¤ºÅ
+	 * @return ç”¨æˆ·å·¥å·
 	 */
 	public String getEmpNo() {
 		String empno = userinfos.getString(EMPNO_REF, null);
@@ -121,9 +121,9 @@ public class UserUtils {
 	}
 
 	/**
-	 * »ñÈ¡±£´æÔÚSharedPreferenceÎÄ¼şÖĞµÄÓÃ»§ÀàĞÍID
+	 * è·å–ä¿å­˜åœ¨SharedPreferenceæ–‡ä»¶ä¸­çš„ç”¨æˆ·ç±»å‹ID
 	 * 
-	 * @return ÓÃ»§ÀàĞÍID
+	 * @return ç”¨æˆ·ç±»å‹ID
 	 */
 	public int getUserTypeId() {
 		int usertypid = userinfos.getInt(USERTYPEID_REF, -1);
@@ -131,9 +131,9 @@ public class UserUtils {
 	}
 
 	/**
-	 * »ñÈ¡±£´æÔÚSharedPreferenceÎÄ¼şÖĞµÄÓÃ»§Í·Ïñurl
+	 * è·å–ä¿å­˜åœ¨SharedPreferenceæ–‡ä»¶ä¸­çš„ç”¨æˆ·å¤´åƒurl
 	 * 
-	 * @return ÓÃ»§Í·Ïñurl
+	 * @return ç”¨æˆ·å¤´åƒurl
 	 */
 	public String getUserAvatar() {
 		String useravatarurl = userinfos.getString(USERAVATAR_REF, null);
@@ -141,7 +141,7 @@ public class UserUtils {
 	}
 
 	/**
-	 * ÊÇ·ñ¼Ç×¡ÓÃ»§
+	 * æ˜¯å¦è®°ä½ç”¨æˆ·
 	 * @return true/false
 	 */
 	public boolean isRmbUser() {

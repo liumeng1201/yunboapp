@@ -32,7 +32,7 @@ import com.realaction.yunbomobile.utils.HttpTool;
 import com.realaction.yunbomobile.utils.UserUtils;
 
 /**
- * µÇÂ½½çÃæ
+ * ç™»é™†ç•Œé¢
  * 
  * @author liumeng
  */
@@ -66,7 +66,7 @@ public class LoginActivity extends Activity {
 				final String username = et_name.getText().toString();
 				final String password = et_passwd.getText().toString();
 				if (username.equals("") || password.equals("")) {
-					// ÓÃ»§Ãû»òÃÜÂëÎª¿ÕÅĞ¶Ï
+					// ç”¨æˆ·åæˆ–å¯†ç ä¸ºç©ºåˆ¤æ–­
 					AlertDialog.Builder dialog = new Builder(context);
 					dialog.setTitle(R.string.notice);
 					dialog.setMessage(R.string.namepwnull);
@@ -86,11 +86,11 @@ public class LoginActivity extends Activity {
 						public void run() {
 							super.run();
 							List<NameValuePair> datas = new ArrayList<NameValuePair>();
-							// Ìí¼ÓÊı¾İ
+							// æ·»åŠ æ•°æ®
 							datas.add(new BasicNameValuePair("username", username));
 							datas.add(new BasicNameValuePair("password", password));
 							if (login(url, datas)) {
-								// µÇÂ½³É¹¦
+								// ç™»é™†æˆåŠŸ
 								hideLoginDialog(handler);
 								Intent intent = new Intent(context, MainActivity.class);
 								if (isUpdate) {
@@ -108,7 +108,7 @@ public class LoginActivity extends Activity {
 		});
 	}
 	
-	// ÅĞ¶ÏÏµÍ³API°æ±¾ÊÇ·ñÂú×ãÔËĞĞĞèÇó
+	// åˆ¤æ–­ç³»ç»ŸAPIç‰ˆæœ¬æ˜¯å¦æ»¡è¶³è¿è¡Œéœ€æ±‚
 	private void canRun() {
 		int currentAPIVersion = android.os.Build.VERSION.SDK_INT;
 		if (currentAPIVersion < 14) {
@@ -126,7 +126,7 @@ public class LoginActivity extends Activity {
 		}
 	}
 	
-	// ³õÊ¼»¯¹¤×÷
+	// åˆå§‹åŒ–å·¥ä½œ
 	private void init() {
 		uu = new UserUtils(context);
 		dbService = new DBService(context);
@@ -149,7 +149,7 @@ public class LoginActivity extends Activity {
 		}
 	}
 	
-	// Òş²ØµÇÂ½ÌáÊ¾¶Ô»°¿ò
+	// éšè—ç™»é™†æç¤ºå¯¹è¯æ¡†
 	private void hideLoginDialog(Handler handler) {
 		handler.post(new Runnable() {
 			@Override
@@ -160,13 +160,13 @@ public class LoginActivity extends Activity {
 	}
 
 	/**
-	 * µÇÂ½²Ù×÷
+	 * ç™»é™†æ“ä½œ
 	 * 
 	 * @param url
-	 *            ·şÎñÆ÷µÇÂ½servlet
+	 *            æœåŠ¡å™¨ç™»é™†servlet
 	 * @param datas
-	 *            ÓÃ»§ÃûÃÜÂë
-	 * @return ÊÇ·ñµÇÂ½³É¹¦
+	 *            ç”¨æˆ·åå¯†ç 
+	 * @return æ˜¯å¦ç™»é™†æˆåŠŸ
 	 */
 	private boolean login(String url, List<NameValuePair> datas) {
 		InputStream is = HttpTool.sendDataByPost(url, datas);
@@ -175,21 +175,21 @@ public class LoginActivity extends Activity {
 			String result = HttpTool.convertStreamToString(is);
 			String resultarray[] = result.split("\\$");
 			if (resultarray.length <= 5) {
-				// ÑéÖ¤Ê§°Ü
+				// éªŒè¯å¤±è´¥
 				hideLoginDialog(handler);
 				HttpTool.showToast(context, handler, getString(R.string.user_error));
 				return false;
 			} else {
-				// ¸ù¾İ·µ»ØµÄÊı¾İ»ñÈ¡ÓÃ»§ID
+				// æ ¹æ®è¿”å›çš„æ•°æ®è·å–ç”¨æˆ·ID
 				String userId = getUserIdFromResult(resultarray);
-				// ÑéÖ¤ÓÃ»§Éí·İ
+				// éªŒè¯ç”¨æˆ·èº«ä»½
 				if ("null".equals(userId) || "-1".equals(userId)) {
-					// ÑéÖ¤Ê§°Ü
+					// éªŒè¯å¤±è´¥
 					hideLoginDialog(handler);
 					HttpTool.showToast(context, handler, getString(R.string.user_error));
 					return false;
 				} else {
-					// ÑéÖ¤³É¹¦
+					// éªŒè¯æˆåŠŸ
 					if (needUpdate(resultarray[6])) {
 						isUpdate = true;
 						updatefile = resultarray[5];
@@ -216,8 +216,8 @@ public class LoginActivity extends Activity {
 				}
 			}
 		} else {
-			// ÍøÂç·ÃÎÊ´íÎó
-			// ÅĞ¶ÏÊäÈëµÄÓÃ»§Êı¾İÊÇ·ñÎªÖ®Ç°ÒÑµÇÂ½¹ıµÄÓÃ»§
+			// ç½‘ç»œè®¿é—®é”™è¯¯
+			// åˆ¤æ–­è¾“å…¥çš„ç”¨æˆ·æ•°æ®æ˜¯å¦ä¸ºä¹‹å‰å·²ç™»é™†è¿‡çš„ç”¨æˆ·
 			AppInfo.network_avabile = false;
 			SharedPreferences apppre = context.getSharedPreferences(getPackageName() + "_preferences", 1);
 			boolean offline_mode = apppre.getBoolean("pref_setting_offline", true);
@@ -237,41 +237,41 @@ public class LoginActivity extends Activity {
 		}
 	}
 
-	// ´Ó·şÎñÆ÷·µ»ØµÄÊı¾İÖĞ»ñÈ¡ÓÃ»§ID
+	// ä»æœåŠ¡å™¨è¿”å›çš„æ•°æ®ä¸­è·å–ç”¨æˆ·ID
 	private String getUserIdFromResult(String result[]) {
 		return result[0];
 	}
 
-	// ´Ó·şÎñÆ÷·µ»ØµÄÊı¾İÖĞ»ñÈ¡ÓÃ»§ÕæÊµÃû×Ö
+	// ä»æœåŠ¡å™¨è¿”å›çš„æ•°æ®ä¸­è·å–ç”¨æˆ·çœŸå®åå­—
 	private String getRealNameFromResult(String result[]) {
 		return result[1];
 	}
 
-	// ´Ó·şÎñÆ÷·µ»ØµÄÊı¾İÖĞ»ñÈ¡ÓÃ»§Í·ÏñÎÄ¼şÂ·¾¶
+	// ä»æœåŠ¡å™¨è¿”å›çš„æ•°æ®ä¸­è·å–ç”¨æˆ·å¤´åƒæ–‡ä»¶è·¯å¾„
 	private String getProfilePathFromResult(String result[]) {
-		// ÓÃ»§Í·Ïñ¶ÔÓ¦µÄurl
+		// ç”¨æˆ·å¤´åƒå¯¹åº”çš„url
 		String portraits[] = (result[2].replace('\\', '/')).split("/");
-		// ×ª»»ÎªassetsÄ¿Â¼ÏÂ¶ÔÓ¦µÄÎÄ¼şÃû
+		// è½¬æ¢ä¸ºassetsç›®å½•ä¸‹å¯¹åº”çš„æ–‡ä»¶å
 		String portrait = portraits[1] + "/" + portraits[2] + "/" + portraits[3];
 		return portrait;
 	}
 
-	// ´Ó·şÎñÆ÷·µ»ØµÄÊı¾İÖĞ»ñÈ¡ÓÃ»§ÀàĞÍ±êÊ¶
+	// ä»æœåŠ¡å™¨è¿”å›çš„æ•°æ®ä¸­è·å–ç”¨æˆ·ç±»å‹æ ‡è¯†
 	private int getUserTypeIdFromResult(String result[]) {
-		// userTypeId¶ÔÓ¦µÄstring
+		// userTypeIdå¯¹åº”çš„string
 		return Integer.parseInt(result[3]);
 	}
 	
-	// ´Ó·şÎñÆ÷·µ»ØµÄÊı¾İÖĞ»ñÈ¡ÓÃ»§Ñ§ºÅ/¹¤ºÅ
+	// ä»æœåŠ¡å™¨è¿”å›çš„æ•°æ®ä¸­è·å–ç”¨æˆ·å­¦å·/å·¥å·
 	private String getUserNoFromResult(String result[]) {
 		return result[4];
 	}
 	
 	/**
-	 * ÊÇ·ñĞèÒªÉı¼¶
+	 * æ˜¯å¦éœ€è¦å‡çº§
 	 * 
 	 * @param versioncode
-	 *            ´Ó·şÎñÆ÷»ñÈ¡µÄ¿Í»§¶Ë°æ±¾ºÅ
+	 *            ä»æœåŠ¡å™¨è·å–çš„å®¢æˆ·ç«¯ç‰ˆæœ¬å·
 	 * @return
 	 */
 	private boolean needUpdate(String versioncode) {

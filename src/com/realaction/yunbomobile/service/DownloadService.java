@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.IBinder;
 
 /**
- * »º´æ¿Î³Ì°¸Àı×ÊÔ´µÄ·şÎñ
+ * ç¼“å­˜è¯¾ç¨‹æ¡ˆä¾‹èµ„æºçš„æœåŠ¡
  * 
  * @author liumeng
  */

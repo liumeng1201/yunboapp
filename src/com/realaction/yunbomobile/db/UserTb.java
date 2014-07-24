@@ -1,7 +1,7 @@
 package com.realaction.yunbomobile.db;
 
 /**
- * ÓÃ»§±í¼°ÆäÖĞµÄ×Ö¶Î¼°SQLÓï¾ä
+ * ç”¨æˆ·è¡¨åŠå…¶ä¸­çš„å­—æ®µåŠSQLè¯­å¥
  * 
  * @author liumeng
  */
@@ -19,26 +19,26 @@ public class UserTb {
 	public static final String EMPNO = "empNo";
 	public static final String USER_TB_UNIQUE_INDEX = "unique_index_userId";
 
-	// ´´½¨ÓÃ»§±í
+	// åˆ›å»ºç”¨æˆ·è¡¨
 	public static final String CREATE_USER_TB = "CREATE TABLE IF NOT EXISTS "
 			+ USERTB + " (" + ID + " integer primary key autoincrement, "
 			+ USERID + " integer, " + USERNAME + " varchar(20), " + PASSWD
 			+ " varchar(100), " + REALNAME + " varchar(100), " + USERTYPEID
 			+ " integer, " + PROFILEURL + " varchar(128), " + STUNO
 			+ " varchar(32), " + EMPNO + " varchar(32))";
-	// ´´½¨ÓÃ»§±íuserIdÎ¨Ò»Ë÷Òı
+	// åˆ›å»ºç”¨æˆ·è¡¨userIdå”¯ä¸€ç´¢å¼•
 	public static final String CREATE_USER_TB_UNIQUE_INDEX = "CREATE UNIQUE INDEX "
 			+ USER_TB_UNIQUE_INDEX + " ON " + USERTB + "(" + USERID + ")";
-	// ¸ù¾İuserId²éÕÒÓÃ»§
+	// æ ¹æ®userIdæŸ¥æ‰¾ç”¨æˆ·
 	public static final String FIND_USER_BY_USERID = "select " + USERID + ","
 			+ USERNAME + "," + PASSWD + "," + REALNAME + "," + USERTYPEID + ","
 			+ PROFILEURL + "," + STUNO + "," + EMPNO + " from " + USERTB
 			+ " where " + USERID + "=?";
-	// ¸ù¾İuserName²éÕÒÓÃ»§
+	// æ ¹æ®userNameæŸ¥æ‰¾ç”¨æˆ·
 	public static final String FIND_USER_BY_USERNAME = "select " + USERID + ","
 			+ USERNAME + "," + PASSWD + "," + REALNAME + "," + USERTYPEID + ","
 			+ PROFILEURL + "," + STUNO + "," + EMPNO + " from " + USERTB
 			+ " where " + USERNAME + "=?";
-	// É¾³ıÓÃ»§±í
+	// åˆ é™¤ç”¨æˆ·è¡¨
 	public static final String DROP_USER_TB = "DROP TABLE IF EXISTS " + USERTB;
 }

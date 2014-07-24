@@ -27,39 +27,39 @@ import android.os.Handler;
 import android.widget.Toast;
 
 public class HttpTool {
-	// http²ÎÊı¶ÔÏó
+	// httpå‚æ•°å¯¹è±¡
 	private static HttpParams httpParams;
-	// http¿Í»§¶ÔÏó
+	// httpå®¢æˆ·å¯¹è±¡
 	private static HttpClient client;
 
-	// postÇëÇó·½·¨
+	// postè¯·æ±‚æ–¹æ³•
 	public static InputStream sendDataByPost(String url,
 			List<NameValuePair> datas) {
-		// ³õÊ¼»¯http²ÎÊı¶ÔÏó
+		// åˆå§‹åŒ–httpå‚æ•°å¯¹è±¡
 		httpParams = new BasicHttpParams();
-		// ÉèÖÃhttpÏìÓ¦³¬Ê±²ÎÊı
+		// è®¾ç½®httpå“åº”è¶…æ—¶å‚æ•°
 		HttpConnectionParams.setConnectionTimeout(httpParams, 5 * 1000);
-		// È¡µÃhttp¿Í»§¶ÔÏó
+		// å–å¾—httpå®¢æˆ·å¯¹è±¡
 		client = new DefaultHttpClient(httpParams);
-		// ·¢ËÍhttp postÇëÇó¶ÔÏó
+		// å‘é€http postè¯·æ±‚å¯¹è±¡
 		HttpPost post = new HttpPost(url);
-		// httpÏìÓ¦¶ÔÏó
+		// httpå“åº”å¯¹è±¡
 		HttpResponse resp = null;
-		// ·µ»ØÊı¾İÁ÷
+		// è¿”å›æ•°æ®æµ
 		InputStream is = null;
 		try {
-			// ÉèÖÃpost¶ÔÏóµÄÊı¾İºÍÊı¾İ¸ñÊ½
+			// è®¾ç½®postå¯¹è±¡çš„æ•°æ®å’Œæ•°æ®æ ¼å¼
 			post.setEntity(new UrlEncodedFormEntity(datas, HTTP.UTF_8));
-			// Ö´ĞĞpostÇëÇó£¬»ñÈ¡ÏìÓ¦ĞÅÏ¢
+			// æ‰§è¡Œpostè¯·æ±‚ï¼Œè·å–å“åº”ä¿¡æ¯
 			resp = client.execute(post);
-			// httpÇëÇóÁ¬½Ó³É¹¦
+			// httpè¯·æ±‚è¿æ¥æˆåŠŸ
 			if (resp.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				// È¡µÃÏìÓ¦Êı¾İÊµÌå
+				// å–å¾—å“åº”æ•°æ®å®ä½“
 				HttpEntity httpEntity = resp.getEntity();
-				// È¡µÃÊı¾İÁ÷
+				// å–å¾—æ•°æ®æµ
 				is = httpEntity.getContent();
 			} else {
-				// httpÇëÇóÊ§°Ü
+				// httpè¯·æ±‚å¤±è´¥
 				is = null;
 			}
 		} catch (UnsupportedEncodingException e) {
@@ -72,14 +72,14 @@ public class HttpTool {
 		return is;
 	}
 
-	// ½«Á÷×ª»»Îª×Ö·û´®·½·¨
+	// å°†æµè½¬æ¢ä¸ºå­—ç¬¦ä¸²æ–¹æ³•
 	public static String convertStreamToString(InputStream is) {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		StringBuilder sb = new StringBuilder();
 
 		String line = null;
 		try {
-			// Ìí¼Ó»»ĞĞ·û
+			// æ·»åŠ æ¢è¡Œç¬¦
 			while ((line = reader.readLine()) != null) {
 				sb.append(line + "\n");
 			}
@@ -87,7 +87,7 @@ public class HttpTool {
 			e.printStackTrace();
 		} finally {
 			try {
-				// É¾³ı×îºóÒ»¸ö»»ĞĞ·û
+				// åˆ é™¤æœ€åä¸€ä¸ªæ¢è¡Œç¬¦
 				sb.deleteCharAt(sb.lastIndexOf("\n"));
 				is.close();
 			} catch (IOException e) {
@@ -97,7 +97,7 @@ public class HttpTool {
 		return sb.toString();
 	}
 
-	// ÍøÂç·ÃÎÊÊ±µ¯³öµÄ°üº¬ÄÚÈİµÄtoast
+	// ç½‘ç»œè®¿é—®æ—¶å¼¹å‡ºçš„åŒ…å«å†…å®¹çš„toast
 	public static void showToast(final Context context, Handler handler,
 			final String message) {
 		handler.post(new Runnable() {
@@ -108,7 +108,7 @@ public class HttpTool {
 		});
 	}
 	
-	// ½«×Ö·û´®×ª»»Îªutf-8±àÂë
+	// å°†å­—ç¬¦ä¸²è½¬æ¢ä¸ºutf-8ç¼–ç 
 	public static String stringToUTF8(String str) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(str);

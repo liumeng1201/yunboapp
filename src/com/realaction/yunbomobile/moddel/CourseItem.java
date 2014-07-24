@@ -1,7 +1,7 @@
 package com.realaction.yunbomobile.moddel;
 
 /**
- * ¿Î³ÌĞÅÏ¢
+ * è¯¾ç¨‹ä¿¡æ¯
  * 
  * @author liumeng
  */

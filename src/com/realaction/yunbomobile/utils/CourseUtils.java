@@ -15,7 +15,7 @@ import android.content.Context;
 import com.realaction.yunbomobile.moddel.CourseItem;
 
 /**
- * ¿Î³ÌĞÅÏ¢¹¤¾ßÀà
+ * è¯¾ç¨‹ä¿¡æ¯å·¥å…·ç±»
  * 
  * @author liumeng
  */
@@ -29,13 +29,13 @@ public class CourseUtils {
 	}
 
 	/**
-	 * ½âÎö¿Î³ÌÊ÷×ÊÔ´²¢·µ»Ø¿Î³ÌList
+	 * è§£æè¯¾ç¨‹æ ‘èµ„æºå¹¶è¿”å›è¯¾ç¨‹List
 	 * 
 	 * @param url
-	 *            »ñÈ¡¿Î³Ì×ÊÔ´µÄurl
+	 *            è·å–è¯¾ç¨‹èµ„æºçš„url
 	 * @param datas
-	 *            ĞèÒª´«µİµÄ²ÎÊıstuId/teaId
-	 * @return ¿Î³ÌList
+	 *            éœ€è¦ä¼ é€’çš„å‚æ•°stuId/teaId
+	 * @return è¯¾ç¨‹List
 	 */
 	public List<CourseItem> getCourseList(String url, List<NameValuePair> datas) {
 		InputStream xmlStream = HttpTool.sendDataByPost(url, datas);

@@ -2,15 +2,15 @@ package com.realaction.yunbomobile.moddel;
 
 public class NoticeItem {
 	/**
-	 * 通知发送人
+	 * 閫氱煡鍙戦�佷汉
 	 */
 	public String noticefrom;
 	/**
-	 * 通知内容
+	 * 閫氱煡鍐呭
 	 */
 	public String noticemessage;
 	/**
-	 * 通知日期
+	 * 閫氱煡鏃ユ湡
 	 */
 	public String noticedate;
 }

@@ -42,7 +42,7 @@ import com.realaction.yunbomobile.utils.AppInfo;
 import com.realaction.yunbomobile.utils.MyDialog;
 
 /**
- * ´ğ°¸×ÊÔ´²é¿´Àà
+ * ç­”æ¡ˆèµ„æºæŸ¥çœ‹ç±»
  * 
  * @author liumeng
  */
@@ -80,7 +80,7 @@ public class CaseSourceViewActivity extends Activity {
 		
 		switch (opt) {
 		case 1:
-			// Ö¸µ¼Êé
+			// æŒ‡å¯¼ä¹¦
 			guideId = intent.getLongExtra("guideId", -1);
 			String guideName = intent.getStringExtra("guideName");
 			setTitle(guideName);
@@ -89,7 +89,7 @@ public class CaseSourceViewActivity extends Activity {
 			target_name = AppInfo.base_dir + "/" + guidePath;
 			break;
 		case 2:
-			// ´ğ°¸
+			// ç­”æ¡ˆ
 			docId = intent.getLongExtra("docId", -1);
 			String docName = intent.getStringExtra("docName");
 			setTitle(docName);
@@ -102,7 +102,7 @@ public class CaseSourceViewActivity extends Activity {
 		}
 		
 		try {
-			// ×ª»»ÏÂÔØÂ·¾¶ÖĞµÄ¿Õ¸ñ
+			// è½¬æ¢ä¸‹è½½è·¯å¾„ä¸­çš„ç©ºæ ¼
 			String tmp = URLEncoder.encode(download_url, "UTF-8");
 			tmp = tmp.replaceAll("\\+", "%20");
 			tmp = tmp.replaceAll("%3A", ":").replaceAll("%2F", "/");
@@ -154,24 +154,24 @@ public class CaseSourceViewActivity extends Activity {
 	}
 	
 	/**
-	 * ÏÂÔØ²¢ÏÔÊ¾×ÊÔ´
+	 * ä¸‹è½½å¹¶æ˜¾ç¤ºèµ„æº
 	 * 
 	 * @param downloadurl
-	 *            ÏÂÔØÂ·¾¶
+	 *            ä¸‹è½½è·¯å¾„
 	 * @param targetname
-	 *            ±¾µØ´æ´¢Â·¾¶
+	 *            æœ¬åœ°å­˜å‚¨è·¯å¾„
 	 */
 	private void downloadAndShow(final String downloadurl, final String targetname) {
 		switch (opt) {
 		case 1:
-			// Ö¸µ¼Êé
+			// æŒ‡å¯¼ä¹¦
 			guidedoc = dbService.findCaseGuideDocBycaseIdAndguideId(String.valueOf(caseId), String.valueOf(guideId));
 			if (AppInfo.network_avabile && (guidedoc != null && (guidedoc.isDownload == 0))) {
 				dialog.show();
 				if ((new File(targetname)).exists()) {
 					(new File(targetname)).delete();
 				}
-				// ÊµÑéÖ¸µ¼ÊéÎ´»º´æÔÚ±¾µØÇÒÍøÂç¿ÉÓÃ£¬ÔòÏÂÔØ¸ÃÖ¸µ¼Êé²¢ÏÔÊ¾
+				// å®éªŒæŒ‡å¯¼ä¹¦æœªç¼“å­˜åœ¨æœ¬åœ°ä¸”ç½‘ç»œå¯ç”¨ï¼Œåˆ™ä¸‹è½½è¯¥æŒ‡å¯¼ä¹¦å¹¶æ˜¾ç¤º
 				FinalHttp fh = new FinalHttp();
 				HttpHandler handler = fh.download(downloadurl, targetname, true, new AjaxCallBack<File>() {
 							@Override
@@ -193,7 +193,7 @@ public class CaseSourceViewActivity extends Activity {
 							@Override
 							public void onLoading(long count, long current) {
 								super.onLoading(count, current);
-								Log.d(TAG, "ÏÂÔØ½ø¶È: " + current + "/" + count);
+								Log.d(TAG, "ä¸‹è½½è¿›åº¦: " + current + "/" + count);
 							}
 
 							@Override
@@ -214,12 +214,12 @@ public class CaseSourceViewActivity extends Activity {
 									// TODO
 									showPDF(targetname);
 								}
-								Log.d(TAG, "ÏÂÔØÍê³É: "
+								Log.d(TAG, "ä¸‹è½½å®Œæˆ: "
 										+ (t == null ? "null" : t.getAbsoluteFile().toString()));
 							}
 						});
 			} else if (guidedoc.isDownload == 1) {
-				// ÊµÑéÖ¸µ¼ÊéÒÑÏÂÔØµ½±¾µØ
+				// å®éªŒæŒ‡å¯¼ä¹¦å·²ä¸‹è½½åˆ°æœ¬åœ°
 				dialog.dismiss();
 				layout_dl_fail_retry.setVisibility(View.GONE);
 				layout_no_resource.setVisibility(View.GONE);
@@ -233,7 +233,7 @@ public class CaseSourceViewActivity extends Activity {
 					showPDF(targetname);
 				}
 			} else {
-				// ÎŞÍøÂçÇÒÎ´»º´æ£¬Ôò²»¿ÉÓÃ
+				// æ— ç½‘ç»œä¸”æœªç¼“å­˜ï¼Œåˆ™ä¸å¯ç”¨
 				dialog.dismiss();
 				layout_dl_fail_retry.setVisibility(View.GONE);
 				layout_no_resource.setVisibility(View.VISIBLE);
@@ -241,14 +241,14 @@ public class CaseSourceViewActivity extends Activity {
 			}
 			break;
 		case 2:
-			// ´ğ°¸
+			// ç­”æ¡ˆ
 			casedoc = dbService.findCaseDocBycaseIdAnddocId(String.valueOf(caseId), String.valueOf(docId));
 			if (AppInfo.network_avabile && (casedoc != null && (casedoc.isDownload == 0))) {
 				dialog.show();
 				if ((new File(targetname)).exists()) {
 					(new File(targetname)).delete();
 				}
-				// ÊµÑéÖ¸µ¼ÊéÎ´»º´æÔÚ±¾µØÇÒÍøÂç¿ÉÓÃ£¬ÔòÏÂÔØ¸ÃÖ¸µ¼Êé²¢ÏÔÊ¾
+				// å®éªŒæŒ‡å¯¼ä¹¦æœªç¼“å­˜åœ¨æœ¬åœ°ä¸”ç½‘ç»œå¯ç”¨ï¼Œåˆ™ä¸‹è½½è¯¥æŒ‡å¯¼ä¹¦å¹¶æ˜¾ç¤º
 				FinalHttp fh = new FinalHttp();
 				HttpHandler handler = fh.download(downloadurl, targetname, true, new AjaxCallBack<File>() {
 							@Override
@@ -270,7 +270,7 @@ public class CaseSourceViewActivity extends Activity {
 							@Override
 							public void onLoading(long count, long current) {
 								super.onLoading(count, current);
-								Log.d(TAG, "ÏÂÔØ½ø¶È: " + current + "/" + count);
+								Log.d(TAG, "ä¸‹è½½è¿›åº¦: " + current + "/" + count);
 							}
 
 							@Override
@@ -291,12 +291,12 @@ public class CaseSourceViewActivity extends Activity {
 									// TODO
 									showPDF(targetname);
 								}
-								Log.d(TAG, "ÏÂÔØÍê³É: "
+								Log.d(TAG, "ä¸‹è½½å®Œæˆ: "
 										+ (t == null ? "null" : t.getAbsoluteFile().toString()));
 							}
 						});
 			} else if (casedoc.isDownload == 1) {
-				// ÊµÑéÖ¸µ¼ÊéÒÑÏÂÔØµ½±¾µØ
+				// å®éªŒæŒ‡å¯¼ä¹¦å·²ä¸‹è½½åˆ°æœ¬åœ°
 				dialog.dismiss();
 				layout_dl_fail_retry.setVisibility(View.GONE);
 				layout_no_resource.setVisibility(View.GONE);
@@ -310,7 +310,7 @@ public class CaseSourceViewActivity extends Activity {
 					showPDF(targetname);
 				}
 			} else {
-				// ÎŞÍøÂçÇÒÎ´»º´æ£¬Ôò²»¿ÉÓÃ
+				// æ— ç½‘ç»œä¸”æœªç¼“å­˜ï¼Œåˆ™ä¸å¯ç”¨
 				dialog.dismiss();
 				layout_dl_fail_retry.setVisibility(View.GONE);
 				layout_no_resource.setVisibility(View.VISIBLE);

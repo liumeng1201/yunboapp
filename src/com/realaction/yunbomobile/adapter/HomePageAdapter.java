@@ -14,7 +14,7 @@ import com.realaction.yunbomobile.R;
 import com.realaction.yunbomobile.moddel.CaseItem;
 
 /**
- * Ê×Ò³ListViewÊÊÅäÆ÷
+ * é¦–é¡µListViewé€‚é…å™¨
  * 
  * @author liumeng
  */
@@ -24,12 +24,12 @@ public class HomePageAdapter extends BaseAdapter {
 	private List<CaseItem> list;
 
 	/**
-	 * Ê×Ò³ListViewÊÊÅäÆ÷¹¹Ôìº¯Êı
+	 * é¦–é¡µListViewé€‚é…å™¨æ„é€ å‡½æ•°
 	 * 
 	 * @param context
-	 *            ÉÏÏÂÎÄÖ¸Õë
+	 *            ä¸Šä¸‹æ–‡æŒ‡é’ˆ
 	 * @param list
-	 *            Êı¾İlist
+	 *            æ•°æ®list
 	 */
 	public HomePageAdapter(Context context, List<CaseItem> list) {
 		this.context = context;

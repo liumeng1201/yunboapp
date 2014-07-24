@@ -13,17 +13,17 @@ import android.graphics.BitmapFactory;
 import com.realaction.yunbomobile.R;
 
 /**
- * Í¼Æ¬´¦Àí¹¤¾ßÀà
+ * å›¾ç‰‡å¤„ç†å·¥å…·ç±»
  * 
  * @author liumeng
  */
 public class ImageUtils {
 	/**
-	 * »ñÈ¡ÍøÂçÍ¼Æ¬²¢×ª»¯Îªbitmap
+	 * è·å–ç½‘ç»œå›¾ç‰‡å¹¶è½¬åŒ–ä¸ºbitmap
 	 * 
 	 * @param url
-	 *            ÍøÂçÍ¼Æ¬url
-	 * @return ÍøÂçÍ¼Æ¬Ëù¶ÔÓ¦µÄbitmap
+	 *            ç½‘ç»œå›¾ç‰‡url
+	 * @return ç½‘ç»œå›¾ç‰‡æ‰€å¯¹åº”çš„bitmap
 	 */
 	public static Bitmap getHttpBitmap(String url) {
 		URL myurl;
@@ -44,11 +44,11 @@ public class ImageUtils {
 	}
 
 	/**
-	 * ´Ó×ÊÔ´ÎÄ¼şÖĞ»ñÈ¡Bitmap
+	 * ä»èµ„æºæ–‡ä»¶ä¸­è·å–Bitmap
 	 * 
 	 * @param context
 	 * @param path
-	 *            Í¼Æ¬ÎÄ¼şÔÚassetsÄ¿Â¼ÏÂµÄÂ·¾¶
+	 *            å›¾ç‰‡æ–‡ä»¶åœ¨assetsç›®å½•ä¸‹çš„è·¯å¾„
 	 * @return Bitmap
 	 */
 	public static Bitmap getBitmapFromRes(Context context, String path) {
@@ -61,7 +61,7 @@ public class ImageUtils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			// Èç¹ûÃ»ÓĞÉèÖÃÓÃ»§Í·Ïñ»òÓÃ»§Í·ÏñÎª¿ÕÔòÊ¹ÓÃÄ¬ÈÏµÄÓÃ»§Í·Ïñ
+			// å¦‚æœæ²¡æœ‰è®¾ç½®ç”¨æˆ·å¤´åƒæˆ–ç”¨æˆ·å¤´åƒä¸ºç©ºåˆ™ä½¿ç”¨é»˜è®¤çš„ç”¨æˆ·å¤´åƒ
 			if (bitmap == null) {
 				bitmap = BitmapFactory.decodeResource(context.getResources(),
 						R.drawable.default_portrait);

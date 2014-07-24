@@ -15,7 +15,7 @@ import com.realaction.yunbomobile.moddel.CourseItem;
 import com.realaction.yunbomobile.view.MyCoursePage;
 
 /**
- * »ñÈ¡¿Î³ÌÁĞ±í²¢ÌáĞÑadapter¸üĞÂÊı¾İ
+ * è·å–è¯¾ç¨‹åˆ—è¡¨å¹¶æé†’adapteræ›´æ–°æ•°æ®
  * 
  * @author liumeng
  */
@@ -41,18 +41,18 @@ public class AsyncTaskGetCourseList extends AsyncTask<String, Integer, List<Cour
 		String url = null;
 		switch (userTypeId) {
 		case 10:
-			// Ñ§Éú
+			// å­¦ç”Ÿ
 			datas.add(new BasicNameValuePair("stuId", params[1]));
 			url = url_coursestu;
 			break;
 		case 20:
 		case 40:
-			// ÀÏÊ¦
+			// è€å¸ˆ
 			datas.add(new BasicNameValuePair("teaId", params[1]));
 			url = url_coursetea;
 			break;
 		}
-		// »ñÈ¡²¢½âÎö¿Î³ÌÊı¾İ
+		// è·å–å¹¶è§£æè¯¾ç¨‹æ•°æ®
 		CourseUtils cu = new CourseUtils(context, params[1]);
 		return cu.getCourseList(url, datas);
 	}
@@ -60,7 +60,7 @@ public class AsyncTaskGetCourseList extends AsyncTask<String, Integer, List<Cour
 	@Override
 	protected void onPostExecute(List<CourseItem> result) {
 		super.onPostExecute(result);
-		// Í¨Öª¿Î³ÌÁĞ±í¸üĞÂÊı¾İ
+		// é€šçŸ¥è¯¾ç¨‹åˆ—è¡¨æ›´æ–°æ•°æ®
 		handler.sendEmptyMessage(MyCoursePage.CANCEL_DIALOG);
 		adapter.refresh(result);
 	}

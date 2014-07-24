@@ -6,7 +6,7 @@ import android.content.Context;
 import com.realaction.yunbomobile.R;
 
 /**
- * ÔØÈëÌáÊ¾¶Ô»°¿ò
+ * è½½å…¥æç¤ºå¯¹è¯æ¡†
  * 
  * @author liumeng
  */
@@ -19,7 +19,7 @@ public class MyDialog {
 	}
 
 	/**
-	 * ´´½¨¶Ô»°¿ò
+	 * åˆ›å»ºå¯¹è¯æ¡†
 	 */
 	public void create() {
 		dialog = new ProgressDialog(context);
@@ -28,15 +28,15 @@ public class MyDialog {
 	}
 	
 	/**
-	 * ÉèÖÃÌáÊ¾ĞÅÏ¢
-	 * @param msg ÌáÊ¾ĞÅÏ¢
+	 * è®¾ç½®æç¤ºä¿¡æ¯
+	 * @param msg æç¤ºä¿¡æ¯
 	 */
 	public void setMessage(String msg) {
 		dialog.setMessage(msg);
 	}
 
 	/**
-	 * Õ¹Ê¾¶Ô»°¿ò
+	 * å±•ç¤ºå¯¹è¯æ¡†
 	 */
 	public void show() {
 		if (dialog != null) {
@@ -45,7 +45,7 @@ public class MyDialog {
 	}
 
 	/**
-	 * Òş²Ø¶Ô»°¿ò
+	 * éšè—å¯¹è¯æ¡†
 	 */
 	public void dismiss() {
 		if (dialog != null) {
